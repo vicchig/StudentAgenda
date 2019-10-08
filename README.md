@@ -28,11 +28,11 @@ JavaScript Frontend
 TODO: Architecture
 
 ### Q5: User Stories
-As a student, I will add goals to my Agenda for the coming assignments
-As a student, I will receive due dates and marks on my agenda from google classroom
-As a Teacher or parent, I will be able to access the students agenda to monitor the students' performance
-As a Student, I will be able to communicate with other students through a chat
-As a Student, I will be able to share files (links, pictures, etc) with other students over the chat
+* As a student, I will add goals to my Agenda for the coming assignments
+* As a student, I will receive due dates and marks on my agenda from google classroom
+* As a Teacher or parent, I will be able to access the students agenda to monitor the students' performance
+* As a Student, I will be able to communicate with other students through a chat
+* As a Student, I will be able to share files (links, pictures, etc) with other students over the chat
 
 
 
