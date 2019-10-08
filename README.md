@@ -38,6 +38,6 @@ TODO: Architecture
 
 
 #### Questions: (To be asked on Wednesday)
-We can get data from google classroom to mark things on the agenda and add things such as marks. Is this a use case that works with the expected project and if so what type of data from google classroom would you like to be used?
-Where should we store data? Should we continue to use google products like you currently are?
-What are you currently using google classroom for (what are the students and teachers doing on google classroom currently)? What software are you currently using besides classroom?
+* We can get data from google classroom to mark things on the agenda and add things such as marks. Is this a use case that works with the expected project and if so what type of data from google classroom would you like to be used?
+* Where should we store data? Should we continue to use google products like you currently are?
+* What are you currently using google classroom for (what are the students and teachers doing on google classroom currently)? What software are you currently using besides classroom?
