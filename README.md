@@ -43,6 +43,14 @@ TODO: Architecture
 * As a Student or Teacher, I will not be able to view chats that I am not in  
 * As a Student or Teacher, I will be able to chat with multiple other students/teachers in a group chat  
 * As a Parent, I will not be able to view chats of students  
+* As a Student, I will be able to access dictionary.com and thesaurus.com directly through the platform  
+* As a Student, I will have access to a reference builder similar to easybib  
+* As a Studnt, I can take pictures using my phones camera  
+* As a Student, I will receive a type of points for extrinsic motivation for completing deadlines on time  
+* As a Student, Using none mobile versions of the platform, I will recieve notifications in the form of email  
+* As a Student, I can view a visual representation of my performance (possibly in the form of a bar graph)  
+* As a Student, I will receive reflection questions when goals have been completed  
+* As a Student, I will be able to break up tasks and label them with a type.
 
 
 ### Student Involvement
@@ -53,3 +61,6 @@ TODO: Architecture
 * Where should we store data? Should we continue to use google products like you currently are?
 * What are you currently using google classroom for (what are the students and teachers doing on google classroom currently)? What software are you currently using besides classroom?  
 * Monitoring of students? Would there be any type of monitoring in place so that teachers or other staff can view what students have posted, in case of inapporpriate content? (espeically in the chat)
+* What is meant by the camera being accessible on google classroom and would like the ability to "pull" this info?
+* More info on task chunking and the goal setting  
+
