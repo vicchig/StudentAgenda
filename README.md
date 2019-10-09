@@ -9,7 +9,7 @@ For a physical agenda to work it has to be constantly updated manually by the st
 
 Teachers would use the platform to post marks for each assignment and parents would be able to track their child's progress for every class that is available on the platform.  
 
-## TODO: ADD DIAGRAMS
+#### TODO: ADD DIAGRAMS
 
 
 ### Q2: Who are your target users?
@@ -43,6 +43,9 @@ TODO: Architecture
 * As a Student or Teacher, I will not be able to view chats that I am not in  
 * As a Student or Teacher, I will be able to chat with multiple other students/teachers in a group chat  
 * As a Parent, I will not be able to view chats of students  
+
+
+### Student Involvement
 
 
 #### Questions: (To be asked on Wednesday)
