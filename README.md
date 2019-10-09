@@ -28,11 +28,16 @@ JavaScript Frontend
 TODO: Architecture  
 
 ### Q5: User Stories
-* As a student, I will add goals to my Agenda for the coming assignments
-* As a student, I will receive due dates and marks on my agenda from google classroom
-* As a Teacher or parent, I will be able to access the students agenda to monitor the students' performance
-* As a Student, I will be able to communicate with other students through a chat
-* As a Student, I will be able to share files (links, pictures, etc) with other students over the chat  
+* As a student, I will add goals/deadlines to my Agenda for the coming assignments, in order to receive notifications/reminders to work on those assignments   
+* As a student, I will receive due dates and marks on my agenda from google classroom  
+* As a Teacher or parent, I will be able to access the students agenda to monitor the students' performance   
+* As a Teacher, I will post assignments and grades to Google Classroom, for students to see on their agenda  
+* As a Parent, I can view student's agendas to see what type of goals they have set for themselves  
+* As a Student, I will be able to communicate with other students through a chat  
+* As a Student, I will be able to share files (links, pictures, etc) with other students over the chat   
+* As a Student, I will receive notifications when items on the agenda have been posted, or are coming up to a due date.  
+* As a Student, I will receive reminders to work on current assignments before they are due  
+* As a School, I would like to view statistics of how the agendas are being used by students  
 
 
 
@@ -40,4 +45,5 @@ TODO: Architecture
 #### Questions: (To be asked on Wednesday)
 * We can get data from google classroom to mark things on the agenda and add things such as marks. Is this a use case that works with the expected project and if so what type of data from google classroom would you like to be used?
 * Where should we store data? Should we continue to use google products like you currently are?
-* What are you currently using google classroom for (what are the students and teachers doing on google classroom currently)? What software are you currently using besides classroom?
+* What are you currently using google classroom for (what are the students and teachers doing on google classroom currently)? What software are you currently using besides classroom?  
+* Monitoring of students? Would there be any type of monitoring in place so that teachers or other staff can view what students have posted, in case of inapporpriate content? (espeically in the chat)
