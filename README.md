@@ -30,16 +30,19 @@ TODO: Architecture
 ### Q5: User Stories
 * As a student, I will add goals/deadlines to my Agenda for the coming assignments, in order to receive notifications/reminders to work on those assignments   
 * As a student, I will receive due dates and marks on my agenda from google classroom  
-* As a Teacher or parent, I will be able to access the students agenda to monitor the students' performance   
+* As a Teacher, I will be able to access the students' agenda to monitor the students' performance   
 * As a Teacher, I will post assignments and grades to Google Classroom, for students to see on their agenda  
-* As a Parent, I can view student's agendas to see what type of goals they have set for themselves  
-* As a Student, I will be able to communicate with other students through a chat  
-* As a Student, I will be able to share files (links, pictures, etc) with other students over the chat   
+* As a Parent, I can view my child's agenda to see what type of goals they have set for themselves  
+* As a Student or Teacher, I will be able to communicate with other students/teachers through a chat  
+* As a Student or Teacher, I will be able to share files (links, pictures, etc) with other students over the chat   
 * As a Student, I will receive notifications when items on the agenda have been posted, or are coming up to a due date.  
 * As a Student, I will receive reminders to work on current assignments before they are due  
 * As a School, I would like to view statistics of how the agendas are being used by students  
-
-
+* As a Student, I will sign in to my google classroom account to view my agenda  
+* As a Student, I will not be able to view other students' agendas  
+* As a Student or Teacher, I will not be able to view chats that I am not in  
+* As a Student or Teacher, I will be able to chat with multiple other students/teachers in a group chat  
+* As a Parent, I will not be able to view chats of students  
 
 
 #### Questions: (To be asked on Wednesday)
