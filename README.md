@@ -45,15 +45,35 @@ TODO: Architecture
 * As a Parent, I will not be able to view chats of students  
 * As a Student, I will be able to access dictionary.com and thesaurus.com directly through the platform  
 * As a Student, I will have access to a reference builder similar to easybib  
-* As a Studnt, I can take pictures using my phones camera  
+* As a Student, I can take pictures using my phones camera  
 * As a Student, I will receive a type of points for extrinsic motivation for completing deadlines on time  
-* As a Student, Using none mobile versions of the platform, I will recieve notifications in the form of email  
+* As a Student, Using none mobile versions of the platform, I will receive notifications in the form of email  
 * As a Student, I can view a visual representation of my performance (possibly in the form of a bar graph)  
 * As a Student, I will receive reflection questions when goals have been completed  
 * As a Student, I will be able to break up tasks and label them with a type.
 
 
 ### Student Involvement
+
+
+## Process Details
+
+#### Roles & responsibilities
+
+
+#### Team Rules
+
+
+#### Events
+
+
+#### Partner Meetings
+
+#### Artifacts
+
+### Highlights
+
+
 
 
 #### Questions: (To be asked on Wednesday)
@@ -63,4 +83,3 @@ TODO: Architecture
 * Monitoring of students? Would there be any type of monitoring in place so that teachers or other staff can view what students have posted, in case of inapporpriate content? (espeically in the chat)
 * What is meant by the camera being accessible on google classroom and would like the ability to "pull" this info?
 * More info on task chunking and the goal setting  
-
