@@ -71,15 +71,30 @@ TODO: Architecture
 
 
 ##### Meeting 1 (October 7)
-* Video call meeting from 1pm to 2pm over Zoom
+* Video call meeting from 1pm to 2pm over *Zoom*
 
 ###### Meeting Minutes:
-###### Meeting Outcomes:
+* Users include students, parents and teachers with different features available to each user group
+* The app should offer enough functionality to be a replacement of the physical agenda
+* The app should minimally support a number of users equal to the size of an average middle school class
+* Partner would like students to be involved in the development process with possible field trips to UofT from 8:55 am to 11:40 am
+  * Ideally meet with the students once in the beginning, middle and end of the project development cycle
+* Application should be supported by a mobile platform
+* Teachers and parents should be able to monitor student progress over the app
+* No need to submit assignments over the app (Google Classroom is being used for this already)
+* Would be nice for students to be able to ask questions and collaborate over the platform (something similar to Piazza?)
+* Integrate Google Classroom features if possible
 
+###### Meeting Outcomes:
+* Confirmed primary users being students, secondary users being teachers and parents
+* Confirmed scale as being just for a single class for now
+* Obtained new information to facilitate user story creation
+* Gained more understanding of what the product is expected to be; started thinking of what technologies would be best suited (Flask, FireBase, Flutter, languages)
+* Agreed on next meeting being Oct 9 at 1pm
 
 
 ##### Meeting 2 (October 9)
-* Video call meeting from 1pm to 2pm over Skype
+* Video call meeting from 1pm to 2pm over *Skype*
 
 ###### Meeting Minutes (Discussion Points):
 * Need students to enter marks into the app themselves (later clarified that this can be integrated with Google Classroom by just pulling marks off of there)
@@ -117,6 +132,6 @@ TODO: Architecture
 * We can get data from google classroom to mark things on the agenda and add things such as marks. Is this a use case that works with the expected project and if so what type of data from google classroom would you like to be used?
 * Where should we store data? Should we continue to use google products like you currently are?
 * What are you currently using google classroom for (what are the students and teachers doing on google classroom currently)? What software are you currently using besides classroom?  
-* Monitoring of students? Would there be any type of monitoring in place so that teachers or other staff can view what students have posted, in case of inapporpriate content? (espeically in the chat)
+* Monitoring of students? Would there be any type of monitoring in place so that teachers or other staff can view what students have posted, in case of inappropriate content? (especially in the chat)
 * What is meant by the camera being accessible on google classroom and would like the ability to "pull" this info?
 * More info on task chunking and the goal setting  
