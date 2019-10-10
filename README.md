@@ -69,6 +69,43 @@ TODO: Architecture
 
 #### Partner Meetings
 
+
+##### Meeting 1 (October 7)
+* Video call meeting from 1pm to 2pm over Zoom
+
+###### Meeting Minutes:
+###### Meeting Outcomes:
+
+
+
+##### Meeting 2 (October 9)
+* Video call meeting from 1pm to 2pm over Skype
+
+###### Meeting Minutes (Discussion Points):
+* Need students to enter marks into the app themselves (later clarified that this can be integrated with Google Classroom by just pulling marks off of there)
+* Motivate students to use the software just like an agenda
+* Need a goal setting feature letting students set incremental goals and to measure progress throughout the academic year
+    * If the results are below expectations, the application will help guide the students to success (provides task breakdown options based on priority which is calculated through a mix of assignment weight, due date and size)
+    * These goals can be more of a completion style goals and are added to the app by the students themselves
+    * Teachers should be able to view these goals
+* Simple chat function between students only
+    * Teachers should have moderation permissions such as deleting messages and flagging useful ones
+* Students should be able to upload pictures of notes onto Google Classroom and have them be automatically synced with out app
+* Ability for students to add assignments themselves is needed
+    * Assignments to be divided according to type (individual, partner, group, etc...) and subject (math, English, French, science, etc...)
+    * Should offer subtasks to be added when an assignment is added
+* Ok with just Android for now
+* Bonus: Integrate Google Classroom
+* Bonus: Dictionary/Thesaurus function
+* Partner wants students to have a tour of the university and its facilities (If possible, need to organize with he Community Partnership Center and David). Tentative date is Oct. 30
+
+###### Meeting Outcomes:
+* Now have better idea of what the school is expecting
+* Confirmed Android as the minimal functional platform
+* Confirmed application features
+* Confirmed time of regular meetings being Wednesdays from 12pm to 1pm
+* Confirmed amount of student involvement desired by the school
+
 #### Artifacts
 
 ### Highlights
