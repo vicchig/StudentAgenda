@@ -1,4 +1,4 @@
-# Project Documents
+# TODO: Change to Product Name or Team Name
 
 ## Product Details
 
@@ -53,19 +53,87 @@ TODO: Architecture
 * As a Student, I will be able to break up tasks and label them with a type.
 
 
-### Student Involvement
+----
 
 
 ## Process Details
 
 #### Roles & responsibilities
+Robert Fang:
+ * Role(s) and Responsibilities:
+    * ...
+ * Technical Strengths:
+    * ...
+ * Technical Weaknesses:
+    * ...
 
+Michael Lee:
+ * Role(s) and Responsibilities:
+    * ...
+ * Technical Strengths:
+    * ...
+ * Technical Weaknesses:
+    * ...
+
+Joshua Prier:
+ * Role(s) and Responsibilities:
+    * ...
+ * Technical Strengths:
+    * ...
+ * Technical Weaknesses:
+    * ...
+
+Nikita Shumeiko:
+ * Role(s) and Responsibilities:
+    * ...
+ * Technical Strengths:
+    * ...
+ * Technical Weaknesses:
+    * ...
+
+Viktar Chyhir:
+ * Role(s) and Responsibilities:
+    * ...
+ * Technical Strengths:
+    * ...
+ * Technical Weaknesses:
+    * ...
+
+Arian Safaei:
+ * Role(s) and Responsibilities:
+    * ...
+ * Technical Strengths:
+    * ...
+ * Technical Weaknesses:
+    * ...
+
+Brandon Truong:
+ * Role(s) and Responsibilities:
+    * Work on the Java backend
+    * TODO
+ * Technical Strengths:
+    * Good with Java: Preferred and most comfortable programming language.
+    * Good with Object Oriented Design
+    * Good at debugging problems
+ * Technical Weaknesses:
+    * No web development experience
+    * No mobile app development experience
+    * No database experience (but currently taking CSC343)
 
 #### Team Rules
 
+Communications:
+ * TODO
+ 
+Meetings:
+ * TODO
+ 
+Conflict Resolution:
+ * TODO
 
 #### Events
 
+TODO
 
 #### Partner Meetings
 
@@ -122,6 +190,8 @@ TODO: Architecture
 * Confirmed amount of student involvement desired by the school
 
 #### Artifacts
+
+TODO
 
 ### Highlights
 
