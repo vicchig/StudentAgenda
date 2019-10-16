@@ -468,9 +468,3 @@ Completed:
 *   ~~Monitoring of students? Would there be any type of monitoring in place so that teachers or other staff can view what students have posted, in case of inappropriate content? (especially in the chat)~~
 *   ~~What is meant by the camera being accessible on google classroom and would like the ability to "pull" this info?~~
 *   ~~More info on task chunking and the goal setting~~
-
-To Ask:
-
-
-
-*   Is the cost of Firebase okay?
