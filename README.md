@@ -55,123 +55,95 @@ Dart Frontend
 **Process: **Stories will be split up to team members so each member is working on their own feature. Larger features (like google auth and google classroom integration) that will be used by others will need to be discussed and documented so that other members will be able to use the documentation on other stories.
 
 
-###
+### 
 **Q5: User Stories**
 
 **Notifications**
 
 
 
-**1.** As a student, I want to add goals/deadlines to my Agenda for upcoming assignments and receive notifications/reminders to work on those assignments in order to be able to complete assignments on time.
+1. As a student, I want to add goals/deadlines to my Agenda for upcoming assignments and receive notifications/reminders to work on those assignments in order to be able to complete assignments on time.
     *   Acceptance Criteria:
         *   User can set when and how often they want to receive a reminder
         *   View upcoming goals and deadlines which are ordered chronologically
         *   Able to add a goal and deadline with a title, description and time
-
-
-**2.**  As a student, I want to receive due dates and marks on my agenda from google classroom in order to improve my time management and monitor my academic performance.
+1.  As a student, I want to receive due dates and marks on my agenda from google classroom in order to improve my time management and monitor my academic performance.
     *   Acceptance Criteria:
         *   View due dates for upcoming assignments
         *   View marks for past assignments (if available)
-
-
-**3.** As a Teacher, I want to post assignments and grades to Google Classroom, in order to allow students to view what they need to do and how they have done previously.
+2. As a Teacher, I want to post assignments and grades to Google Classroom, in order to allow students to view what they need to do and how they have done previously.
     *   Acceptance Criteria:
         *   Linking between Google Classroom features and our application to be able to access mark information
         *   Notifications appear on phones of students and parents when grades are uploaded
-
-
-**4.** As a Student, I want to receive notifications when items on the agenda have been posted, or are coming up to a due date in order to keep my work organized and plan out my time.
+3. As a Student, I want to receive notifications when items on the agenda have been posted, or are coming up to a due date in order to keep my work organized and plan out my time.
     *   Acceptance Criteria:
-        *   Whenever an assignment is posted onto the app, the student version of the app sends a notification to the student’s device
+        *   Whenever an assignment is posted onto the app, the student version of the app sends a notification to the student’s device 
         *   When an assignment is coming up a student gets incremental notifications 7 days, 3 days and 1 day before the assignment is due
         *   As a Student, I will receive reminders to work on current assignments before they are due
-
-
-**5.** As a Student, using non-mobile versions of the platform, I want to receive notifications in the form of email in order to be reminded of work that is due.
+4. As a Student, using non-mobile versions of the platform, I want to receive notifications in the form of email in order to be reminded of work that is due.
     *   Acceptance Criteria:
         *   Student is able to sign up for email notifications
         *   Notifications described above are sent to email instead of the student’s device
-
 
 **Monitoring**
 
 
 
-**6.** As a Teacher, I want to be able to access the students' agenda to monitor the students' performance in order to see which students require more help and guidance and who I should focus my attention to.
+5. As a Teacher, I want to be able to access the students' agenda to monitor the students' performance in order to see which students require more help and guidance and who I should focus my attention to.
     *   Acceptance Criteria:
         *   Teacher has privileged access to student information
         *   Teacher is able to see detailed information about when a student created a task, when they completed it and how long it took them
-
-
-**7.** As a Parent, I want to view my child's agenda to see what type of goals they have set for themselves in order to make sure they are organized and are on top of their work.
+6. As a Parent, I want to view my child's agenda to see what type of goals they have set for themselves in order to make sure they are organized and are on top of their work.
     *   Acceptance Criteria:
         *   Parent has privileged access to student information
         *   Parent is able to see detailed information about when a student created a task, when they completed it and how long it took them
-
 
 **Chatting**
 
 
 
-**8.** As a Student or Teacher, I will be able to communicate with other students/teachers through a chat in order to be able to organize group work and bounce ideas off of each other.
+7. As a Student or Teacher, I will be able to communicate with other students/teachers through a chat in order to be able to organize group work and bounce ideas off of each other.
     *   Acceptance Criteria:
         *   Select who to chat with (can be multiple people)
         *   Can send messages to selected people
         *   Can see replies
-
-
-**9.** As a Student or Teacher, I want to be able to share files (links, pictures, etc) with other students over the chat in order to be able to share useful websites and notes to others.
+8. As a Student or Teacher, I want to be able to share files (links, pictures, etc) with other students over the chat in order to be able to share useful websites and notes to others.
     *   Acceptance Criteria:
         *   Links are clickable
         *   Pictures are shown directly in the chat
-
-
-**10.**  As a Student, I want to not be able to view chats that I am not in in order to not invade on other’s privacy.
+9.  As a Student, I want to not be able to view chats that I am not in in order to not invade on other’s privacy.
     *   Acceptance Criteria:
         *   Students will only be able to see chats they created or were invited to
-
-
-**11.** As a Parent, I want to not be able to use chats in order to not invade on my student’s privacy.
+10. As a Parent, I want to not be able to use chats in order to not invade on my student’s privacy.
     *   Acceptance Criteria:
         *   Parents are unable to use chats
-
-
-**12.**  As a School Staff Member, I want to view chats of students in order to monitor for inappropriate behavior
+11.  As a School Staff Member, I want to view chats of students in order to monitor for inappropriate behavior
     *   Acceptance Criteria:
         *   School Staff are able to see chats of all students
-
 
 **Agenda**
 
 
 
-**13.** As a School, I would like to view statistics of how the agendas are being used by students in order to see if students are using the agenda effectively.
+12. As a School, I would like to view statistics of how the agendas are being used by students in order to see if students are using the agenda effectively.
     *   Acceptance Criteria:
         *   For each student, staff can see the number of times a student uses their agenda per [time period]
-
-
-**14.** As a Student, I want to sign in to my google classroom account in order to view my agenda.
+13. As a Student, I want to sign in to my google classroom account in order to view my agenda.
     *   Acceptance Criteria:
         *   The agenda will display a calendar where each day holds tasks and reminders for the student
-
-
-**15.** As a Student, I want to not be able to view other students' agendas in order to focus on myself and what I need to get done.
+14. As a Student, I want to not be able to view other students' agendas in order to focus on myself and what I need to get done.
     *   Acceptance Criteria:
         *   Students will only be able to see their own account’s calendar/agenda and the restriction will be handled by google accounts
-
-
-**16.** As a Student, I want to break up tasks into subtasks where subtasks are chosen from a list in order to easily see what needs to be done for each assignment
+15. As a Student, I want to break up tasks into subtasks where subtasks are chosen from a list in order to easily see what needs to be done for each assignment
     *   Acceptance Criteria:
         *   Teachers can create a list of subtasks
         *   Students can select subtasks
-
 
 **Camera**
 
 
 
-**17.** As a Student, I want to take pictures using my phone's camera in order to share the notes with other students
+16. As a Student, I want to take pictures using my phone's camera in order to share the notes with other students
     *   Acceptance Criteria:
         *   Can take pictures of their notes and send them via the chat
 
@@ -179,30 +151,22 @@ Dart Frontend
 
 
 
-**18.**  As a Student, I want to receive a type of points for completing deadlines on time in order to motivate me to complete work on time.
+17.  As a Student, I want to receive a type of points for completing deadlines on time in order to motivate me to complete work on time.
     *   Acceptance criteria:
         *   Receive points for completing work on time
         *   Be able to receive more points for streaks of completed work
         *   Receive star or badge for enough work completed
         *   View progress in a bar that fills up in real time
-
-
-**19.**  As a Student, I want to view a visual representation of my performance (possibly in the form of a bar graph) in order to easily monitor my progress.
+18.  As a Student, I want to view a visual representation of my performance (possibly in the form of a bar graph) in order to easily monitor my progress.
     *   Acceptance Criteria:
         *   Graphs representing user performance and task completion over time
         *   Timeline that shows how many tasks were completed on a particular date
-
-
-**20.**  As a Student, I want to receive reflection questions when goals have been completed in order to reflect and be able to improve in the future.
+19.  As a Student, I want to receive reflection questions when goals have been completed in order to reflect and be able to improve in the future.
     *   Acceptance Criteria:
         *   There will be a list of reflection questions (from a database)  that will be sent to the student each time they check off a task
-
-
-**21.**  As a Student, I want to be able to break up tasks and label them with a type in order to group tasks together.
+20.  As a Student, I want to be able to break up tasks and label them with a type in order to group tasks together.
     *   Acceptance Criteria:
         *   For each task, students will be able to break them down by listing the pieces in which combine to form the whole task, afterwards, they are asked to label each subtask in the list
-
-
 
 **Bonus (later if time allows)**
 
@@ -210,7 +174,7 @@ Dart Frontend
 
 21. BONUS: As a Student, I will be able to access dictionary.com and thesaurus.com directly through the platform
 22. BONUS: As a Student, I will have access to a reference builder similar to easybib \
-
+	
 
 
 
