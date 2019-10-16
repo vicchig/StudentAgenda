@@ -1,11 +1,11 @@
 # **TODO: Get a Product Name**
 
 
-## 
+##
 **Product Details**
 
 
-### 
+###
 **Q1: What are you planning to build?**
 
 An organizational platform in the form of a mobile application that helps middle school students organize their work and build organizational skills by allowing them to track their class assignments and marks, and collaborate through a chat function. Currently students have paper agendas that they are not using, our application aims to offer a more flexible alternative to it in the form of a digital agenda that students can easily use on their personal electronic devices.
@@ -15,17 +15,22 @@ For a physical agenda to work it has to be constantly updated manually by the st
 Teachers would use the platform to post marks for each assignment and parents would be able to track their child's progress for every class that is available on the platform.
 
 
-#### 
-**TODO: ADD DIAGRAMS**
+####
+![MenuScreen](./Images/csc301_concept.png)</br>
+*Menu Screen*</br>
+
+####
+![Calendar](./Images/csc301calconcept.png)</br>
+*Goal Screen*</br>
 
 
-### 
+###
 **Q2: Who are your target users?**
 
 Our primary users will be Grade 6 - 8 students who are taking a number of different classes such as (English, French, Mathematics and Science) and are having difficulty in keeping track of all of their assigned work between classes. Secondary users will include teachers of said students who will use the platform to post assignments and grades, as well as parents who will use the platform to track their child's progress.
 
 
-### 
+###
 **Q3: Why would your users choose your product? What are they using today to solve their problem/need?**
 
 Students would use our application to organize the information for all of their classes on one platform. Currently students are using a combination of Google Classroom and paper agendas in order to organize their class work. This creates the problem of updating Google classroom to be consistent with the agenda and vice versa. Ideally, the students will only have to check and work with a single platform instead of keeping track of information on multiple platforms. Our application will help students organize their work by keeping all of the information about assignments and classes in a single place (platform), allow students to track assignments by receiving notifications of when assignments are posted and receive continuous notifications before an assignment is due (currently Google classroom offers a notification feature for when something is posted, but we would like to continuously remind students that they should be working on a project) and allow students to set their own incremental deadlines for a project and receive notifications for those deadlines to help them keep track of their progress and lastly provide calendar timelines for their assignments. In addition, we will provide a chat function that saves students time on assignments by allowing them to collaborate; Google classroom currently only supports comments. The aim is to not replace Google classroom, but to integrate additional features of our application with Google classroom so that in combination they may replace the need for a paper agenda.
@@ -33,7 +38,7 @@ Students would use our application to organize the information for all of their 
 Teachers would use the platform to ensure that when they post assignments and marks, students are immediately notified. Parents would be saved time in keeping track of their child's progress since all of the information about it would be available on one platform, allowing for quick and easy access.
 
 
-### 
+###
 **Q4: How will you build it?**
 
 Flutter - multi-platform framework
@@ -42,20 +47,16 @@ Java Backend
 
 Dart Frontend
 
-**Architecture:** The application will be built for multiple platforms, we plan for our time limits to code for Android and iOS. These applications will be built out with Flutter, a multi-platform framework, the backend of the application is currently undecided, We would like to do this on Firebase but might have to look elsewhere if the possibility of cost with Firebase does not work with the partner (this will be discussed in the upcoming meeting with the partner). If using Firebase we would write a backend in Java. Firebase will allow us to build out authentication, chats, and databases very easily. 
+**Architecture:** The application will be built for multiple platforms, we plan for our time limits to code for Android and iOS. These applications will be built out with Flutter, a multi-platform framework, the backend of the application is currently undecided, We would like to do this on Firebase but might have to look elsewhere if the possibility of cost with Firebase does not work with the partner (this will be discussed in the upcoming meeting with the partner). If using Firebase we would write a backend in Java. Firebase will allow us to build out authentication, chats, and databases very easily.
+
+![ArchitectureDemo](./Images/Architecture.jpg)</br>
+*Project Architecture*</br>
 
 
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/CSC301-D10.jpg). Store image on your image server and adjust path/filename if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/CSC301-D10.jpg "image_tooltip")
+**Process: **Stories will be split up to team members so each member is working on their own feature. Larger features (like google auth and google classroom integration) that will be used by others will need to be discussed and documented so that other members will be able to use the documentation on other stories.
 
 
-**Process: **Stories will be split up to team members so each member is working on their own feature. Larger features (like google auth and google classroom integration) that will be used by others will need to be discussed and documented so that other members will be able to use the documentation on other stories. 
-
-
-### 
+###
 **Q5: User Stories**
 
 **Notifications**
@@ -77,7 +78,7 @@ Dart Frontend
         *   Notifications appear on phones of students and parents when grades are uploaded
 3. As a Student, I want to receive notifications when items on the agenda have been posted, or are coming up to a due date in order to keep my work organized and plan out my time.
     *   Acceptance Criteria:
-        *   Whenever an assignment is posted onto the app, the student version of the app sends a notification to the student’s device 
+        *   Whenever an assignment is posted onto the app, the student version of the app sends a notification to the student’s device
         *   When an assignment is coming up a student gets incremental notifications 7 days, 3 days and 1 day before the assignment is due
         *   As a Student, I will receive reminders to work on current assignments before they are due
 4. As a Student, using non-mobile versions of the platform, I want to receive notifications in the form of email in order to be reminded of work that is due.
@@ -174,7 +175,7 @@ Dart Frontend
 
 21. BONUS: As a Student, I will be able to access dictionary.com and thesaurus.com directly through the platform
 22. BONUS: As a Student, I will have access to a reference builder similar to easybib \
-	
+
 
 
 
@@ -182,16 +183,16 @@ Dart Frontend
 
 
 
-## 
+##
 **Process Details**
 
 
-#### 
+####
 **Roles & responsibilities**
 
 **Role(s) and Responsibilities**: Currently we are planning to split the User Stories to each of the team members, this will allow members to gain experience in each aspect of the project along with allowing us to more quickly build out features without blocking each other.
 
-**Robert Fang**: 
+**Robert Fang**:
 
 
 
@@ -204,11 +205,11 @@ Dart Frontend
     *   Non-Software Responsibilities:
         *   Conduct test sessions with the students using a prototype product
 *   Technical Strengths:
-    *   Python, C, Java 
+    *   Python, C, Java
 *   Technical Weaknesses:
     *   Front end development, iOS, Web Dev
 
-**Michael Lee**: 
+**Michael Lee**:
 
 
 
@@ -225,16 +226,16 @@ Dart Frontend
 *   Technical Weaknesses:
     *   Mobile dev (not done since 207)
 
-**Joshua Prier**: 
+**Joshua Prier**:
 
 
 
 *   Role(s) and Responsibilities:
-    *   Role: 
+    *   Role:
         *   Tech Lead (LMAO)
     *   User Stories Responsible For:
         *   6
-        *   9 
+        *   9
         *   11
     *   Non-Software Responsibilities:
         *   Go to meetings with partner to discuss topics on features and progress, and other tech related topics
@@ -244,7 +245,7 @@ Dart Frontend
 *   Technical Weaknesses:
     *   Web dev, Front End, iOS
 
-**Nikita Shumeiko**: 
+**Nikita Shumeiko**:
 
 
 
@@ -260,11 +261,11 @@ Dart Frontend
     *   C, Java, Android Studio, Python
     *   Strong grasp of OOP
     *   Experience working on larger scale projects
-    *   Experience with databases and SQL 
+    *   Experience with databases and SQL
 *   Technical Weaknesses:
-    *   Front End Web development, iOS, 
+    *   Front End Web development, iOS,
 
-**Viktar Chyhir**: 
+**Viktar Chyhir**:
 
 
 
@@ -284,7 +285,7 @@ Dart Frontend
 *   Technical Weaknesses:
     *   Web development, Front End, Databases, iOS development
 
-**Arian Safaei**: 
+**Arian Safaei**:
 
 
 
@@ -323,7 +324,7 @@ Dart Frontend
     *   No mobile app development experience
     *   No database experience (but currently taking CSC343)
 
-#### 
+####
 **Team Rules**
 
 
@@ -345,7 +346,7 @@ Meetings:
     *   If work is not completed or a meeting is not attended, we will contact the person and discuss why they are not completing their responsibilities. The purpose of this meeting would be not to antagonize the person, but to find out how the group can help.
     *   After the above meeting, if work is not completed or meetings are not attended on a regular basis, we would employ a strike system. For each time an issue or ticket is not completed on time, we would find out the reason why and if the reason was not legitimate (exams, medical/family emergency, etc) we would apply a strike to that teammate.
 
-         
+
 
     *   If a teammate receives three strikes, we would contact our TA or instructor to hopefully find a resolution.
     *   A person is able to erase a strike through a group meeting where they show the work they have done and how they made up for the uncompleted tickets. A person is also able to erase strikes by helping out other members.  \
@@ -366,25 +367,25 @@ Conflict Resolution:
     *   Give them some time to calm down and think over their actions
     *   If the behaviour continues, immediately go to a TA as this behaviour will not be tolerated.
 
-#### 
+####
 **Events**
 
 
 We will be online using Discord to communicate with our team members. Communication will be done when necessary and we will also have weekly meetings on Friday from 6pm to 7pm. On the Friday meeting, we will conduct a code review and discuss what we have done. We will all comment on each other's work and discuss any problems we have if any. Next, we will discuss what we are planning to do in the following week and talk about any issues we might run into.
 
 
-#### 
+####
 **Partner Meetings**
 
 
-##### 
+#####
 **Meeting 1 (October 7)**
 
 
 
 *   Video call meeting from 1pm to 2pm over _Zoom_
 
-###### 
+######
 **Meeting Minutes:**
 
 *   Users include students, parents and teachers with different features available to each user group
@@ -398,7 +399,7 @@ We will be online using Discord to communicate with our team members. Communicat
 *   Would be nice for students to be able to ask questions and collaborate over the platform (something similar to Piazza?)
 *   Integrate Google Classroom features if possible
 
-###### 
+######
 **Meeting Outcomes:**
 
 *   Confirmed primary users being students, secondary users being teachers and parents
@@ -407,12 +408,12 @@ We will be online using Discord to communicate with our team members. Communicat
 *   Gained more understanding of what the product is expected to be; started thinking of what technologies would be best suited (Flask, FireBase, Flutter, languages)
 *   Agreed on next meeting being Oct 9 at 1pm
 
-##### 
+#####
 **Meeting 2 (October 9)**
 
 *   Video call meeting from 1pm to 2pm over _Skype_
 
-###### 
+######
 **Meeting Minutes (Discussion Points):**
 
 *   Need students to enter marks into the app themselves (later clarified that this can be integrated with Google Classroom by just pulling marks off of there)
@@ -432,7 +433,7 @@ We will be online using Discord to communicate with our team members. Communicat
 *   Bonus: Dictionary/Thesaurus function
 *   Partner wants students to have a tour of the university and its facilities (If possible, need to organize with the Community Partnership Center and David). Tentative date is Oct. 30
 
-###### 
+######
 **Meeting Outcomes:**
 
 *   Now have a better idea of what the school is expecting
@@ -441,7 +442,7 @@ We will be online using Discord to communicate with our team members. Communicat
 *   Confirmed time of regular meetings being Wednesdays from 12pm to 1pm
 *   Confirmed amount of student involvement desired by the school
 
-#### 
+####
 **Artifacts**
 
 *   Discord for communication, organization
@@ -451,11 +452,11 @@ We will be online using Discord to communicate with our team members. Communicat
     *   We prioritize stories related to the Agenda and Performance aspects of the product
 *   Git for version control
 
-### 
+###
 **Highlights**
 
 
-#### 
+####
 **Questions For Partner: **
 
 
@@ -475,4 +476,3 @@ To Ask:
 
 
 *   Is the cost of Firebase okay?
-
