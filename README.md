@@ -1,4 +1,4 @@
-﻿# Agenda Organizer
+# Agenda Organizer
 
 ##
 **Product Details**
@@ -116,14 +116,14 @@ Dart Frontend
         *   Links are clickable
         *   Pictures are shown directly in the chat
 10.  As a Student, I want to not be able to view chats that I am not in in order to not invade on other’s privacy.
-    *   Acceptance Criteria:
+     -  Acceptance Criteria:
         *   Students will only be able to see chats they created or were invited to
 11. As a Parent, I want to not be able to use chats in order to not invade on my student’s privacy.
-    *   Acceptance Criteria:
+    -   Acceptance Criteria:
         *   Parents are unable to use chats
 12.  As a School Staff Member, I want to view chats of students in order to monitor for inappropriate behavior
-    *   Acceptance Criteria:
-        *   School Staff are able to see chats of all students
+        -   Acceptance Criteria:
+            *   School Staff are able to see chats of all students
 
 **Agenda**
 
@@ -156,21 +156,22 @@ Dart Frontend
 
 
 18.  As a Student, I want to receive a type of points for completing deadlines on time in order to motivate me to complete work on time.
-    *   Acceptance criteria:
+* Acceptance Criteria 
+    *   
         *   Receive points for completing work on time
         *   Be able to receive more points for streaks of completed work
         *   Receive star or badge for enough work completed
         *   View progress in a bar that fills up in real time
 19.  As a Student, I want to view a visual representation of my performance (possibly in the form of a bar graph) in order to easily monitor my progress.
-    *   Acceptance Criteria:
-        *   Graphs representing user performance and task completion over time
-        *   Timeline that shows how many tasks were completed on a particular date
+        *   Acceptance Criteria:
+            *   Graphs representing user performance and task completion over time
+            *   Timeline that shows how many tasks were completed on a particular date
 20.  As a Student, I want to receive reflection questions when goals have been completed in order to reflect and be able to improve in the future.
-    *   Acceptance Criteria:
-        *   There will be a list of reflection questions (from a database)  that will be sent to the student each time they check off a task
+        *   Acceptance Criteria:
+            *   There will be a list of reflection questions (from a database)  that will be sent to the student each time they check off a task
 21.  As a Student, I want to be able to break up tasks and label them with a type in order to group tasks together.
-    *   Acceptance Criteria:
-        *   For each task, students will be able to break them down by listing the pieces in which combine to form the whole task, afterwards, they are asked to label each subtask in the list
+        *   Acceptance Criteria:
+            *   For each task, students will be able to break them down by listing the pieces in which combine to form the whole task, afterwards, they are asked to label each subtask in the list
 
 **Bonus (later if time allows)**
 
@@ -349,10 +350,8 @@ Meetings:
     *   If work is not completed or a meeting is not attended, we will contact the person and discuss why they are not completing their responsibilities. The purpose of this meeting would be not to antagonize the person, but to find out how the group can help.
     *   After the above meeting, if work is not completed or meetings are not attended on a regular basis, we would employ a strike system. For each time an issue or ticket is not completed on time, we would find out the reason why and if the reason was not legitimate (exams, medical/family emergency, etc) we would apply a strike to that teammate.
 
-
-
     *   If a teammate receives three strikes, we would contact our TA or instructor to hopefully find a resolution.
-    *   A person is able to erase a strike through a group meeting where they show the work they have done and how they made up for the uncompleted tickets. A person is also able to erase strikes by helping out other members.  \
+    *   A person is able to erase a strike through a group meeting where they show the work they have done and how they made up for the uncompleted tickets. A person is also able to erase strikes by helping out other members.  
 
 
 Conflict Resolution:
