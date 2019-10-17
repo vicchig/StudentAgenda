@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     logoController = AnimationController(
-      duration: const Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     );
     super.initState();
