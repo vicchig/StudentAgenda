@@ -23,7 +23,23 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  AnimationController logoController;
+
+  @override
+  void initState() {
+    logoController = AnimationController(
+      duration: const Duration(milliseconds: 5000),
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    logoController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: "Email",
         border:
-          OutlineInputBorder(
-              borderRadius: BorderRadius.circular(32.0),
-              borderSide: BorderSide(color: Colors.white),
-          ),
+        OutlineInputBorder(
+          borderRadius: BorderRadius.circular(32.0),
+          borderSide: BorderSide(color: Colors.white),
+        ),
       ),
     );
 
@@ -74,27 +90,36 @@ class _MyHomePageState extends State<MyHomePage> {
     // This method is rerun every time setState is called
     return Scaffold(
       backgroundColor: Color(0xff00AC52),
+      resizeToAvoidBottomInset: true,
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(36.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 200.0,
-                child: Image.asset(
-                  "images/tdsblogo.png",
-                  fit: BoxFit.contain,
+          padding: const EdgeInsets.fromLTRB(36.0, 36.0, 36.0, 0.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 200.0,
+                  child: RotationTransition(
+                    turns: Tween(begin: 0.0, end: 1.0).animate(logoController),
+                    child: InkWell(
+                      onDoubleTap: () => logoController.forward(),
+                      child: Image.asset(
+                        "images/tdsblogo.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: 45.0),
-              email,
-              SizedBox(height: 20.0),
-              password,
-              SizedBox(height: 60.0),
-              loginButton,
-              SizedBox(height: 25.0),
-            ],
+                SizedBox(height: 40.0),
+                email,
+                SizedBox(height: 20.0),
+                password,
+                SizedBox(height: 45.0),
+                loginButton,
+                SizedBox(height: 25.0),
+              ],
+            ),
           ),
         ),
       ),
