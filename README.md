@@ -134,8 +134,9 @@ Dart Frontend
         *   For each student, staff can see the number of times a student uses their agenda per [time period]
 14. As a Student, I want to sign in to my google classroom account in order to view my agenda.
     *   Acceptance Criteria:
-        *   The agenda will display a calendar where each day holds tasks and reminders for the student
-15. As a Student, I want to not be able to view other students' agendas in order to focus on myself and what I need to get done.
+        *   The agenda will display a calendar where each day holds tasks and reminders for the student  
+        *   Signing in with google account will allow user to login to app and see their google classroom data  
+15. As a Student, I will not be able to view other students' agendas for privacy.
     *   Acceptance Criteria:
         *   Students will only be able to see their own account’s calendar/agenda and the restriction will be handled by google accounts
 16. As a Student, I want to break up tasks into subtasks where subtasks are chosen from a list in order to easily see what needs to be done for each assignment
