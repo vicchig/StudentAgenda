@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "894376838376",
+    "firebase_url": "https://tdsb-agenda.firebaseio.com",
+    "project_id": "tdsb-agenda",
+    "storage_bucket": "tdsb-agenda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894376838376:android:49848335cddb98c015b55d",
+        "android_client_info": {
+          "package_name": "com.tdsb.student_agenda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894376838376-scnson3pdea2hhmb3m64t8q5lf74c773.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIsIfa8RRqwiZHGVxi22-4yByx9mIxjOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894376838376-scnson3pdea2hhmb3m64t8q5lf74c773.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
