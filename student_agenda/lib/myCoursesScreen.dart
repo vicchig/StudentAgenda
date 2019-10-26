@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'util.dart';
 
+///Screen that displays a student's courses
 class CoursesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,11 @@ class CoursesScreen extends StatelessWidget {
 
   }
 
+  ///Obtain courses from Google Classroom and return a list of NavigationButtons
+  ///which represent the courses.
+  ///
+  /// @param context  current application context
+  /// @return         a list of NavigationButtons (one per course)
   List<Widget> getCourses(BuildContext context){ //TODO: Load students' courses off of Google Classroom and do the logic for adding them to the widget here
     final courses = ['Course 1', 'Course 2', 'Course 3', 'Course 4', 'Course 5',
       'Course 6', 'Course 7', 'Course 8'];

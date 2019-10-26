@@ -4,17 +4,26 @@ import 'util.dart';
 
 //------------------------------
 //CODE ADAPTED FROM:  https://www.linkedin.com/pulse/build-your-own-custom-side-menu-flutter-app-alon-rom
+///Sidebar menu that appears in every screen except for the log in
 class MainMenu extends StatefulWidget {
   @override
   MainMenuState createState(){
     return MainMenuState();
   }
-
 }
+
+///Sidebar menu Widget state
 class MainMenuState extends State<MainMenu> {
+  ///Title of the current screen being displayed
   Widget appBarTitle;
+
+  ///Currently selected screen (in the sidebar menu)
   MenuItem selectedMenuItem;
+
+  ///List of menu options that are displayed in the sidebar menu
   List<MenuItem> menuItems;
+
+  ///Widgets representing each menu option in menuItems
   List<Widget> menuOptionWidgets = [];
 
   @override
@@ -26,10 +35,17 @@ class MainMenuState extends State<MainMenu> {
     appBarTitle = new Text(selectedMenuItem.text);
   }
 
+  /// Execute item's func field and return the result
+  ///
+  /// @param item  a menu item whose func is to be executed
   getMenuItemWidget(MenuItem item){
     return item.func();
   }
 
+  ///Select the provided menu item item and update the current state of the
+  ///Widget
+  ///
+  /// @param item  menu item that has been selected
   void onSelectMenuItem(MenuItem item){
     setState(() { //change the global state variables here
       selectedMenuItem = item;
@@ -42,6 +58,8 @@ class MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     menuOptionWidgets = [];
+
+    //add options and widgets that represent them to their respective lists
     for(var menuItem in menuItems){
       menuOptionWidgets.add(
           new Container(
@@ -72,14 +90,14 @@ class MainMenuState extends State<MainMenu> {
         ),
       );
     }
-    //------------------------------
 
-    return Scaffold(
+    return Scaffold( //Sidebar menu scaffold
       appBar: new AppBar(
         title: appBarTitle,
         centerTitle: true,
       ),
 
+      //draw the sidebar menu options
       drawer: new Drawer(
         child: new ListView(
           children: <Widget>[
@@ -116,12 +134,14 @@ class MainMenuState extends State<MainMenu> {
       ),
       //------------------------------
 
-
         body: getMenuItemWidget(selectedMenuItem),
 
       );
   }
 
+  ///Return a list of menu options to be used by the sidebar menu
+  ///
+  /// @return  list containing all available menu items
   List<MenuItem> createMenuItems(){
     final menuItems = [
       new MenuItem(
@@ -148,6 +168,4 @@ class MainMenuState extends State<MainMenu> {
     ];
     return menuItems;
   }
-
-
 }
