@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NavigationButton extends StatelessWidget{
-
   String text;
   double elevation;
   Color colour = Colors.white;
@@ -29,9 +28,4 @@ class NavigationButton extends StatelessWidget{
       ),
     );
   }
-
-
-
-
-
 }
