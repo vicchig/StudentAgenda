@@ -10,83 +10,34 @@ class CoursesScreen extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           crossAxisCount: 2,
-          children: <Widget>[
-            NavigationButton( //TODO: Likely will want images for these
-              //TODO: Also all of these need proper onPressed() methods
-              text: 'Course 1',
-              colour: Colors.greenAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-            NavigationButton(
-              text: 'Course 2',
-              colour: Colors.lightBlueAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-            NavigationButton(
-              text: 'Course 3',
-              colour: Colors.orangeAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-            NavigationButton(
-              text: 'Course 4',
-              colour: Colors.redAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-            NavigationButton(
-              text: 'Course 5',
-              colour: Colors.amberAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-            NavigationButton(
-              text: 'Course 6',
-              colour: Colors.indigoAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-            NavigationButton(
-              text: 'Course 7',
-              colour: Colors.pinkAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-            NavigationButton(
-              text: 'Course 8',
-              colour: Colors.limeAccent,
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
-                );
-              },
-            ),
-          ],
+          children: getCourses(context)
         );
 
 
+  }
+
+  List<Widget> getCourses(BuildContext context){ //TODO: Load students' courses off of Google Classroom and do the logic for adding them to the widget here
+    final courses = ['Course 1', 'Course 2', 'Course 3', 'Course 4', 'Course 5',
+      'Course 6', 'Course 7', 'Course 8'];
+    final courseColours = [Colors.greenAccent, Colors.lightBlueAccent, Colors.orangeAccent,
+    Colors.redAccent, Colors.amberAccent, Colors.indigoAccent, Colors.pinkAccent, Colors.limeAccent];
+
+    final List<Widget> courseButtons = [];
+    int coloursI = 0;
+    for(var course in courses){
+      courseButtons.add(
+        new NavigationButton(
+          text: course,
+          colour: courseColours[coloursI],
+          onPressed: (){
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
+            );
+          },
+        ),
+      );
+      coloursI++;
+    }
+    return courseButtons;
   }
 }
