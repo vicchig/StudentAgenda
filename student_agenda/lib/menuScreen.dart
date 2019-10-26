@@ -6,7 +6,9 @@ import 'util.dart';
 //CODE ADAPTED FROM:  https://www.linkedin.com/pulse/build-your-own-custom-side-menu-flutter-app-alon-rom
 class MainMenu extends StatefulWidget {
   @override
-  MainMenuState createState() => MainMenuState();
+  MainMenuState createState(){
+    return MainMenuState();
+  }
 
 }
 class MainMenuState extends State<MainMenu> {
@@ -28,7 +30,7 @@ class MainMenuState extends State<MainMenu> {
     return item.func();
   }
 
-  void onSelectItem(MenuItem item){
+  void onSelectMenuItem(MenuItem item){
     setState(() { //change the global state variables here
       selectedMenuItem = item;
       appBarTitle = new Text(item.text);
@@ -43,8 +45,8 @@ class MainMenuState extends State<MainMenu> {
     for(var menuItem in menuItems){
       menuOptionWidgets.add(
           new Container(
-            decoration: new BoxDecoration(
-              color: menuItem == selectedMenuItem ? Colors.grey[200] : Colors.white
+              decoration: new BoxDecoration(
+              color: menuItem == selectedMenuItem ? Colors.blueGrey : Colors.black
             ),
             child: new ListTile(
               onTap: () => onSelectMenuItem(menuItem),
@@ -72,48 +74,47 @@ class MainMenuState extends State<MainMenu> {
     }
     //------------------------------
 
-
     return Scaffold(
-      appBar: AppBar(
+      appBar: new AppBar(
         title: appBarTitle,
         centerTitle: true,
       ),
 
-        drawer: new Drawer(
-          child: new ListView(
-            children: <Widget>[
-              new Container(
-                  child: Center(
-                       child: Text(
-                         'Menu',
-                         textAlign: TextAlign.center,
-                         style: new TextStyle(
-                             fontSize: 20.0,
-                             fontWeight: FontWeight.bold ),
-                       ),
-                  ),
-                  margin: new EdgeInsetsDirectional.only(top: 20.0),
-                  color: Colors.white,
-                  constraints: BoxConstraints(maxHeight: 90.0, minHeight: 90.0)
-              ),
-              new SizedBox(
-                child: new Center(
-                  child: new Container(
-                    margin:
-                    new EdgeInsetsDirectional.only(start: 10.0, end: 10.0),
-                    height: 0.3,
-                    color: Colors.black,
-                  ),
+      drawer: new Drawer(
+        child: new ListView(
+          children: <Widget>[
+            new Container(
+                child: Center(
+                     child: Text(
+                       'Menu',
+                       textAlign: TextAlign.center,
+                       style: new TextStyle(
+                           fontSize: 20.0,
+                           fontWeight: FontWeight.bold ),
+                     ),
+                ),
+                margin: new EdgeInsetsDirectional.only(top: 20.0),
+                color: Colors.white,
+                constraints: BoxConstraints(maxHeight: 90.0, minHeight: 90.0)
+            ),
+            new SizedBox(
+              child: new Center(
+                child: new Container(
+                  margin:
+                  new EdgeInsetsDirectional.only(start: 10.0, end: 10.0),
+                  height: 0.3,
+                  color: Colors.black,
                 ),
               ),
-              new Container(
-                color: Colors.white,
-                child: new Column(children: menuOptionWidgets),
-              ),
-            ],
-          ),
+            ),
+            new Container(
+              color: Colors.white,
+              child: new Column(children: menuOptionWidgets),
+            ),
+          ],
         ),
-        //------------------------------
+      ),
+      //------------------------------
 
 
         body: getMenuItemWidget(selectedMenuItem),
@@ -125,21 +126,28 @@ class MainMenuState extends State<MainMenu> {
     final menuItems = [
       new MenuItem(
         text: 'My Courses',
-        func: () => new CoursesScreen(),
+        colour: Colors.white,
+        func: (){
+          return new CoursesScreen();
+        }
       ),
       new MenuItem(
         text: 'Settings',
-        func: () => new CoursesScreen(),
+        colour: Colors.white,
+        func: (){
+          return new CoursesScreen();
+        }
       ),
       new MenuItem(
         text: 'Log Out',
-        func: () => new CoursesScreen(),
+        colour: Colors.white,
+        func: (){
+          return new CoursesScreen();
+        }
       ),
     ];
     return menuItems;
   }
 
-  void onSelectMenuItem(MenuItem item){
 
-  }
 }

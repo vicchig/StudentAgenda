@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'util.dart';
-import 'myCoursesScreen.dart';
 
 class CoursesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("My Courses"),
-          centerTitle: true,
-        ),
-
-        body: GridView.count(
+    return GridView.count(
           primary: false,
           padding: const EdgeInsets.all(20),
           crossAxisSpacing: 10,
@@ -92,8 +85,8 @@ class CoursesScreen extends StatelessWidget {
               },
             ),
           ],
-        )
+        );
 
-    );
+
   }
 }

@@ -37,6 +37,6 @@ class MenuItem{
   Color colour;
   Function func;
 
-  MenuItem({this.text = 'Menu Item', this.colour = Colors.white, this.func});
+  MenuItem({this.text = 'Menu Item', this.colour = Colors.white, @required this.func});
 }
 //------------------------------
