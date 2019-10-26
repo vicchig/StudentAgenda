@@ -7,7 +7,7 @@ class NavigationButton extends StatelessWidget{
   final Color colour;
   final double borderRad ;
   final GestureTapCallback onPressed;
-  
+
   NavigationButton({this.text = 'Navigation Button', @required this.onPressed,
   this.elevation = 5.0, this.colour = Colors.white, this.borderRad = 30.0});
 
@@ -29,3 +29,14 @@ class NavigationButton extends StatelessWidget{
     );
   }
 }
+
+//------------------------------
+//CODE ADAPTED FROM:  https://www.linkedin.com/pulse/build-your-own-custom-side-menu-flutter-app-alon-rom
+class MenuItem{
+  String text;
+  Color colour;
+  Function func;
+
+  MenuItem({this.text = 'Menu Item', this.colour = Colors.white, this.func});
+}
+//------------------------------
