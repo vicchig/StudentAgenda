@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'menuScreen.dart';
+import 'util.dart';
 
 void main() => runApp(MyApp());
 
@@ -73,24 +74,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
     );
 
-    final loginButton = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(30.0),
-      color: Colors.white,
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () { //TODO: Add login function (for now just goes to menu)
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MainMenu()),
-          );
-
-        },
-        child: Text(
-          "Login",
-          textAlign: TextAlign.center,
-        ),
-      ),
+    final loginButton = NavigationButton ( //TODO: Likely will want images for these
+      //TODO: Also all of these need proper onPressed() methods
+      text: 'Login',
+      onPressed: (){
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => MainMenu()),
+        );
+      },
     );
 
     // This method is rerun every time setState is called
