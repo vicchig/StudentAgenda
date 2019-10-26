@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'util.dart';
 
 class MainMenu extends StatelessWidget{
   @override
@@ -9,32 +10,81 @@ class MainMenu extends StatelessWidget{
         title: Text("Main Menu"),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton( //TODO: An image would probably look better (this is just a placeholder for now)
-              onPressed: null, //TODO: Make this go to the courses page
-              child: Text('My Courses', style: TextStyle(fontSize: 20)
-              ),
-            ),
-            const SizedBox(height: 30),
-            RaisedButton(  //TODO: An image would probably look better (this is just a placeholder for now)
-              onPressed: null, //TODO: Make this go to the settings page
-              child: Text('Settings', style: TextStyle(fontSize: 20)
-              ),
-            ),
-            const SizedBox(height: 30),
-            RaisedButton(   //TODO: An image would probably look better (this is just a placeholder for now)
-              onPressed: null, //TODO: Make this go back to the log in page and log out the user
-              child: Text('Log Out', style: TextStyle(fontSize: 20)
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+      body: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 2,
+        children: <Widget>[
+          NavigationButton(
+            text: 'Course 1',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+          NavigationButton(
+            text: 'Course 2',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+          NavigationButton(
+            text: 'Course 3',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+          NavigationButton(
+            text: 'Course 4',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+          NavigationButton(
+            text: 'Course 5',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+          NavigationButton(
+            text: 'Course 6',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+          NavigationButton(
+            text: 'Course 7',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+          NavigationButton(
+            text: 'Course 8',
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MainMenu()),
+              );
+            },
+          ),
+        ],
+      )
+
+      );
   }
 
 
