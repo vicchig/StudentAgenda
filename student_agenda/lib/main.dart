@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'menuScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -79,7 +80,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {}, //TODO: Add login function
+        onPressed: () { //TODO: Add login function (for now just goes to menu)
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => MainMenu()),
+          );
+
+        },
         child: Text(
           "Login",
           textAlign: TextAlign.center,
