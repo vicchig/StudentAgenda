@@ -4,7 +4,6 @@ import 'util.dart';
 class MainMenu extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text("Main Menu"),
@@ -17,7 +16,8 @@ class MainMenu extends StatelessWidget{
         mainAxisSpacing: 10,
         crossAxisCount: 2,
         children: <Widget>[
-          NavigationButton(
+          NavigationButton( //TODO: Likely will want images for these
+                            //TODO: Also all of these need proper onPressed() methods
             text: 'Course 1',
             colour: Colors.greenAccent,
             onPressed: (){

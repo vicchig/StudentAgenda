@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NavigationButton extends StatelessWidget{
-  String text;
-  double elevation;
-  Color colour = Colors.white;
-  double borderRad ;
-
+  final String text;
+  final double elevation;
+  final Color colour;
+  final double borderRad ;
   final GestureTapCallback onPressed;
+  
   NavigationButton({this.text = 'Navigation Button', @required this.onPressed,
   this.elevation = 5.0, this.colour = Colors.white, this.borderRad = 30.0});
 
