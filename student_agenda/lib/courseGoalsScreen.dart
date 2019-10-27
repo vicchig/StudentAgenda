@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_agenda/util.dart';
 
 
 class CourseGoalsScreen extends StatefulWidget{
@@ -32,6 +33,7 @@ class CourseGoalsScreenState extends State<CourseGoalsScreen> with TickerProvide
       appBar: new AppBar(
           title: new Text("Test Page"),
       ),
+      drawer: new MenuDrawer(),
       body: new Text("Placeholder Text"),
     );
 
