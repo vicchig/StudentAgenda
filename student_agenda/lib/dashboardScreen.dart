@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:student_agenda/main.dart';
 import 'util.dart';
+import 'courseGoalsScreen.dart';
 
-///Screen that displays a student's courses
-class CoursesScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
+  @override
+  DashboardScreenState createState(){
+    return DashboardScreenState();
+  }
+}
+
+class DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-          primary: false,
-          padding: const EdgeInsets.all(20),
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
-          children: getCourses(context)
-        );
+    return Scaffold( //Sidebar menu scaffold
+      appBar: new AppBar(
+        title: new Text('My Courses'),
+        centerTitle: true,
+      ),
 
+      //draw the sidebar menu options
+      drawer: new MenuDrawer(),
+
+      body: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 2,
+        children: getCourses(context)
+      ),
+
+    );
+    //------------------------------
 
   }
-
   ///Obtain courses from Google Classroom and return a list of NavigationButtons
   ///which represent the courses.
   ///
@@ -26,7 +44,7 @@ class CoursesScreen extends StatelessWidget {
     final courses = ['Course 1', 'Course 2', 'Course 3', 'Course 4', 'Course 5',
       'Course 6', 'Course 7', 'Course 8'];
     final courseColours = [Colors.greenAccent, Colors.lightBlueAccent, Colors.orangeAccent,
-    Colors.redAccent, Colors.amberAccent, Colors.indigoAccent, Colors.pinkAccent, Colors.limeAccent];
+      Colors.redAccent, Colors.amberAccent, Colors.indigoAccent, Colors.pinkAccent, Colors.limeAccent];
 
     final List<Widget> courseButtons = [];
     int coloursI = 0;
@@ -37,7 +55,7 @@ class CoursesScreen extends StatelessWidget {
           colour: courseColours[coloursI],
           onPressed: (){
             Navigator.push(context,
-              MaterialPageRoute(builder: (context) => CoursesScreen()), //TODO: Add proper navigator
+              MaterialPageRoute(builder: (context) => CourseGoalsScreen()),
             );
           },
         ),

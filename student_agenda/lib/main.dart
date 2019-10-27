@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'menuScreen.dart';
+import 'dashboardScreen.dart';
 import 'util.dart';
 
 void main() => runApp(MyApp());
@@ -74,12 +74,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
     );
 
-    final loginButton = NavigationButton ( //TODO: Likely will want images for these
-      //TODO: Also all of these need proper onPressed() methods
+    final loginButton = NavigationButton ( //TODO: Actually check their log in info
       text: 'Login',
       onPressed: (){
         Navigator.push(context,
-          MaterialPageRoute(builder: (context) => MainMenu()),
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
         );
       },
     );
