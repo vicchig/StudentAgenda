@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:student_agenda/main.dart';
 import 'util.dart';
 import 'courseGoalsScreen.dart';
 
@@ -22,7 +21,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       //draw the sidebar menu options
       drawer: new MenuDrawer(),
 
-      body: GridView.count(
+      body: GridView.count( //holds all of our course buttons
         primary: false,
         padding: const EdgeInsets.all(20),
         crossAxisSpacing: 10,
@@ -35,6 +34,7 @@ class DashboardScreenState extends State<DashboardScreen> {
     //------------------------------
 
   }
+
   ///Obtain courses from Google Classroom and return a list of NavigationButtons
   ///which represent the courses.
   ///

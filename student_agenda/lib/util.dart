@@ -70,6 +70,10 @@ class MenuDrawer extends StatefulWidget {
 
 //------------------------------
 //CODE ADAPTED FROM:  https://www.linkedin.com/pulse/build-your-own-custom-side-menu-flutter-app-alon-rom
+///Drawer class for drawing the sidebar menu in a Widget's Scaffold
+///
+/// Ex. use inside build()
+/// drawer: new MenuDrawerState(),
 class MenuDrawerState extends State<MenuDrawer>{
   ///Currently selected screen (in the sidebar menu)
   MenuItem selectedMenuItem;
@@ -98,7 +102,7 @@ class MenuDrawerState extends State<MenuDrawer>{
     });
     Navigator.of(context).pop(); //close menu
 
-    Navigator.push(context, item.func());
+    Navigator.push(context, item.func()); //change screen
   }
 
   @override
