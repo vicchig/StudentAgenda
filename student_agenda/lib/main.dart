@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'dashboardScreen.dart';
+import 'util.dart';
 
 void main() => runApp(MyApp());
 
@@ -72,19 +74,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ),
     );
 
-    final loginButton = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(30.0),
-      color: Colors.white,
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {}, //TODO: Add login function
-        child: Text(
-          "Login",
-          textAlign: TextAlign.center,
-        ),
-      ),
+    final loginButton = NavigationButton ( //TODO: Actually check their log in info
+      text: 'Login',
+      onPressed: (){
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+        );
+      },
     );
 
     // This method is rerun every time setState is called
