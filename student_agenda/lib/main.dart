@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:student_agenda/auth.dart';
 import 'dashboardScreen.dart';
 import 'util.dart';
 
@@ -77,9 +79,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     final loginButton = NavigationButton ( //TODO: Actually check their log in info
       text: 'Login',
       onPressed: (){
-        Navigator.push(context,
+        Future<FirebaseUser> user = authService.googleSignIn();
+        user.then((user) => Navigator.push(context,
           MaterialPageRoute(builder: (context) => DashboardScreen()),
-        );
+        )).catchError((e) => print(e));
+
       },
     );
 
