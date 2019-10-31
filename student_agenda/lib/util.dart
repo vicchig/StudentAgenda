@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_agenda/auth.dart';
 import 'main.dart';
 import 'dashboardScreen.dart';
 
@@ -200,6 +201,7 @@ class MenuDrawerState extends State<MenuDrawer>{
           text: 'Log Out',
           colour: Colors.white,
           func: (){
+            authService.signOut();
             return MaterialPageRoute(builder: (context) => MyHomePage());
           }
       ),
