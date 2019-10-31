@@ -66,34 +66,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    final email = TextField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Email",
-        border:
-        OutlineInputBorder(
-          borderRadius: BorderRadius.circular(32.0),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-    );
-
-    final password = TextField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Password",
-        border:
-        OutlineInputBorder(
-          borderRadius: BorderRadius.circular(32.0),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-    );
-
     final loginButton = NavigationButton ( //TODO: Actually check their log in info
       text: 'Login',
       onPressed: (){
@@ -129,10 +101,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                SizedBox(height: 40.0),
-                email,
-                SizedBox(height: 20.0),
-                password,
                 SizedBox(height: 45.0),
                 loginButton,
                 SizedBox(height: 25.0),
