@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_agenda/auth.dart';
+import 'package:student_agenda/settingsScreen.dart';
 import 'main.dart';
 import 'dashboardScreen.dart';
 
@@ -193,7 +195,7 @@ class MenuDrawerState extends State<MenuDrawer>{
           text: 'Settings',
           colour: Colors.white,
           func: (){
-            return MaterialPageRoute(builder: (context) => MyHomePage());
+            return MaterialPageRoute(builder: (context) => SettingsScreen());
           }
       ),
       new MenuItem(
