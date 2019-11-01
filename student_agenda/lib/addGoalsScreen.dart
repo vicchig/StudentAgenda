@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'util.dart';
 import 'courseGoalsScreen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'dart:async';
 import 'dart:collection';
@@ -14,7 +13,7 @@ class AddGoalsScreen extends StatefulWidget {
 }
 
 class AddGoalsScreenState extends State<AddGoalsScreen> {
-  static var subtasks = ['Just a subtask 1', 'A vasdasdasdasdas dasd asddsad erk', 'Another subtask'];
+  static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion', 'Write the conclusion','Write the conclusion','Write the conclusion''Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion'];
   var selectedSubtask = null; // NOTE: Depending on implementation, may need to check for empty
   
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -168,20 +167,10 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   }
   
   void finalizeSubtask() {
-      if (selectedSubtask == null) {
-        subtaskNotSelected();
-      } else {
-        print('Adding subtask ...');
-      }
+      
+      print('Adding subtask ...');
+      
   }
   
-  void subtaskNotSelected() {
-      Fluttertoast.showToast(
-        msg: "You haven't chosen a subtask yet",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIos: 1,
-        fontSize: 16.0
-    );
-  }
+  
 }
