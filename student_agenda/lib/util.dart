@@ -202,7 +202,6 @@ class MenuDrawerState extends State<MenuDrawer>{
           text: 'Log Out',
           colour: Colors.white,
           func: (){
-            authService.signOut();
             return MaterialPageRoute(builder: (context) => MyHomePage());
           }
       ),
