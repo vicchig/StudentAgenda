@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "894376838376-p020mhba3q4bcutbroan0t9ajv804ehd.apps.googleusercontent.com",
+          "client_id": "894376838376-lreup3do1vqo5gvp2sqk15ls51k3mp33.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tdsb.student_agenda",
-            "certificate_hash": "72c08018856acbf3b7500045bcf2a1313d884598"
+            "certificate_hash": "749094e04bf1d6cf87063672b19a796a652bc2a3"
           }
         },
         {
