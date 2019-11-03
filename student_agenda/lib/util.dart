@@ -4,9 +4,10 @@ import 'main.dart';
 import 'dashboardScreen.dart';
 import 'addGoalsScreen.dart';
 import 'listedGoalsScreen.dart';
+import 'package:student_agenda/performanceScreen.dart';
 
 /// Button that navigates to another screen
-class NavigationButton extends StatelessWidget{
+class NavigationButton extends StatelessWidget {
   ///Button Text, default='NavigationText'
   final String text;
 
@@ -17,17 +18,21 @@ class NavigationButton extends StatelessWidget{
   final Color colour;
 
   ///How rounded the edges of the square button are, default=30.0
-  final double borderRad ;
+  final double borderRad;
 
   ///Method that is ran when the button is pressed
   final GestureTapCallback onPressed;
 
-  NavigationButton({this.text = 'Navigation Button', @required this.onPressed,
-  this.elevation = 5.0, this.colour = Colors.white, this.borderRad = 30.0});
+  NavigationButton({this.text = 'Navigation Button',
+    @required this.onPressed,
+    this.elevation = 5.0,
+    this.colour = Colors.white,
+    this.borderRad = 30.0});
 
   @override
-  Widget build(BuildContext context){
-    return Material( //Course 1
+  Widget build(BuildContext context) {
+    return Material(
+      //Course 1
       elevation: this.elevation,
       borderRadius: BorderRadius.circular(this.borderRad),
       color: this.colour,
@@ -47,7 +52,7 @@ class NavigationButton extends StatelessWidget{
 //------------------------------
 //CODE ADAPTED FROM: https://www.linkedin.com/pulse/build-your-own-custom-side-menu-flutter-app-alon-rom
 ///Item representation for the sidebar menu
-class MenuItem{
+class MenuItem {
   ///Text of the menu item
   String text;
 
@@ -57,8 +62,9 @@ class MenuItem{
   ///Function that is executed when the menu item is chosen
   Function func;
 
-  MenuItem({this.text = 'Menu Item', this.colour = Colors.white,
-            @required this.func});
+  MenuItem({this.text = 'Menu Item',
+    this.colour = Colors.white,
+    @required this.func});
 }
 //------------------------------
 
@@ -76,7 +82,7 @@ class MenuDrawer extends StatefulWidget {
 ///
 /// Ex. use inside build()
 /// drawer: new MenuDrawerState(),
-class MenuDrawerState extends State<MenuDrawer>{
+class MenuDrawerState extends State<MenuDrawer> {
   ///Currently selected screen (in the sidebar menu)
   MenuItem selectedMenuItem;
 
@@ -98,8 +104,9 @@ class MenuDrawerState extends State<MenuDrawer>{
   ///Widget
   ///
   /// @param item  menu item that has been selected
-  void onSelectMenuItem(MenuItem item, BuildContext context){
-    setState(() { //change the global state variables here
+  void onSelectMenuItem(MenuItem item, BuildContext context) {
+    setState(() {
+      //change the global state variables here
       selectedMenuItem = item;
     });
     Navigator.of(context).pop(); //close menu
@@ -108,22 +115,26 @@ class MenuDrawerState extends State<MenuDrawer>{
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     menuOptionWidgets = [];
     //add options and widgets that represent them to their respective lists
-    for(var menuItem in menuItems){
+    for (var menuItem in menuItems) {
       menuOptionWidgets.add(
         new Container(
           decoration: new BoxDecoration(
-              color: menuItem == selectedMenuItem ? Colors.blueGrey : Colors.black
-          ),
+              color: menuItem == selectedMenuItem
+                  ? Colors.blueGrey
+                  : Colors.black),
           child: new ListTile(
             onTap: () => onSelectMenuItem(menuItem, context),
             title: Text(
-              menuItem.text, style: new TextStyle(
-                fontSize: 20.0,
-                color: menuItem.colour,
-                fontWeight: menuItem == selectedMenuItem ? FontWeight.bold : FontWeight.w300),
+              menuItem.text,
+              style: new TextStyle(
+                  fontSize: 20.0,
+                  color: menuItem.colour,
+                  fontWeight: menuItem == selectedMenuItem
+                      ? FontWeight.bold
+                      : FontWeight.w300),
             ),
           ),
         ),
@@ -151,19 +162,16 @@ class MenuDrawerState extends State<MenuDrawer>{
                   'Menu',
                   textAlign: TextAlign.center,
                   style: new TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold ),
+                      fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ),
               margin: new EdgeInsetsDirectional.only(top: 20.0),
               color: Colors.white,
-              constraints: BoxConstraints(maxHeight: 90.0, minHeight: 90.0)
-          ),
+              constraints: BoxConstraints(maxHeight: 90.0, minHeight: 90.0)),
           new SizedBox(
             child: new Center(
               child: new Container(
-                margin:
-                new EdgeInsetsDirectional.only(start: 10.0, end: 10.0),
+                margin: new EdgeInsetsDirectional.only(start: 10.0, end: 10.0),
                 height: 0.3,
                 color: Colors.black,
               ),
@@ -178,47 +186,47 @@ class MenuDrawerState extends State<MenuDrawer>{
     );
   }
 
-
   ///Return a list of menu options to be used by the sidebar menu
   ///
   /// @return  list containing all available menu items
-  List<MenuItem> createMenuItems(BuildContext context){
+  List<MenuItem> createMenuItems(BuildContext context) {
     final menuItems = [
       new MenuItem(
           text: 'My Courses',
           colour: Colors.white,
-          func: (){
+          func: () {
             return MaterialPageRoute(builder: (context) => DashboardScreen());
-          }
-      ),
+          }),
       new MenuItem(
           text: 'Settings',
           colour: Colors.white,
-          func: (){
+          func: () {
             return MaterialPageRoute(builder: (context) => MyHomePage());
-          }
-      ),
+          }),
       new MenuItem(
           text: 'Log Out',
           colour: Colors.white,
-          func: (){
+          func: () {
             return MaterialPageRoute(builder: (context) => MyHomePage());
-          }
-      ),
+          }),
       new MenuItem(
           text: 'Add Goal (For Demo Only)',
           colour: Colors.white,
-          func: (){
+          func: () {
             return MaterialPageRoute(builder: (context) => AddGoalsScreen());
-          }
-      ),
+          }),
       new MenuItem(
           text: 'Goal List (For Demo Only)',
           colour: Colors.white,
-          func: (){
+          func: () {
             return MaterialPageRoute(builder: (context) => ListedGoalsScreen());
-          }
-      ),
+          }),
+      new MenuItem(
+          text: 'Performance (For Demo Only)',
+          colour: Colors.white,
+          func: () {
+            return MaterialPageRoute(builder: (context) => PerformanceScreen());
+          }),
     ];
     return menuItems;
   }

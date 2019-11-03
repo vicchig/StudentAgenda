@@ -2,30 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:async';
 
-class PerformanceScreen extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Performance',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: MyHomePage(title: 'Performance'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class PerformanceScreen extends StatefulWidget {
+  PerformanceScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PerformanceScreenState createState() => _PerformanceScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PerformanceScreenState extends State<PerformanceScreen> {
   int onTimeNum = 99;
   int lateNum = 7;
   int tasksRemaining = 20;
@@ -90,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(widget.title),
+        title: Text('Performance'),
       ),
       body: Column(
         children: <Widget>[
