@@ -27,8 +27,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int onTimeNum = 99;
-  int lateNum = 2;
-  int remainingTasks = 20;
+  int lateNum = 7;
+  int tasksRemaining = 20;
+  int tasksCreated;
 
   double onTimePercent;
   double latePercent;
@@ -46,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     onTimePercent = onTimeNum.toDouble() / (onTimeNum + lateNum);
     latePercent = lateNum.toDouble() / (onTimeNum + lateNum);
+    tasksCreated = onTimeNum + lateNum + tasksRemaining;
 
     pieTouchedResultStreamController = StreamController();
     pieTouchedResultStreamController.stream.distinct().listen((details) {
@@ -136,8 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(height: 20),
           TotalTasks(
-            onTimeNum: remainingTasks,
+            onTimeNum: tasksRemaining,
             text: 'Tasks Remaining:',
+          ),
+          SizedBox(height: 20),
+          TotalTasks(
+            onTimeNum: tasksCreated,
+            text: 'Tasks Created:',
           ),
         ],
       ),
