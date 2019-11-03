@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:student_agenda/auth.dart';
-import 'package:student_agenda/settingsScreen.dart';
 import 'main.dart';
 import 'dashboardScreen.dart';
+import 'addGoalsScreen.dart';
+import 'listedGoalsScreen.dart';
 
 /// Button that navigates to another screen
 class NavigationButton extends StatelessWidget{
@@ -195,15 +195,28 @@ class MenuDrawerState extends State<MenuDrawer>{
           text: 'Settings',
           colour: Colors.white,
           func: (){
-            return MaterialPageRoute(builder: (context) => SettingsScreen());
+            return MaterialPageRoute(builder: (context) => MyHomePage());
           }
       ),
       new MenuItem(
           text: 'Log Out',
           colour: Colors.white,
           func: (){
-            authService.signOut();
             return MaterialPageRoute(builder: (context) => MyHomePage());
+          }
+      ),
+      new MenuItem(
+          text: 'Add Goal (For Demo Only)',
+          colour: Colors.white,
+          func: (){
+            return MaterialPageRoute(builder: (context) => AddGoalsScreen());
+          }
+      ),
+      new MenuItem(
+          text: 'Goal List (For Demo Only)',
+          colour: Colors.white,
+          func: (){
+            return MaterialPageRoute(builder: (context) => ListedGoalsScreen());
           }
       ),
     ];
