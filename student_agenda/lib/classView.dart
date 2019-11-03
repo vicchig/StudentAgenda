@@ -11,7 +11,6 @@ class ClassViewScreen extends StatefulWidget {
 
 class ClassViewState extends State<ClassViewScreen> {
   List<String> students = ["Bobby", "Tom", "Mike"];
-  int id = 0;
   List<String> assignments = ["A1", "A2", "A3"];
 
   @override

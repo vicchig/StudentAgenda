@@ -46,16 +46,6 @@ class TeacherClassesState extends State<TeacherClassesScreen> {
       'Class 7',
       'Class 8'
     ];
-    final classColours = [
-      Colors.greenAccent,
-      Colors.lightBlueAccent,
-      Colors.orangeAccent,
-      Colors.redAccent,
-      Colors.amberAccent,
-      Colors.indigoAccent,
-      Colors.pinkAccent,
-      Colors.limeAccent
-    ];
 
     final List<Widget> classButtons = [];
     int coloursI = 0;
@@ -63,7 +53,7 @@ class TeacherClassesState extends State<TeacherClassesScreen> {
       classButtons.add(
         new NavigationButton(
           text: teacherClass,
-          colour: classColours[coloursI],
+          colour: Colors.greenAccent,
           onPressed: () {
             Navigator.push(
               context,
