@@ -45,11 +45,11 @@ _Reminder:_ The 0-4 marking scale means:
     - Provide a link to the Trello board 
     - Provide more details about how your conduct your planning sessions and choose which user stories to take on 
 
-Highlights: 
+- Highlights: 
     - Not sure what your 'Highlight' section is for? You should be providing insights related to your meetings and process here
 
 ### Overall Quality
 
 - The final version of your D1 document should be under the 'd1' folder in your repo
 - Some formatting issues (i.e. in the User Stories section)
-+ Removed all instructions and templates
+- Removed all instructions and templates
