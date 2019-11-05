@@ -5,6 +5,7 @@ import 'dashboardScreen.dart';
 import 'addGoalsScreen.dart';
 import 'listedGoalsScreen.dart';
 import 'package:student_agenda/performanceScreen.dart';
+import 'package:student_agenda/mainDashboardScreen.dart';
 
 /// Button that navigates to another screen
 class NavigationButton extends StatelessWidget {
@@ -23,11 +24,12 @@ class NavigationButton extends StatelessWidget {
   ///Method that is ran when the button is pressed
   final GestureTapCallback onPressed;
 
-  NavigationButton({this.text = 'Navigation Button',
-    @required this.onPressed,
-    this.elevation = 5.0,
-    this.colour = Colors.white,
-    this.borderRad = 30.0});
+  NavigationButton(
+      {this.text = 'Navigation Button',
+      @required this.onPressed,
+      this.elevation = 5.0,
+      this.colour = Colors.white,
+      this.borderRad = 30.0});
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +64,10 @@ class MenuItem {
   ///Function that is executed when the menu item is chosen
   Function func;
 
-  MenuItem({this.text = 'Menu Item',
-    this.colour = Colors.white,
-    @required this.func});
+  MenuItem(
+      {this.text = 'Menu Item',
+      this.colour = Colors.white,
+      @required this.func});
 }
 //------------------------------
 
@@ -226,6 +229,13 @@ class MenuDrawerState extends State<MenuDrawer> {
           colour: Colors.white,
           func: () {
             return MaterialPageRoute(builder: (context) => PerformanceScreen());
+          }),
+      new MenuItem(
+          text: 'Dashboard (For Demo Only)',
+          colour: Colors.white,
+          func: () {
+            return MaterialPageRoute(
+                builder: (context) => MainDashboardScreen());
           }),
     ];
     return menuItems;
