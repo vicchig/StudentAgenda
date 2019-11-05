@@ -16,7 +16,7 @@ class MainDashboardScreen extends StatefulWidget {
 }
 
 class _MainDashboardScreenState extends State<MainDashboardScreen> {
-  double percent = 70;
+  double performancePercent = 70;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,8 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
                 RoundedProgressBar(
                   style: RoundedProgressBarStyle(widthShadow: 0),
                   childLeft:
-                      Text("$percent%", style: TextStyle(color: Colors.white)),
-                  percent: percent,
+                      Text("$performancePercent%", style: TextStyle(color: Colors.white)),
+                  percent: performancePercent,
                 ),
               ],
             ),
