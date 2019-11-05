@@ -41,7 +41,7 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Heading(text: 'Task Completeion Performance'),
+                Heading(text: 'Task Completion Performance'),
                 RoundedProgressBar(
                   style: RoundedProgressBarStyle(
                     widthShadow: 0,
@@ -101,7 +101,7 @@ class Heading extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
-        'Task Completion Performance',
+        text,
         textAlign: TextAlign.start,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(
