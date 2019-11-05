@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:student_agenda/auth.dart';
 import 'dashboardScreen.dart';
 import 'util.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -43,43 +47,33 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  void displayLogInFailedToast(Exception e){
+    Fluttertoast.showToast(
+        msg: "Log in failed",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 5,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+
+    print("LOG IN EXCEPTION START--------------");
+    print(e);
+    print("LOG IN EXCEPTION END--------------");
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    final email = TextField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Email",
-        border:
-        OutlineInputBorder(
-          borderRadius: BorderRadius.circular(32.0),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-    );
-
-    final password = TextField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Password",
-        border:
-        OutlineInputBorder(
-          borderRadius: BorderRadius.circular(32.0),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-    );
 
     final loginButton = NavigationButton ( //TODO: Actually check their log in info
       text: 'Login',
       onPressed: (){
-        Navigator.push(context,
+        Future<FirebaseUser> user = authService.googleSignIn();
+        user.then((user) => Navigator.push(context,
           MaterialPageRoute(builder: (context) => DashboardScreen()),
-        );
+        )).catchError((e) => displayLogInFailedToast(e));
+
       },
     );
 
@@ -107,10 +101,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                SizedBox(height: 40.0),
-                email,
-                SizedBox(height: 20.0),
-                password,
                 SizedBox(height: 45.0),
                 loginButton,
                 SizedBox(height: 25.0),
