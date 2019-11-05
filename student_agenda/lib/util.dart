@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
-import 'dashboardScreen.dart';
+import 'courseDashboard.dart';
 import 'addGoalsScreen.dart';
 import 'listedGoalsScreen.dart';
 import 'package:student_agenda/performanceScreen.dart';
-import 'package:student_agenda/mainDashboardScreen.dart';
+import 'package:student_agenda/mainScreen.dart';
 
 /// Button that navigates to another screen
 class NavigationButton extends StatelessWidget {

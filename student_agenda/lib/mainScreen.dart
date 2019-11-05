@@ -43,9 +43,13 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
               children: <Widget>[
                 Heading(text: 'Task Completeion Performance'),
                 RoundedProgressBar(
-                  style: RoundedProgressBarStyle(widthShadow: 0),
-                  childLeft:
-                      Text("$performancePercent%", style: TextStyle(color: Colors.white)),
+                  style: RoundedProgressBarStyle(
+                    widthShadow: 0,
+                    colorProgress: Colors.green,
+                    backgroundProgress: Color(0xffc8e6c9),
+                  ),
+                  childLeft: Text("$performancePercent%",
+                      style: TextStyle(color: Colors.white)),
                   percent: performancePercent,
                 ),
               ],
@@ -57,7 +61,11 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
           Center(
             child: (Task.dates.length > 1)
                 ? FlatButton(
-                    color: Colors.blue,
+              color: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(10.0),
+                side: BorderSide(color: Colors.green, width: 3),
+              ),
                     textColor: Colors.white,
                     padding: EdgeInsets.all(8.0),
                     splashColor: Colors.blueAccent,
