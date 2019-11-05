@@ -111,8 +111,12 @@ class _CalPageState extends State<CalPage> with TickerProviderStateMixin{
       DateTime selectedDate = _calendarController.focusedDay;
       formatted = formatter.format(selectedDate);
     } else {
-      ////////////////////////////////////////////////////////////////////////////////////////////without this get malformed message????????? Even though empty if?????????????
+      /*
+      without this get malformed message?
+      Even though empty if?
+
       //_calendarController.setFocusedDay(new DateTime.now());
+      */
     }
     
     return Scaffold(

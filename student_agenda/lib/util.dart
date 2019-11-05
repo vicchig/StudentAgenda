@@ -4,6 +4,7 @@ import 'package:student_agenda/auth.dart';
 import 'package:student_agenda/settingsScreen.dart';
 import 'main.dart';
 import 'dashboardScreen.dart';
+import 'calendarScreen.dart';
 
 /// Button that navigates to another screen
 class NavigationButton extends StatelessWidget{
@@ -115,7 +116,7 @@ class MenuDrawerState extends State<MenuDrawer>{
       menuOptionWidgets.add(
         new Container(
           decoration: new BoxDecoration(
-              color: menuItem == selectedMenuItem ? Colors.blueGrey : Colors.black
+              color: menuItem == selectedMenuItem ? Colors.orange : Colors.green
           ),
           child: new ListTile(
             onTap: () => onSelectMenuItem(menuItem, context),
@@ -165,7 +166,7 @@ class MenuDrawerState extends State<MenuDrawer>{
                 margin:
                 new EdgeInsetsDirectional.only(start: 10.0, end: 10.0),
                 height: 0.3,
-                color: Colors.black,
+                color: Colors.green,
               ),
             ),
           ),
@@ -204,6 +205,14 @@ class MenuDrawerState extends State<MenuDrawer>{
           func: (){
             authService.signOut();
             return MaterialPageRoute(builder: (context) => MyHomePage());
+          }
+      ),
+      new MenuItem(
+          text: 'Calendar Screen (temporary link)',
+          colour: Colors.white,
+          func: (){
+            authService.signOut();
+            return MaterialPageRoute(builder: (context) => CalendarScreen());
           }
       ),
     ];
