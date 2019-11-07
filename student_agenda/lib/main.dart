@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:student_agenda/auth.dart';
-import 'dashboardScreen.dart';
+import 'courseDashboard.dart';
 import 'util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -47,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void displayLogInFailedToast(Exception e){
+  void displayLogInFailedToast(Exception e) {
     Fluttertoast.showToast(
         msg: "Log in failed",
         toastLength: Toast.LENGTH_LONG,
@@ -55,8 +54,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         timeInSecForIos: 5,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
 
     print("LOG IN EXCEPTION START--------------");
     print(e);
@@ -65,15 +63,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-    final loginButton = NavigationButton ( //TODO: Actually check their log in info
+    final loginButton = NavigationButton(
       text: 'Login',
-      onPressed: (){
+      onPressed: () {
         Future<FirebaseUser> user = authService.googleSignIn();
-        user.then((user) => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
-        )).catchError((e) => displayLogInFailedToast(e));
-
+        user
+            .then((user) =>
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardScreen()),
+            ))
+            .catchError((e) => displayLogInFailedToast(e));
       },
     );
 
