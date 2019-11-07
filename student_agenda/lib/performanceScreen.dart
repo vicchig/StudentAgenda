@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:async';
+import 'package:student_agenda/util.dart';
 
 class PerformanceScreen extends StatefulWidget {
   PerformanceScreen({Key key, this.title}) : super(key: key);
@@ -78,6 +79,10 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
         centerTitle: true,
         title: Text('Performance'),
       ),
+
+      //draw the sidebar menu options
+      drawer: MenuDrawer(),
+
       body: Column(
         children: <Widget>[
           Row(
