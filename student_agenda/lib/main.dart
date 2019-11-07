@@ -64,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final loginButton = NavigationButton(
-      //TODO: Actually check their log in info
       text: 'Login',
       onPressed: () {
         Future<FirebaseUser> user = authService.googleSignIn();
