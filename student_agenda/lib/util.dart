@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'calendarScreen.dart';
 import 'courseDashboard.dart';
 import 'addGoalsScreen.dart';
 import 'listedGoalsScreen.dart';
 import 'package:student_agenda/performanceScreen.dart';
 import 'package:student_agenda/mainScreen.dart';
+
 
 /// Button that navigates to another screen
 class NavigationButton extends StatelessWidget {
@@ -125,9 +127,8 @@ class MenuDrawerState extends State<MenuDrawer> {
       menuOptionWidgets.add(
         new Container(
           decoration: new BoxDecoration(
-              color: menuItem == selectedMenuItem
-                  ? Colors.blueGrey
-                  : Colors.black),
+              color: menuItem == selectedMenuItem ? 
+                Colors.orange : Colors.green),
           child: new ListTile(
             onTap: () => onSelectMenuItem(menuItem, context),
             title: Text(
@@ -176,7 +177,7 @@ class MenuDrawerState extends State<MenuDrawer> {
               child: new Container(
                 margin: new EdgeInsetsDirectional.only(start: 10.0, end: 10.0),
                 height: 0.3,
-                color: Colors.black,
+                color: Colors.green,
               ),
             ),
           ),
@@ -204,13 +205,14 @@ class MenuDrawerState extends State<MenuDrawer> {
           text: 'Settings',
           colour: Colors.white,
           func: () {
-            return MaterialPageRoute(builder: (context) => MyHomePage());
-          }),
+            return MaterialPageRoute(builder: (context) => SettingsScreen());
+          }),      
       new MenuItem(
-          text: 'Log Out',
+          text: 'Calendar Screen (temporary link)',
           colour: Colors.white,
-          func: () {
-            return MaterialPageRoute(builder: (context) => MyHomePage());
+          func: (){
+            authService.signOut();
+            return MaterialPageRoute(builder: (context) => CalendarScreen());
           }),
       new MenuItem(
           text: 'Add Goal (For Demo Only)',
@@ -229,6 +231,12 @@ class MenuDrawerState extends State<MenuDrawer> {
           colour: Colors.white,
           func: () {
             return MaterialPageRoute(builder: (context) => PerformanceScreen());
+          }),
+      new MenuItem(
+          text: 'Log Out',
+          colour: Colors.white,
+          func: () {
+            return MaterialPageRoute(builder: (context) => MyHomePage());
           }),
       new MenuItem(
           text: 'Dashboard (For Demo Only)',
