@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:student_agenda/Screens/landingScreen.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import 'Screens/courseDashboard.dart';
 import 'Utilities/util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:student_agenda/Screens/mainScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -71,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             .then((user) =>
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DashboardScreen()),
+              MaterialPageRoute(builder: (context) => LandingScreen()),
             ))
             .catchError((e) => displayLogInFailedToast(e));
       },
