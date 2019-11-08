@@ -52,13 +52,13 @@ class AuthService {
 
     doTransaction("Successfully updated user data on sign in.",
                   "ERROR: Failed to update user data on sign in.",
-                  (){updateUserData(user);});
+                  (){setUserData(user);});
 
     print("signed in " + user.displayName);
 
     doTransaction("Successfully updated course information on sign in.",
                   "ERROR: Failed to update course information on sign in",
-                  (){updateUserClassroomData(user);});
+                  (){setUserClassroomData(user);});
     
     loading.add(false);
     return user;

@@ -16,7 +16,7 @@ void doTransaction(String onSuccess, String onError, Function transaction){
   }
 }
 
-void updateUserData(FirebaseUser user) async {
+void setUserData(FirebaseUser user) async {
   DocumentReference ref = Firestore.instance.collection('users').
                           document(user.uid);
 
@@ -29,7 +29,7 @@ void updateUserData(FirebaseUser user) async {
   }, merge: true);
 }
 
-void updateUserClassroomData(FirebaseUser user) async{
+void setUserClassroomData(FirebaseUser user) async{
   DocumentReference ref = Firestore.instance.collection("users").
                           document(user.uid);
 
