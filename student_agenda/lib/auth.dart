@@ -56,9 +56,31 @@ class AuthService {
 
     print("signed in " + firebaseUser.displayName);
 
+    //update user classes on log in
     doTransaction("Successfully updated course information on sign in.",
                   "ERROR: Failed to update course information on sign in",
                   (){setUserClassroomData(firebaseUser);});
+
+    doTransaction("Successfully updated user course work data.",
+                  "ERROR: Failed to update user course work data.",
+                  (){setUserCourseWorkData(firebaseUser);});
+
+    doTransaction("Successfully updated user announcement data.",
+                  "ERROR: Failed to update user announcement data.",
+                  (){setUserAnnouncementData(firebaseUser);});
+
+    doTransaction("Successfully updated user classmates data.",
+                  "ERROR: Failed to update user classmates data.",
+                  (){setUserClassStudents(firebaseUser);});
+
+    doTransaction("Successfully updated user teachers data.",
+                  "ERROR: Failed to update user teachers data.",
+                  (){setUserClassTeachers(firebaseUser);});
+
+    doTransaction("Successfully updated user course topics data.",
+                  "ERROR: Failed to update user course topics data.",
+                  (){setUserClassTopics(firebaseUser);});
+
     
     loading.add(false);
     return firebaseUser;
