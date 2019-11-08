@@ -79,7 +79,7 @@ class ClassroomApiAccess{
     return courseWorks;
   }
 
-  List<classroom.Announcement> getAnnouncements(){
+  Future<List<classroom.Announcement>> getAnnouncements() async {
     List<classroom.Announcement> announcements =
                                             new List<classroom.Announcement>();
 
@@ -93,7 +93,7 @@ class ClassroomApiAccess{
     return announcements;
   }
 
-  List<classroom.Student> getStudents(){
+  Future<List<classroom.Student>> getStudents() async {
     List<classroom.Student> students = new List<classroom.Student>();
 
     for(int i = 0; i < 8; i++){ //for every dummy course
@@ -110,7 +110,7 @@ class ClassroomApiAccess{
     return students;
   }
 
-  List<classroom.Teacher> getTeachers(){
+  Future<List<classroom.Teacher>> getTeachers() async {
     List<classroom.Teacher> teachers = new List<classroom.Teacher>();
 
     for(int i = 0; i < 8; i++){ //for every dummy course
@@ -124,7 +124,7 @@ class ClassroomApiAccess{
     return teachers;
   }
 
-  List<classroom.Topic> getTopics(){
+  Future<List<classroom.Topic>> getTopics() async {
     List<classroom.Topic> topics = new List<classroom.Topic>();
 
     for(int i = 0; i < 8; i++){ //for every dummy course
