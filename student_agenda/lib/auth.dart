@@ -53,6 +53,7 @@ class AuthService {
     doTransaction("Successfully updated user data on sign in.",
                   "ERROR: Failed to update user data on sign in.",
                   (){updateUserData(user);});
+
     print("signed in " + user.displayName);
 
     doTransaction("Successfully updated course information on sign in.",
@@ -67,35 +68,6 @@ class AuthService {
     return _googleSignIn.currentUser.authHeaders;
   }
 
-  void updateUserData(FirebaseUser user) async {
-    DocumentReference ref = _db.collection('users').document(user.uid);
-
-    await ref.setData({
-      'uid': user.uid,
-      'email': user.email,
-      'photoURL': user.photoUrl,
-      'displayName': user.displayName,
-      'lastSeen': DateTime.now()
-    }, merge: true);
-
-  }
-
-  void updateUserClassroomData(FirebaseUser user) async{
-    DocumentReference ref = _db.collection("users").document(user.uid);
-    ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-    List<classroom.Course> userCourses = await classroomInst.getCourses();
-    Map<int, classroom.Course> map = userCourses.asMap();
-    Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
-
-    List<int> keys = map.keys.toList();
-    keys.forEach((int index){
-      mapToUpload[index.toString()] = map[index].toJson();
-    });
-
-    ref.setData({
-      "CourseObjects": mapToUpload
-    }, merge: true);
-  }
 
   void signOut() {
     _auth.signOut();
