@@ -43,7 +43,7 @@ class AuthService {
     loading.add(true);
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    FirebaseUser user = (await _auth.signInWithCredential(
+     firebaseUser = (await _auth.signInWithCredential(
         GoogleAuthProvider.getCredential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken
@@ -52,16 +52,16 @@ class AuthService {
 
     doTransaction("Successfully updated user data on sign in.",
                   "ERROR: Failed to update user data on sign in.",
-                  (){setUserData(user);});
+                  (){setUserData(firebaseUser);});
 
-    print("signed in " + user.displayName);
+    print("signed in " + firebaseUser.displayName);
 
     doTransaction("Successfully updated course information on sign in.",
                   "ERROR: Failed to update course information on sign in",
-                  (){setUserClassroomData(user);});
+                  (){setUserClassroomData(firebaseUser);});
     
     loading.add(false);
-    return user;
+    return firebaseUser;
   }
 
   Future<Map<String, String>> getAuthHeaders(){
@@ -90,3 +90,4 @@ class GoogleHttpClient extends IOClient {
 }
 
 final AuthService authService = AuthService();
+FirebaseUser firebaseUser;
