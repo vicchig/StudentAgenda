@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'calendarScreen.dart';
-import 'courseDashboard.dart';
-import 'addGoalsScreen.dart';
-import 'listedGoalsScreen.dart';
-import 'package:student_agenda/performanceScreen.dart';
-import 'package:student_agenda/mainScreen.dart';
+import '../main.dart';
+import '../Screens/calendarScreen.dart';
+import '../Screens/courseDashboard.dart';
+import '../Screens/addGoalsScreen.dart';
+import '../Screens/listedGoalsScreen.dart';
+import 'package:student_agenda/Screens/performanceScreen.dart';
+import 'package:student_agenda/Screens/mainScreen.dart';
 
-import 'settingsScreen.dart';
+import '../Screens/settingsScreen.dart';
 import 'auth.dart';
 
 /// Button that navigates to another screen

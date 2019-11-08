@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:student_agenda/auth.dart';
-import 'courseDashboard.dart';
-import 'util.dart';
+import 'package:student_agenda/Utilities/auth.dart';
+import 'Screens/courseDashboard.dart';
+import 'Utilities/util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());

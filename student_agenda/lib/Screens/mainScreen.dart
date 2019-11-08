@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
-import 'package:student_agenda/listedGoalsScreen.dart';
-import 'package:student_agenda/performanceScreen.dart';
+import 'package:student_agenda/Screens/listedGoalsScreen.dart';
+import 'package:student_agenda/Screens/performanceScreen.dart';
 import 'package:student_agenda/tasks.dart';
-import 'package:student_agenda/util.dart';
+import 'package:student_agenda/Utilities/util.dart';
 
 class MainDashboardScreen extends StatefulWidget {
   MainDashboardScreen({Key key, this.title}) : super(key: key);

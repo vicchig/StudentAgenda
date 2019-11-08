@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'util.dart';
+import '../Utilities/util.dart';
 import 'courseGoalsScreen.dart';
 
 import 'dart:collection';
