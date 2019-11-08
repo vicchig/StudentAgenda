@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_agenda/ClassroomApiAccess.dart';
+import 'package:student_agenda/FirestoreManager.dart';
+import 'package:student_agenda/auth.dart';
 import 'util.dart';
 import 'courseGoalsScreen.dart';
+import 'package:googleapis/classroom/v1.dart' as classroom;
+
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -11,8 +17,25 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class DashboardScreenState extends State<DashboardScreen> {
+  List<classroom.Course> _courses = new List<classroom.Course>();
+
+  void processFuture() async {
+    List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
+    setState(()  {
+      _courses = tempCourses;
+    });
+  }
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    processFuture();
+  }
+
+  @override
+  Widget build(BuildContext context){
+
+
     return Scaffold( //Sidebar menu scaffold
       appBar: new AppBar(
         title: new Text('My Courses'),
@@ -41,22 +64,18 @@ class DashboardScreenState extends State<DashboardScreen> {
   ///
   /// @param context  current application context
   /// @return         a list of NavigationButtons (one per course)
-  List<Widget> getCourses(BuildContext context){ //TODO: Load students' courses off of Google Classroom and do the logic for adding them to the widget here
-    final courses = ['Course 1', 'Course 2', 'Course 3', 'Course 4', 'Course 5',
-      'Course 6', 'Course 7', 'Course 8'];
+  List<Widget> getCourses(BuildContext context) { //TODO: Load students' courses off of Google Classroom and do the logic for adding them to the widget here
     final courseColours = [Colors.greenAccent, Colors.lightBlueAccent, Colors.orangeAccent,
       Colors.redAccent, Colors.amberAccent, Colors.indigoAccent, Colors.pinkAccent, Colors.limeAccent];
 
     final List<Widget> courseButtons = [];
     int coloursI = 0;
-    for(var course in courses){
+    for(classroom.Course course in _courses){
       courseButtons.add(
         new NavigationButton(
-          text: course,
+          text: course.name,
           colour: courseColours[coloursI],
-          onPressed: (){
-            ClassroomApiAccess instance = ClassroomApiAccess.getInstance();
-            instance.getCourses();
+          onPressed: () {
             Navigator.push(context,
               MaterialPageRoute(builder: (context) => CourseGoalsScreen()),
             );
