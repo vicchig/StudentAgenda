@@ -40,6 +40,7 @@ class ClassroomApiAccess{
       courses[i].courseGroupEmail = "classmail@gmail.com" + i.toString();
       courses[i].enrollmentCode = "enrollment code" + i.toString();
       courses[i].description = "Course description" + i.toString();
+      courses[i].name = "Course Name " + i.toString();
     }
 
     return courses;
@@ -89,6 +90,19 @@ class ClassroomApiAccess{
     return courseWorks;
   }
 
+  List<classroom.Announcement> getAssignments(){
+    List<classroom.Announcement> announcements =
+                                            new List<classroom.Announcement>();
 
+    for(int i = 0; i < 8; i++){ //for every dummy course
+      for(int j = 0; j < 5; j++){ //create 5 course works
+        announcements.add(new classroom.Announcement());
+        announcements[i + j].courseId = i.toString();
+        announcements[i + j].text = "Announcement Text";
+      }
+    }
+    return announcements;
+  }
 
+  
 }
