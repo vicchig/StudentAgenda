@@ -12,7 +12,7 @@ import 'settingsScreen.dart';
 import 'auth.dart';
 
 /// Button that navigates to another screen
-class NavigationButton extends StatelessWidget {
+class CustomMaterialButton extends StatelessWidget {
   ///Button Text, default='NavigationText'
   final String text;
 
@@ -28,7 +28,7 @@ class NavigationButton extends StatelessWidget {
   ///Method that is ran when the button is pressed
   final GestureTapCallback onPressed;
 
-  NavigationButton(
+  CustomMaterialButton(
       {this.text = 'Navigation Button',
       @required this.onPressed,
       this.elevation = 5.0,

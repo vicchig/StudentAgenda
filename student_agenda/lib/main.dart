@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final loginButton = NavigationButton(
+    final loginButton = CustomMaterialButton(
       text: 'Login',
       onPressed: () {
         Future<FirebaseUser> user = authService.googleSignIn();

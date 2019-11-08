@@ -49,7 +49,7 @@ class AddSubtaskState extends State<AddSubtaskScreen> {
         new Container(
             width: 50,
             margin: EdgeInsets.all(24),
-            child: new NavigationButton(
+            child: new CustomMaterialButton(
               onPressed: () {
                 if (subtaskController.text != "") {
                   subTasks.add(subtaskController.text);

@@ -50,7 +50,7 @@ class DashboardScreenState extends State<DashboardScreen> {
     int coloursI = 0;
     for(var course in courses){
       courseButtons.add(
-        new NavigationButton(
+        new CustomMaterialButton(
           text: course,
           colour: courseColours[coloursI],
           onPressed: (){

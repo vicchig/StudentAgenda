@@ -51,7 +51,7 @@ class TeacherClassesState extends State<TeacherClassesScreen> {
     int coloursI = 0;
     for (var teacherClass in classes) {
       classButtons.add(
-        new NavigationButton(
+        new CustomMaterialButton(
           text: teacherClass,
           colour: Colors.greenAccent,
           onPressed: () {
