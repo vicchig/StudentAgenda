@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void displayLogInFailedToast(Exception e) {
+  void displayLogInFailedToast(var e) {
     Fluttertoast.showToast(
         msg: "Log in failed",
         toastLength: Toast.LENGTH_LONG,
