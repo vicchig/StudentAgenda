@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_agenda/util.dart';
+import 'package:student_agenda/Utilities/util.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override

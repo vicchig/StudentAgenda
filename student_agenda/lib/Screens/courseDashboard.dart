@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'util.dart';
+import '../Utilities/util.dart';
 import 'courseGoalsScreen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -50,7 +50,7 @@ class DashboardScreenState extends State<DashboardScreen> {
     int coloursI = 0;
     for(var course in courses){
       courseButtons.add(
-        new NavigationButton(
+        new CustomMaterialButton(
           text: course,
           colour: courseColours[coloursI],
           onPressed: (){

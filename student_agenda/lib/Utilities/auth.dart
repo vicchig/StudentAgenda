@@ -49,15 +49,15 @@ class AuthService {
     updateUserData(user);
     print("signed in " + user.displayName);
 
-    final authHeaders = _googleSignIn.currentUser.authHeaders;
+    // TODO: remove this line -- example code
+    /* final authHeaders = _googleSignIn.currentUser.authHeaders;
     final httpClient = new GoogleHttpClient(await authHeaders);
 
     final data = await new classroom.ClassroomApi(httpClient).courses.list(
       pageSize: 10,
     );
 
-    // TODO: remove this line -- example code
-    data.courses.forEach((course) => print(course.name));
+    data.courses.forEach((course) => print(course.name));*/
 
     loading.add(false);
     return user;

@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'calendarScreen.dart';
-import 'courseDashboard.dart';
-import 'addGoalsScreen.dart';
-import 'listedGoalsScreen.dart';
-import 'package:student_agenda/performanceScreen.dart';
-import 'package:student_agenda/mainScreen.dart';
+import '../main.dart';
+import '../Screens/calendarScreen.dart';
+import '../Screens/courseDashboard.dart';
+import '../Screens/addGoalsScreen.dart';
+import '../Screens/listedGoalsScreen.dart';
+import 'package:student_agenda/Screens/performanceScreen.dart';
+import 'package:student_agenda/Screens/mainScreen.dart';
 
-import 'settingsScreen.dart';
+import '../Screens/settingsScreen.dart';
 import 'auth.dart';
 
 /// Button that navigates to another screen
-class NavigationButton extends StatelessWidget {
+class CustomMaterialButton extends StatelessWidget {
   ///Button Text, default='NavigationText'
   final String text;
 
@@ -28,7 +28,7 @@ class NavigationButton extends StatelessWidget {
   ///Method that is ran when the button is pressed
   final GestureTapCallback onPressed;
 
-  NavigationButton(
+  CustomMaterialButton(
       {this.text = 'Navigation Button',
       @required this.onPressed,
       this.elevation = 5.0,
