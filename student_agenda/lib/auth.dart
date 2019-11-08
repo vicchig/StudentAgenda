@@ -7,6 +7,8 @@ import 'package:googleapis/classroom/v1.dart' as classroom;
 import 'package:http/http.dart'
     show BaseRequest, IOClient, Response, StreamedResponse;
 import 'package:http/io_client.dart';
+import 'package:student_agenda/ClassroomApiAccess.dart';
+import 'package:student_agenda/util.dart';
 import 'FirestoreManager.dart';
 
 class AuthService {
@@ -51,16 +53,11 @@ class AuthService {
     doTransaction("Successfully updated user data on sign in.",
                   "ERROR: Failed to update user data on sign in.",
                   (){updateUserData(user);});
-
-   /* Firestore.instance.runTransaction((Transaction trans) async {
-      updateUserData(user);
-    }).then((val) => (){
-      print("Successfully updated user data on sign in.");
-    }).catchError((error) => (){
-      print("ERROR: Failed to update user data on sign in.");
-      print(error);
-    });*/
     print("signed in " + user.displayName);
+
+    doTransaction("Successfully updated course information on sign in.",
+                  "ERROR: Failed to update course information on sign in",
+                  (){updateUserClassroomData(user);});
     
     loading.add(false);
     return user;
@@ -84,7 +81,20 @@ class AuthService {
   }
 
   void updateUserClassroomData(FirebaseUser user) async{
+    DocumentReference ref = _db.collection("users").document(user.uid);
+    ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
+    List<classroom.Course> userCourses = await classroomInst.getCourses();
+    Map<int, classroom.Course> map = userCourses.asMap();
+    Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
+    List<int> keys = map.keys.toList();
+    keys.forEach((int index){
+      mapToUpload[index.toString()] = map[index].toJson();
+    });
+
+    ref.setData({
+      "CourseObjects": mapToUpload
+    }, merge: true);
   }
 
   void signOut() {
