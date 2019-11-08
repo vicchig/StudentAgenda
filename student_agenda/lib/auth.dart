@@ -51,10 +51,10 @@ class AuthService {
 
     final authHeaders = _googleSignIn.currentUser.authHeaders;
     final httpClient = new GoogleHttpClient(await authHeaders);
-/*
+
     final data = await new classroom.ClassroomApi(httpClient).courses.list(
       pageSize: 10,
-    );
+    );/*
 
     // TODO: remove this line -- example code
     data.courses.forEach((course) => print(course.name));

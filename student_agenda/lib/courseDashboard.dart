@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_agenda/ClassroomApiAccess.dart';
 import 'util.dart';
 import 'courseGoalsScreen.dart';
 
@@ -54,6 +55,8 @@ class DashboardScreenState extends State<DashboardScreen> {
           text: course,
           colour: courseColours[coloursI],
           onPressed: (){
+            ClassroomApiAccess instance = ClassroomApiAccess.getInstance();
+            instance.getCourses();
             Navigator.push(context,
               MaterialPageRoute(builder: (context) => CourseGoalsScreen()),
             );
