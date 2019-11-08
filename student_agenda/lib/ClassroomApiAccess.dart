@@ -3,6 +3,10 @@ import 'package:googleapis/classroom/v1.dart' as classroom;
 
 final Future<Map<String, String>> _authHeaders = authService.getAuthHeaders();
 
+
+/*TODO: This class currently implements dummy functions. In the future we need
+* to actually pull data from Google Classroom
+*/
 class ClassroomApiAccess{
   static ClassroomApiAccess _instance;
 
@@ -52,7 +56,7 @@ class ClassroomApiAccess{
     return null;
   }
 
-  
+
   Future<List<classroom.CourseWork>> getCourseWork() async {
     List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
 
@@ -84,5 +88,7 @@ class ClassroomApiAccess{
     }
     return courseWorks;
   }
+
+
 
 }
