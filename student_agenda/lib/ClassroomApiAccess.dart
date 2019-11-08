@@ -95,7 +95,7 @@ class ClassroomApiAccess{
                                             new List<classroom.Announcement>();
 
     for(int i = 0; i < 8; i++){ //for every dummy course
-      for(int j = 0; j < 5; j++){ //create 5 course works
+      for(int j = 0; j < 5; j++){ //create 5 announcements per course
         announcements.add(new classroom.Announcement());
         announcements[i + j].courseId = i.toString();
         announcements[i + j].text = "Announcement Text";
@@ -104,5 +104,16 @@ class ClassroomApiAccess{
     return announcements;
   }
 
-  
+  List<classroom.Student> getStudents(){
+    List<classroom.Student> students = new List<classroom.Student>();
+
+    for(int i = 0; i < 8; i++){ //for every dummy course
+      for(int j = 0; j < 5; j++){ //create 5 students per course
+        students.add(new classroom.Student());
+        students[i + j].courseId = i.toString();
+        students[i + j].userId = "user@gmail.com";
+      }
+    }
+    return students;
+  }
 }
