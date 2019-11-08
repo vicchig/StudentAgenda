@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/observer.dart';
 import 'package:student_agenda/auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
 
@@ -111,9 +112,27 @@ class ClassroomApiAccess{
       for(int j = 0; j < 5; j++){ //create 5 students per course
         students.add(new classroom.Student());
         students[i + j].courseId = i.toString();
-        students[i + j].userId = "user@gmail.com";
+        students[i + j].userId = "UID" + (i+j).toString();
+        students[i + j].profile = new classroom.UserProfile();
+        students[i + j].profile.name = new classroom.Name();
+        students[i + j].profile.name.fullName = "ARIAN";
+        students[i + j].profile.emailAddress = "arian@skype.skype.com";
       }
     }
     return students;
+  }
+
+  List<classroom.Teacher> getTeachers(){
+    List<classroom.Teacher> teachers = new List<classroom.Teacher>();
+
+    for(int i = 0; i < 8; i++){ //for every dummy course
+      teachers.add(new classroom.Teacher());
+      teachers[i].courseId = i.toString();
+      teachers[i].profile = new classroom.UserProfile();
+      teachers[i].profile.name = new classroom.Name();
+      teachers[i].profile.name.fullName = "Teacher of Course " + i.toString();
+    }
+
+    return teachers;
   }
 }
