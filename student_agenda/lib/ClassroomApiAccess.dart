@@ -135,4 +135,18 @@ class ClassroomApiAccess{
 
     return teachers;
   }
+
+  List<classroom.Topic> getTopics(){
+    List<classroom.Topic> topics = new List<classroom.Topic>();
+
+    for(int i = 0; i < 8; i++){ //for every dummy course
+      for(int j = 0; j < 5; j++){ //create 5 topics per course
+        topics.add(new classroom.Topic());
+        topics[i + j].name = "Topic Name " + j.toString();
+        topics[i + j].courseId = i.toString();
+      }
+    }
+
+    return topics;
+  }
 }
