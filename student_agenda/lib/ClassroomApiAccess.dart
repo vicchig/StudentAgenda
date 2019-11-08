@@ -47,18 +47,6 @@ class ClassroomApiAccess{
     return courses;
   }
 
-  Future<classroom.Course> getCourseById(String id) async{
-    List<classroom.Course> courses = await getCourses();
-
-    for(int i = 0; i < courses.length; i++){
-      if(courses[i].id == id){
-        return courses[i];
-      }
-    }
-    return null;
-  }
-
-
   Future<List<classroom.CourseWork>> getCourseWork() async {
     List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
 
