@@ -79,7 +79,7 @@ class ClassroomApiAccess{
     return courseWorks;
   }
 
-  List<classroom.Announcement> getAssignments(){
+  List<classroom.Announcement> getAnnouncements(){
     List<classroom.Announcement> announcements =
                                             new List<classroom.Announcement>();
 
