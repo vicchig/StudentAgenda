@@ -102,7 +102,7 @@ class ClassroomApiAccess{
       for(int j = 0; j < 5; j++){ //create 5 students per course
         students.add(new classroom.Student());
         students[count].courseId = i.toString();
-        students[count].userId = "UID" + (i+j).toString();
+        students[count].userId = "UID" + (count).toString();
         students[count].profile = new classroom.UserProfile();
         students[count].profile.name = new classroom.Name();
         students[count].profile.name.fullName = "ARIAN";
