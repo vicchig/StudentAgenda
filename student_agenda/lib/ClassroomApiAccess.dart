@@ -49,31 +49,32 @@ class ClassroomApiAccess{
 
   Future<List<classroom.CourseWork>> getCourseWork() async {
     List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
-
+    int count = 0;
     for(int i = 0; i < 8; i++){ //for every dummy course
       for(int j = 0; j < 5; j++){ //create 5 course works
         courseWorks.add(new classroom.CourseWork());
-        courseWorks[i + j].courseId = i.toString();
-        courseWorks[i + j].description = "Assignment Description";
+        courseWorks[count].courseId = i.toString();
+        courseWorks[count].description = "Assignment Description";
 
         classroom.Date date = new classroom.Date();
         date.month = 1;
         date.day = 15;
         date.year = 1990;
-        courseWorks[i + j].dueDate = date;
+        courseWorks[count].dueDate = date;
 
-        courseWorks[i + j].id = i.toString() + j.toString();
-        courseWorks[i + j].maxPoints = 10.0;
+        courseWorks[count].id = i.toString() + j.toString();
+        courseWorks[count].maxPoints = 10.0;
 
         classroom.TimeOfDay time = new classroom.TimeOfDay();
         time.hours = 10;
         time.minutes = 59;
         time.seconds = 59;
-        courseWorks[i + j].dueTime = time;
+        courseWorks[count].dueTime = time;
 
-        courseWorks[i + j].scheduledTime = "Scheduled Time";
-        courseWorks[i + j].workType = "ASSIGNMENT";
-        courseWorks[i + j].assigneeMode = "ALL_STUDENTS";
+        courseWorks[count].scheduledTime = "Scheduled Time";
+        courseWorks[count].workType = "ASSIGNMENT";
+        courseWorks[count].assigneeMode = "ALL_STUDENTS";
+        count++;
       }
     }
     return courseWorks;
@@ -82,12 +83,13 @@ class ClassroomApiAccess{
   Future<List<classroom.Announcement>> getAnnouncements() async {
     List<classroom.Announcement> announcements =
                                             new List<classroom.Announcement>();
-
+    int count = 0;
     for(int i = 0; i < 8; i++){ //for every dummy course
-      for(int j = 0; j < 5; j++){ //create 5 announcements per course
+      for(int j = 0; j < 2; j++){ //create 5 announcements per course
         announcements.add(new classroom.Announcement());
-        announcements[i + j].courseId = i.toString();
-        announcements[i + j].text = "Announcement Text";
+        announcements[count].courseId = i.toString();
+        announcements[count].text = "Announcement Text";
+        count++;
       }
     }
     return announcements;
@@ -95,16 +97,17 @@ class ClassroomApiAccess{
 
   Future<List<classroom.Student>> getStudents() async {
     List<classroom.Student> students = new List<classroom.Student>();
-
+    int count =  0;
     for(int i = 0; i < 8; i++){ //for every dummy course
       for(int j = 0; j < 5; j++){ //create 5 students per course
         students.add(new classroom.Student());
-        students[i + j].courseId = i.toString();
-        students[i + j].userId = "UID" + (i+j).toString();
-        students[i + j].profile = new classroom.UserProfile();
-        students[i + j].profile.name = new classroom.Name();
-        students[i + j].profile.name.fullName = "ARIAN";
-        students[i + j].profile.emailAddress = "arian@skype.skype.com";
+        students[count].courseId = i.toString();
+        students[count].userId = "UID" + (i+j).toString();
+        students[count].profile = new classroom.UserProfile();
+        students[count].profile.name = new classroom.Name();
+        students[count].profile.name.fullName = "ARIAN";
+        students[count].profile.emailAddress = "arian@skype.skype.com";
+        count++;
       }
     }
     return students;
@@ -126,12 +129,13 @@ class ClassroomApiAccess{
 
   Future<List<classroom.Topic>> getTopics() async {
     List<classroom.Topic> topics = new List<classroom.Topic>();
-
+    int count = 0;
     for(int i = 0; i < 8; i++){ //for every dummy course
       for(int j = 0; j < 5; j++){ //create 5 topics per course
         topics.add(new classroom.Topic());
-        topics[i + j].name = "Topic Name " + j.toString();
-        topics[i + j].courseId = i.toString();
+        topics[count].name = "Topic Name " + j.toString();
+        topics[count].courseId = i.toString();
+        count++;
       }
     }
 

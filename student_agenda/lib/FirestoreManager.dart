@@ -164,3 +164,103 @@ Future<List<classroom.Course>> pullCourses(FirebaseUser user) async{
   }
   return courses;
 }
+
+Future<List<classroom.CourseWork>> pullCourseWorkData(FirebaseUser user) async{
+  List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
+  Map<dynamic, dynamic> courseObjectListMap;
+  try {
+    await Firestore.instance.collection("users").document(user.uid).get().then((
+        result) {
+      courseObjectListMap = result.data["CourseWorkObjects"];
+    });
+
+
+    courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
+      courseWorks.add(classroom.CourseWork.fromJson(entry.value));
+    });
+    print("Successfully pulled course works.");
+  }catch(e){
+    print(e);
+  }
+  return courseWorks;
+}
+
+Future<List<classroom.Announcement>> pullCourseAnnouncements(FirebaseUser user) async{
+  List<classroom.Announcement> courseAnnouncements = new List<classroom.Announcement>();
+  Map<dynamic, dynamic> courseObjectListMap;
+  try {
+    await Firestore.instance.collection("users").document(user.uid).get().then((
+        result) {
+      courseObjectListMap = result.data["AnnouncementObjects"];
+    });
+
+
+    courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
+      courseAnnouncements.add(classroom.Announcement.fromJson(entry.value));
+    });
+    print("Successfully pulled course announcements.");
+  }catch(e){
+    print(e);
+  }
+  return courseAnnouncements;
+}
+
+Future<List<classroom.Student>> pullClassmates(FirebaseUser user) async{
+  List<classroom.Student> courseStudents = new List<classroom.Student>();
+  Map<dynamic, dynamic> courseObjectListMap;
+  try {
+    await Firestore.instance.collection("users").document(user.uid).get().then((
+        result) {
+      courseObjectListMap = result.data["StudentObjects"];
+    });
+
+
+    courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
+      courseStudents.add(classroom.Student.fromJson(entry.value));
+    });
+    print("Successfully pulled students.");
+  }catch(e){
+    print(e);
+  }
+  return courseStudents;
+}
+
+Future<List<classroom.Teacher>> pullTeachers(FirebaseUser user) async{
+  List<classroom.Teacher> courseTeachers = new List<classroom.Teacher>();
+  Map<dynamic, dynamic> courseObjectListMap;
+  try {
+    await Firestore.instance.collection("users").document(user.uid).get().then((
+        result) {
+      courseObjectListMap = result.data["TeacherObjects"];
+    });
+
+
+    courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
+      courseTeachers.add(classroom.Teacher.fromJson(entry.value));
+    });
+    print("Successfully pulled teachers.");
+  }catch(e){
+    print(e);
+  }
+  return courseTeachers;
+}
+
+Future<List<classroom.Topic>> pullTopics(FirebaseUser user) async{
+  List<classroom.Topic> courseTopics = new List<classroom.Topic>();
+  Map<dynamic, dynamic> courseObjectListMap;
+  try {
+    await Firestore.instance.collection("users").document(user.uid).get().then((
+        result) {
+      courseObjectListMap = result.data["TopicObjects"];
+    });
+
+
+    courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
+      courseTopics.add(classroom.Topic.fromJson(entry.value));
+    });
+    print("Successfully pulled topics.");
+  }catch(e){
+    print(e);
+  }
+  return courseTopics;
+}
