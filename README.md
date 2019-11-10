@@ -8,19 +8,6 @@ For a physical agenda to work it has to be constantly updated manually by the st
 Teachers would use the platform to post marks for each assignment and parents would be able to track their child's progress for every class that is available on the platform.
 
 
-![LogIn](./Images/csc301_login.png)</br>
-*Log In Screen*</br>
-
-![MenuScreen](./Images/csc301_concept.png)</br>
-*Menu Screen*</br>
-
-![Calendar](./Images/csc301calconcept.png)</br>
-*Goal Screen*</br>
-
-![Chat](./Images/csc301_chat_room.png)</br>
-*Chat Screen*</br>
-
-
 ## Usage
 
 To use the app in the current state...(TODO add usage instructions)
