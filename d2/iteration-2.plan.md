@@ -33,7 +33,7 @@ Created the teacher view which includes the teacher dashboard screen that shows 
 *   Technical Strengths:
     *   Java, OOP, Python
 *   Technical Weaknesses:
-    *   Mobile dev (not done since 207)
+    *   Mobile dev (not done since 207), web dev, iOS
 
 **Joshua Prier**:
 Responsible for project set up including: Firebase set up, Flutter project set up, planning out the backend for the application. 
