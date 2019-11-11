@@ -152,7 +152,7 @@ Create calendar screen which will act as a replacement for what an agenda would 
 
 ####
 **Events**
-We will be online using Discord to communicate with our team members. Communication will be done when necessary and we will also have weekly meetings on Friday from 6pm to 7pm. On the Friday meeting, we will conduct a code review and discuss what we have done. We will all comment on each other's work and discuss any problems we have if any. Next, we will discuss what we are planning to do in the following week and talk about any issues we might run into.
+We will be online using Discord to communicate with our team members. Communication will be done when necessary and we will also have weekly meetings on Friday from 6pm to 7pm. On the Friday meeting, we will discuss what we are planning to do in the following week and talk about any issues we might run into.
 
 ###
 **Partner Meetings**
@@ -284,6 +284,6 @@ TODO
 
 ####
 **Artifacts**
-*   We have rough sketches of our app we used to plan out what everyone does: http://team-project-tdsb-team-1/Images/Screen_view_of_education_app_along_with_git_instructions_.pdf
+*   We have rough [sketches](http://team-project-tdsb-team-1/Images/Screen_view_of_education_app_along_with_git_instructions_.pdf) of our app we used to plan out what everyone does
 
-*   Documentation for ourselves to refer to: https://github.com/csc301-fall-2019/team-project-tdsb-team-1/blob/master/Documentation.md
+*   [Documentation](https://github.com/csc301-fall-2019/team-project-tdsb-team-1/blob/master/Documentation.md) for ourselves to refer to for internal APIs and tutorials for external services we use
