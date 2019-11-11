@@ -8,7 +8,6 @@ const String S_COMPLETED_LATE = "COMPLETED_LATE";
 const String S_IN_PROGRESS_LATE = "IN_PROGRESS_LATE";
 const String PM = "PM";
 const String AM = "AM";
-final Map<String, String> _months = new Map<String, String>();
 
 class Goal{
   String name;
@@ -39,10 +38,6 @@ class Goal{
   //TODO: Set status automatically based on what time it is (ie. past task due date, before task due date, on task due date, etc.)
   void setStatus(){
 
-  }
-
-  String getTextDueDate(){
-    return  "";
   }
 
   String getTime(){
