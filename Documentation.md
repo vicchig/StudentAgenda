@@ -1,5 +1,8 @@
 # Student Agenda
 
+## Helpful Links
+
+* [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)  
 
 
 ## Dev Notes
