@@ -255,20 +255,20 @@ TODO
 ####
 **Goals and tasks**
 * Goals:
-    * Create screens for all the pages in the frontend.
-    * **Tasks**: Split tasks among teammates to complete the following parts of the project:
-	* Add the following screens to the App:
-    	  * Settings Screen     (settingsScreen.dart)
-    	  * My Courses Screen   (courseDashboard.dart)
-    	  * Calendar Screen     (calendarScreen.dart)
-    	  * Add Goals Screen    (addGoalsScreen.dart)
-    	  * Add Subtask Screen  (addSubtasksScreen.dart)
-    	  * Goal List Screen    (listedGoalsScreen.dart)
-    	  * Performance Screen  (performanceScreen.dart)
-    	  * Home Page           (mainScreen.dart)
-    	  * Bottom bar          (landingScreen.dart)
-    	  * Implement Google classroom/firebase backend
-	* Backend
+  * Create screens for all the pages in the frontend.
+  * **Tasks**: Split tasks among teammates to complete the following parts of the project:
+    * Add the following screens to the App:
+      * Settings Screen     (settingsScreen.dart)
+      * My Courses Screen   (courseDashboard.dart)
+      * Calendar Screen     (calendarScreen.dart)
+      * Add Goals Screen    (addGoalsScreen.dart)
+      * Add Subtask Screen  (addSubtasksScreen.dart)
+      * Goal List Screen    (listedGoalsScreen.dart)
+      * Performance Screen  (performanceScreen.dart)
+      * Home Page           (mainScreen.dart)
+      * Bottom bar          (landingScreen.dart)
+      * Implement Google classroom/firebase backend
+    * Backend
     	* Authentication with Google and Firebase
         	* auth.dart
     	* Complete integration for Google Classroom API (does not include linking to Frontend)
@@ -279,8 +279,8 @@ TODO
     	* API for accessing Firestore from within the app  
        		* FirestoreManager.dart
 	* Frontend Tools:
-	* Bottom Navigation Bar (util.dart)
-	* Side Menu             (util.dart)
+		* Bottom Navigation Bar (util.dart)
+		* Side Menu             (util.dart)
 
 ####
 **Artifacts**
