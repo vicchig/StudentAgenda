@@ -26,7 +26,7 @@ Created the teacher view which includes the teacher dashboard screen that shows 
 
 *   Role(s) and Responsibilities:
     * Frontend Development
-            * Teacher View 
+      * Teacher View 
 * Subtask creation screen for assignments (addSubtaskScreen.dart)
 * Teacher class view screen (classView.dart)
 * Teacher dashboard screen (teacherClassesScreen.dart)   
@@ -258,16 +258,16 @@ TODO
     * Create screens for all the pages in the frontend.
     * **Tasks**: Split tasks among teammates to complete the following parts of the project:
 	* Add the following screens to the App:
-    		* Settings Screen     (settingsScreen.dart)
-    		* My Courses Screen   (courseDashboard.dart)
-    		* Calendar Screen     (calendarScreen.dart)
-    		* Add Goals Screen    (addGoalsScreen.dart)
-    		* Add Subtask Screen  (addSubtasksScreen.dart)
-    		* Goal List Screen    (listedGoalsScreen.dart)
-    		* Performance Screen  (performanceScreen.dart)
-    		* Home Page           (mainScreen.dart)
-    		* Bottom bar          (landingScreen.dart)
-    		* Implement Google classroom/firebase backend
+    	  * Settings Screen     (settingsScreen.dart)
+    	  * My Courses Screen   (courseDashboard.dart)
+    	  * Calendar Screen     (calendarScreen.dart)
+    	  * Add Goals Screen    (addGoalsScreen.dart)
+    	  * Add Subtask Screen  (addSubtasksScreen.dart)
+    	  * Goal List Screen    (listedGoalsScreen.dart)
+    	  * Performance Screen  (performanceScreen.dart)
+    	  * Home Page           (mainScreen.dart)
+    	  * Bottom bar          (landingScreen.dart)
+    	  * Implement Google classroom/firebase backend
 	* Backend
     	* Authentication with Google and Firebase
         	* auth.dart
