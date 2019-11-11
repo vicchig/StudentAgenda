@@ -2,7 +2,7 @@
 
 ## Iteration 02
 #### Start Date: 29/10/2019
-#### End Dat:    11/11/2019
+#### End Date:    11/11/2019
 
 ## Process
 Each team member will do one or several screens/functions of our app. We also converted our user stories into tasks that each member would do and split some large user stories into multiple tasks. These are uploaded to Trello and organized by sprints. As goals are completed they are marked as such on Trello and a pull request is made on GitHub.
@@ -14,8 +14,8 @@ Each team member did one or several screens/functions of our app. We converted o
 Created the view goals screen which will display the assignment-subtask pairs in their appropriate dates. Created a page to add subtasks listed by the teacher which may eventually be converted into a popup.
 *   Role(s) and Responsibilities:
 *   Frontend Development
-        *   Add Goals Screen    (addGoalsScreen.dart)
-        *   Goal List Screen    (listedGoalsScreen.dart)
+    *   Add Goals Screen    (addGoalsScreen.dart)
+    *   Goal List Screen    (listedGoalsScreen.dart)
 *   Technical Strengths:
     *   Python, C, Java
 *   Technical Weaknesses:
@@ -96,7 +96,7 @@ Create calendar screen which will act as a replacement for what an agenda would 
     *   Front End development
         * Calendar Screen (calendarScreen.dart)
     *   Non-Software Responsibilities:
-            *   Communication with partner and setting up meetings
+        *   Communication with partner and setting up meetings
         *   Coordinating with team members and giving feedback on their work (pull requests)
         *   Draw sketches of app screens
 *   Technical Strengths:
@@ -154,9 +154,9 @@ Create calendar screen which will act as a replacement for what an agenda would 
 **Events**
 We will be online using Discord to communicate with our team members. Communication will be done when necessary and we will also have weekly meetings on Friday from 6pm to 7pm. On the Friday meeting, we will conduct a code review and discuss what we have done. We will all comment on each other's work and discuss any problems we have if any. Next, we will discuss what we are planning to do in the following week and talk about any issues we might run into.
 
-####
+###
 **Partner Meetings**
-#####
+####
 **Meeting 1 (October 7)**
 *   Video call meeting from 1pm to 2pm over _Zoom_
 ######
@@ -182,7 +182,7 @@ We will be online using Discord to communicate with our team members. Communicat
 *   Agreed on next meeting being Oct 9 at 1pm
 
 
-#####
+####
 **Meeting 2 (October 9)**
 *   Video call meeting from 1pm to 2pm over _Skype_
 
@@ -214,7 +214,7 @@ We will be online using Discord to communicate with our team members. Communicat
 *   Confirmed time of regular meetings being Wednesdays from 12pm to 1pm
 *   Confirmed amount of student involvement desired by the school
 
-#####
+####
 **Meeting 3 (Nov1)**
 Video call over Skype
 ######
@@ -247,6 +247,8 @@ Besides these branches, each member of the group will create a feature branch fo
 We chose this process because it minimizes the amount of merge conflicts we have by separating the branches people are working on. Secondly, it allows us to have a group consensus on any changes made, and also minimizes the number of simple errors that are pushed since multiple people have to review the changes. Also, it ensures that the master branch is kept clean and only contains working code since we push to development rather than master.
 
 **Deployment**
+##
+TODO
 
 ## Product
 
@@ -254,35 +256,34 @@ We chose this process because it minimizes the amount of merge conflicts we have
 **Goals and tasks**
 * Goals:
     * Create screens for all the pages in the frontend.
-    * Tasks:
-Split tasks among teammates to complete the following parts of the project:
-* Add the following screens to the App:
-    * Settings Screen     (settingsScreen.dart)
-    * My Courses Screen   (courseDashboard.dart)
-    * Calendar Screen     (calendarScreen.dart)
-    * Add Goals Screen    (addGoalsScreen.dart)
-    * Add Subtask Screen  (addSubtasksScreen.dart)
-    * Goal List Screen    (listedGoalsScreen.dart)
-    * Performance Screen  (performanceScreen.dart)
-    * Home Page           (mainScreen.dart)
-    * Bottom bar          (landingScreen.dart)
-    * Implement Google classroom/firebase backend
-    * Tasks:
-* Backend
-    * Authentication with Google and Firebase
-        * auth.dart
-    * Complete integration for Google Classroom API (does not include linking to Frontend)
-        * ClassroomApiAccess.dart  
-    * Complete integration for Cloud Firestore      (does not include linking to Frontend)
-        * FirestoreManager.dart
-        * FirestoreDataManager.dart
-    * API for accessing Firestore from within the app  
-        * FirestoreManager.dart
-* Frontend Tools:
-* Bottom Navigation Bar (util.dart)
-* Side Menu             (util.dart)
+    * **Tasks**: Split tasks among teammates to complete the following parts of the project:
+	* Add the following screens to the App:
+    		* Settings Screen     (settingsScreen.dart)
+    		* My Courses Screen   (courseDashboard.dart)
+    		* Calendar Screen     (calendarScreen.dart)
+    		* Add Goals Screen    (addGoalsScreen.dart)
+    		* Add Subtask Screen  (addSubtasksScreen.dart)
+    		* Goal List Screen    (listedGoalsScreen.dart)
+    		* Performance Screen  (performanceScreen.dart)
+    		* Home Page           (mainScreen.dart)
+    		* Bottom bar          (landingScreen.dart)
+    		* Implement Google classroom/firebase backend
+	* Backend
+    	* Authentication with Google and Firebase
+        	* auth.dart
+    	* Complete integration for Google Classroom API (does not include linking to Frontend)
+        	* ClassroomApiAccess.dart  
+    	* Complete integration for Cloud Firestore      (does not include linking to Frontend)
+        	* FirestoreManager.dart
+        	* FirestoreDataManager.dart
+    	* API for accessing Firestore from within the app  
+       		* FirestoreManager.dart
+	* Frontend Tools:
+	* Bottom Navigation Bar (util.dart)
+	* Side Menu             (util.dart)
 
 ####
 **Artifacts**
-*   We have rough sketches of our app we used to plan out what everyone does
-*   Documentation for 
+*   We have rough sketches of our app we used to plan out what everyone does: http://team-project-tdsb-team-1/Images/Screen_view_of_education_app_along_with_git_instructions_.pdf
+
+*   Documentation for ourselves to refer to: https://github.com/csc301-fall-2019/team-project-tdsb-team-1/blob/master/Documentation.md
