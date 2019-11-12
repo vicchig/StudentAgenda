@@ -14,7 +14,6 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen> {
   List<classroom.Course> _courses = new List<classroom.Course>();
-  List<classroom.Student> _classmates = new List<classroom.Student>();
 
   void processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
@@ -22,7 +21,6 @@ class DashboardScreenState extends State<DashboardScreen> {
     tempCourses.sort((a, b) => int.parse(a.id).compareTo(int.parse(b.id)));
     setState(() {
       _courses = tempCourses;
-      _classmates = tempStudents;
     });
   }
 
@@ -34,11 +32,6 @@ class DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_classmates.length > 0) {
-      _classmates.forEach((classroom.Student s) {
-        //print(s.profile.name.fullName);
-      });
-    }
     return Scaffold(
       //Sidebar menu scaffold
       appBar: new AppBar(
