@@ -232,6 +232,8 @@ __Nov 18 and nov 22 noon meeting with tech person.__
 
 ####
 **Artifacts**
+*   Discord for communication, organization
+*   Git for version control
 *   Trello for task management:   
 	*   Trello allows us to create a board to organize our work with scrum
 	*   Used to assign and distribute tasks among team members. Also outlined sprint deadlines.
@@ -239,7 +241,6 @@ __Nov 18 and nov 22 noon meeting with tech person.__
 	![Trello](../Images/trellopt1.png)</br>
 	![Trello](../Images/trellopt2.png)</br>
 	![Trello](../Images/trellopt3.png)</br>
-*   Git for version control
 
 #### **Github Workflow**
 We have three main branches in our Github repository. The first is master: this is used for finished features of the app and submissions for deliverables. The second is Development: this branch is used for ongoing changes that are in development. The third is Fixes: this branch is used for hotfixes or other small changes that need to be pushed to development or master immediately. 
