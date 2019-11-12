@@ -289,3 +289,5 @@ For the deliverable, we will provide the Android APK on Google Drive with detail
 *   We have rough [sketches](http://team-project-tdsb-team-1/Images/Screen_view_of_education_app_along_with_git_instructions_.pdf) of our app we used to plan out what everyone does
 
 *   [Documentation](https://github.com/csc301-fall-2019/team-project-tdsb-team-1/blob/master/Documentation.md) for ourselves to refer to for internal APIs and tutorials for external services we use
+
+* Backend Architecture ![BackEnd Architecture](../Images/csc301_app_backend_diagram.png)</br>
