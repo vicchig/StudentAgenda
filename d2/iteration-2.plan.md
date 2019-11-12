@@ -8,7 +8,7 @@
 Each team member will do one or several screens/functions of our app. We also converted our user stories into tasks that each member would do and split some large user stories into multiple tasks. These are uploaded to Trello and organized by sprints. As goals are completed they are marked as such on Trello and a pull request is made on GitHub.
 
 ## **Roles & responsibilities**
-Each team member did one or several screens/functions of our app. We converted our user stories into tasks that each member did.
+Each team member did one or several screens/functions of our app. We converted our user stories into tasks that each member did. Tasks were chosen by availability meaning that team members choose tasks from a sprint on Trello and use labels to keep track of their progress. Once the task is complete, it is marked as such and moved to the completed tab, and the team member can pick up another task.
 
 **Robert Fang**:
 Created the view goals screen which will display the assignment-subtask pairs in their appropriate dates. Created a page to add subtasks listed by the teacher which may eventually be converted into a popup.
@@ -238,17 +238,19 @@ __Nov 18 and nov 22 noon meeting with tech person.__
 *   We prioritize tasks related to the Agenda and Performance aspects of the product  
 *   Git for version control
 
-####
-**Github Workflow**
+#### **Github Workflow**
 We have three main branches in our Github repository. The first is master: this is used for finished features of the app and submissions for deliverables. The second is Development: this branch is used for ongoing changes that are in development. The third is Fixes: this branch is used for hotfixes or other small changes that need to be pushed to development or master immediately. 
 
 Besides these branches, each member of the group will create a feature branch for their respective work on the application. They are able to work freely on this branch and pull changes made by other members on development. After the feature is completed, the member will then create a pull request for merging their feature branch to master. Once the pull request is created, at least two members of the group need to review it and approve the changes before it is merged into Development. However, there must be a group consensus on the changes. For example, if two people approve the pull request but a third requests changes to it, these changes must be addressed before the branch is merged. This process is the same for merging Development into Master. 
 
 We chose this process because it minimizes the amount of merge conflicts we have by separating the branches people are working on. Secondly, it allows us to have a group consensus on any changes made, and also minimizes the number of simple errors that are pushed since multiple people have to review the changes. Also, it ensures that the master branch is kept clean and only contains working code since we push to development rather than master.
 
-**Deployment**
-##
-TODO
+#### **Deployment** 
+We will provide an Android APK which can be used to run and test our application. The APK will be built from the source code using Android Studio.  Login to the app must be performed with a Gmail account. Once we have the APK, we can provide it to the TDSB and they can provide it to the students for installation on their phones. Alternatively, the APK can be uploaded to the Google Play Store, and students, teachers and parents will be able to download it themselves, although this is currently under discussion with our partner.
+
+We chose this approach as it is simple for both us and the users. Installation of an APK on an Android device is a simple process that does not require any technical knowledge. Installation through the Google Play Store is also very simple, as it only requires searching up the app on the store and downloading it like any other.
+
+For the deliverable, we will provide the Android APK on Google Drive with detailed installation instructions for multiple platforms in the README. We will not be uploading to the Google Play Store at this stage, as the app is still in development. We will also provide credentials for a dummy Gmail account enrolled in classes in Google Classroom, to demonstrate the functionality of the application, and interaction between Flutter and Firebase. 
 
 ## Product
 
