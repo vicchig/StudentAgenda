@@ -263,13 +263,12 @@ final Map<String, String>numToMonth = {"1": "January", "2": "February",
   "8": "August", "9": "September", "10": "October", "11": "November",
   "12": "December"};
 
-
 String getMonthFromDateStr(String dateString){
   List<String> splitStr = dateString.split("/");
   return numToMonth[splitStr[1]];
 }
 
-String getMonthFromDateObj(classroom.Date date){
+String getMonthFromDateObj(DateTime date){
   return numToMonth[date.month.toString()];
 }
 
