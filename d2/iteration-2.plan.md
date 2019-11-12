@@ -295,3 +295,10 @@ For the deliverable, we will provide the Android APK on Google Drive with detail
 *   [Documentation](https://github.com/csc301-fall-2019/team-project-tdsb-team-1/blob/master/Documentation.md) for ourselves to refer to for internal APIs and tutorials for external services we use
 
 * Backend Architecture ![BackEnd Architecture](../Images/csc301_app_backend_diagram.png)</br>
+
+* App Screenshots 
+	![App](../Images/app_screenshot1.png)
+	![App](../Images/app_screenshot2.png)
+	![App](../Images/app_screenshot3.png)
+	![App](../Images/app_screenshot4.png)
+	![App](../Images/app_screenshot5.png)
