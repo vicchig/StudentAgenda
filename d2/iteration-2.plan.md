@@ -296,9 +296,9 @@ For the deliverable, we will provide the Android APK on Google Drive with detail
 
 * Backend Architecture ![BackEnd Architecture](../Images/csc301_app_backend_diagram.png)</br>
 
-* App Screenshots 
-	<img src="../Images/app_screenshot1.png" width="50%" height="50%">
-	<img src="../Images/app_screenshot2.png" width="50%" height="50%">
-	<img src="../Images/app_screenshot3.png" width="50%" height="50%">
-	<img src="../Images/app_screenshot4.png" width="50%" height="50%">
-	<img src="../Images/app_screenshot5.png" width="50%" height="50%">
+* App Screenshots </br>
+	<img src="../Images/app_screenshot1.png" width="300" height="600">
+	<img src="../Images/app_screenshot2.png" width="300" height="600">
+	<img src="../Images/app_screenshot3.png" width="300" height="600">
+	<img src="../Images/app_screenshot4.png" width="300" height="600">
+	<img src="../Images/app_screenshot5.png" width="300" height="600">
