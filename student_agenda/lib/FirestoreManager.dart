@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
 
 import 'ClassroomApiAccess.dart';
+import 'Utilities/goal.dart';
 
 void doTransaction(String onSuccess, String onError, Function transaction) async{
   try {
@@ -144,6 +145,23 @@ void setUserClassTopics(FirebaseUser user) async {
   }, merge: true);
 }
 
+void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals) async {
+  DocumentReference ref = Firestore.instance.collection("users").
+  document(user.uid);
+
+  Map<int, Goal> map = courseGoals.asMap();
+  Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
+
+  List<int> keys = map.keys.toList();
+  keys.forEach((int index){
+    mapToUpload[index.toString()] = map[index].toJson();
+  });
+
+  await ref.setData({
+    "CourseGoalObjects": mapToUpload
+  }, merge: true);
+}
+
 
 Future<List<classroom.Course>> pullCourses(FirebaseUser user) async{
   List<classroom.Course> courses = new List<classroom.Course>();
@@ -263,4 +281,24 @@ Future<List<classroom.Topic>> pullTopics(FirebaseUser user) async{
     print(e);
   }
   return courseTopics;
+}
+
+Future<List<Goal>> pullGoals(FirebaseUser user) async {
+  List<Goal> courseGoals = new List<Goal>();
+  Map<dynamic, dynamic> courseObjectListMap;
+  try {
+    await Firestore.instance.collection("users").document(user.uid).get().then((
+        result) {
+      courseObjectListMap = result.data["CourseGoalObjects"];
+    });
+
+
+    courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
+      courseGoals.add(Goal.fromJson(entry.value));
+    });
+    print("Successfully pulled goals.");
+  }catch(e){
+    print(e);
+  }
+  return courseGoals;
 }
