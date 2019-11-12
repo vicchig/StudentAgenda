@@ -76,4 +76,21 @@ class Goal{
     return name + "\n" + getCalendarDueDate() + "\n" + getDueTime() + "\n" +
         _status + "\n\n" + text + "\n\n";
   }
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "text": text,
+    "status": _status,
+    "courseID": _courseID,
+    "courseWorkID": _courseWorkID,
+    "dueDate": dueDate.toIso8601String()
+  };
+
+  Goal.fromJson(Map<String, dynamic> json)
+    : name = json["name"],
+      text = json["text"],
+      _status = json["status"],
+      _courseID = json["courseID"],
+      _courseWorkID = json["courseWorkID"],
+      dueDate = DateTime.parse(json["dueDate"]);
 }
