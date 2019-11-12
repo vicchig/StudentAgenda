@@ -17,7 +17,6 @@ class DashboardScreenState extends State<DashboardScreen> {
 
   void processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
-    List<classroom.Student> tempStudents = await pullClassmates(firebaseUser);
     tempCourses.sort((a, b) => int.parse(a.id).compareTo(int.parse(b.id)));
     setState(() {
       _courses = tempCourses;
