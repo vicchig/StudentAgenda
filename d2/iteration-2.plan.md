@@ -233,9 +233,12 @@ __Nov 18 and nov 22 noon meeting with tech person.__
 ####
 **Artifacts**
 *   Trello for task management:   
-*   Trello allows us to create a board to organize our work with scrum
-*   Used to assign and distribute tasks among team members. Also outlined sprint deadlines.
-*   We prioritize tasks related to the Agenda and Performance aspects of the product  
+	*   Trello allows us to create a board to organize our work with scrum
+	*   Used to assign and distribute tasks among team members. Also outlined sprint deadlines.
+	*   We prioritize tasks related to the Agenda and Performance aspects of the product  
+	![Trello](../Images/trellopt1.png)</br>
+	![Trello](../Images/trellopt2.png)</br>
+	![Trello](../Images/trellopt3.png)</br>
 *   Git for version control
 
 #### **Github Workflow**
