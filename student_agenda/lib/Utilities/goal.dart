@@ -86,7 +86,7 @@ class Goal{
     "dueDate": dueDate.toIso8601String()
   };
 
-  Goal.fromJson(Map<String, dynamic> json)
+  Goal.fromJson(Map<dynamic, dynamic> json)
     : name = json["name"],
       text = json["text"],
       _status = json["status"],
