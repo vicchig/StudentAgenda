@@ -48,7 +48,7 @@ In this example the `onPressed` call will call an `async` function that, in a tr
 ### FirestoreManager Documentation
 API for working with data on the Cloud Firestore, particularly for linking data between the Google Classroom API and the Firestore.
 #### Methods
-__1.__ void doTransaction(String onSuccess, String onError, Function transaction) async
+__1.__ `void doTransaction(String onSuccess, String onError, Function transaction) async`
 ##### Summary:
 Wrapper that performs a Firestore Transaction in a synchronized manner. Called during reads and writes to the Firestore to ensure atomicity of 
 reads and writes.
