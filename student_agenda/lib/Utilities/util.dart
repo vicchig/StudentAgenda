@@ -1,18 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'calendarScreen.dart';
-import 'courseDashboard.dart';
-import 'addGoalsScreen.dart';
-import 'listedGoalsScreen.dart';
-import 'package:student_agenda/performanceScreen.dart';
-import 'package:student_agenda/mainScreen.dart';
+import 'package:googleapis/classroom/v1.dart' as classroom;
+import '../main.dart';
+import '../Screens/calendarScreen.dart';
+import '../Screens/courseDashboard.dart';
+import '../Screens/addGoalsScreen.dart';
+import '../Screens/listedGoalsScreen.dart';
+import 'package:student_agenda/Screens/performanceScreen.dart';
+import 'package:student_agenda/Screens/mainScreen.dart';
 
-import 'settingsScreen.dart';
+import '../Screens/settingsScreen.dart';
 import 'auth.dart';
 
+//TODO: Probably move these to their own files
+
+
 /// Button that navigates to another screen
-class NavigationButton extends StatelessWidget {
+class CustomMaterialButton extends StatelessWidget {
   ///Button Text, default='NavigationText'
   final String text;
 
@@ -28,7 +32,7 @@ class NavigationButton extends StatelessWidget {
   ///Method that is ran when the button is pressed
   final GestureTapCallback onPressed;
 
-  NavigationButton(
+  CustomMaterialButton(
       {this.text = 'Navigation Button',
       @required this.onPressed,
       this.elevation = 5.0,
@@ -238,6 +242,8 @@ class MenuDrawerState extends State<MenuDrawer> {
           text: 'Log Out',
           colour: Colors.white,
           func: () {
+            authService.signOut();
+            Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new MyHomePage()));
             return MaterialPageRoute(builder: (context) => MyHomePage());
           }),
       new MenuItem(
@@ -252,3 +258,20 @@ class MenuDrawerState extends State<MenuDrawer> {
   }
 //------------------------------
 }
+
+//USEFUL FUNCTIONS
+final Map<String, String>numToMonth = {"1": "January", "2": "February",
+  "3": "March", "4": "April", "5": "May", "6": "June", "7": "July",
+  "8": "August", "9": "September", "10": "October", "11": "November",
+  "12": "December"};
+
+String getMonthFromDateStr(String dateString){
+  List<String> splitStr = dateString.split("/");
+  return numToMonth[splitStr[1]];
+}
+
+String getMonthFromDateObj(DateTime date){
+  return numToMonth[date.month.toString()];
+}
+
+
