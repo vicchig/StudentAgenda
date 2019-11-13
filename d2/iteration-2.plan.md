@@ -13,9 +13,9 @@ Each team member did one or several screens/functions of our app. We converted o
 **Robert Fang**:
 Created the view goals screen which will display the assignment-subtask pairs in their appropriate dates. Created a page to add subtasks listed by the teacher which may eventually be converted into a popup.
 *   Role(s) and Responsibilities:
-*   Frontend Development
-    *   Add Goals Screen    (addGoalsScreen.dart)
-    *   Goal List Screen    (listedGoalsScreen.dart)
+	*   Frontend Development
+    	*   Add Goals Screen    (addGoalsScreen.dart)
+    	*   Goal List Screen    (listedGoalsScreen.dart)
 *   Technical Strengths:
     *   Python, C, Java
 *   Technical Weaknesses:
@@ -43,11 +43,11 @@ Also responsible for building the UI for the login page and building out Authent
 Non-software related responsibilities include communicating the tech details of the project with our partner.
 
 *   Role(s) and Responsibilities:
-Full Stack Development: 
-* Backend for: Authentication and planning the general backend of the app
-* Frontend for: Login screen
+	* Full Stack Development: 
+		* Backend for: Authentication and planning the general backend of the app
+		* Frontend for: Login screen
 * Partner Communication (Non-Software):
-* Communicating the tech details of the project with our partner.
+	* Communicating the tech details of the project with our partner.
 *   Technical Strengths:
     *   Java, Android, Python, Flask, Databases
     *   Work Experience with larger scale projects at Amazon
@@ -58,9 +58,9 @@ Full Stack Development:
 Use a custom scaffold/navigator to add a persistent bottom navigation bar that highlights the top level page in the current hierarchy,  and added Settings screen/behaviour to navigate to it.
 
 * Role(s) and Responsibilities:
-* Front end Development: 
-* Settings Screen
-* Bottom app navigation bar
+	* Front end Development: 
+		* Settings Screen
+		* Bottom app navigation bar
 *   Technical Strengths:
     *   C, Java, Android Studio, Python
     *   Strong grasp of OOP
@@ -75,11 +75,11 @@ Integrating Google authentication with OAth2 and linking it with Firebase, integ
 Non-software related responsibilities include: setting up meetings with the partner and participating in them. Participating in project planning meetings and design meetings.
 
 *   Role(s) and Responsibilities:
-* Full Stack Development: 
-* Backend for: Authentication, Classroom API and Cloud Firestore
-* Frontend for: My Courses Screen and Side Menu
+	* Full Stack Development: 
+		* Backend for: Authentication, Classroom API and Cloud Firestore
+		* Frontend for: My Courses Screen and Side Menu
 * Partner Communication (Non-Software):
-* Scheduling meetings
+	* Scheduling meetings
 *   Technical Strengths:
     *   C, Java, C#, Android Studio, Python, Dart
     *   Strong grasp of OOP
