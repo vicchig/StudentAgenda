@@ -18,7 +18,8 @@ Our application is a mobile app for both iOS and Android where students organize
 5. Performance Screen: This screen includes a pie chart comparing how many tasks are completed on time and completed late. This screen also shows the values for those as well as how many tasks have been created and are remaining.
 6. Dashboard (Main Screen): This screen has a progress bar showing task completion performance (tasks completed on-time vs late). Pressing on the progress bar will move you to the performance screen with more detailed performance information. This screen lists some upcoming tasks in the same format as the Goal List Screen. The user can click on the "View More Tasks" button to go to the Goal List Screen which lists all the goals.
 
-
+### Current Issues
+1. Android back button takes you back to login instead of previous page
 
 
 ## Instructions
