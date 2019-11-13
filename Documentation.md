@@ -45,7 +45,7 @@ In this example the `onPressed` call will call an `async` function that, in a tr
 
 
 
-### FirestoreManager Documentation
+## FirestoreManager Documentation
 API for working with data on the Cloud Firestore, particularly for linking data between the Google Classroom API and the Firestore.
 #### Methods
 __1.__ `void doTransaction(String onSuccess, String onError, Function transaction) async`
@@ -182,7 +182,7 @@ Pulls information about course material topics for the courses that the current 
 ##### Return:
 A Future of `List<classroom.Topic>` where the list value of the future contains the `classroom.Topic` objects that define each of the user's courses. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
 
-###FirestoreDataManager Documentation
+## FirestoreDataManager Documentation
 API for processing data obtained from the Cloud Firestore. __This API deals a lot with data types defined in Google's Classroom API, it is suggested to review its documentation as needed to see what fields and methods the returned objects contain.__
 
 
