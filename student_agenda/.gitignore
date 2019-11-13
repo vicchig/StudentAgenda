@@ -38,3 +38,7 @@ lib/generated_plugin_registrant.dart
 # Firebase related
 /functions/node_modules/
 /node_modules/
+
+# Signing Key related
+android/app/key.jks
+android/key.properties
