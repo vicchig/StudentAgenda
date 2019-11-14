@@ -23,6 +23,10 @@ All current issues that we are aware of on the APK are listed in the [Issues tab
 
 
 ## Instructions
+
+We will provide the [APK file on Google Drive](https://drive.google.com/open?id=1jB17rdsIsMsg4Ml-wohERdrAKem1_m_T). The APK can be installed on a phone running Android.
+
+
  ### Emulator Installation Instructions:
 1) [Download Android Studio](https://developer.android.com/studio)
 
@@ -42,6 +46,8 @@ All current issues that we are aware of on the APK are listed in the [Issues tab
 1) On your Android Device, download the APK from the provided Google Drive link
 
 2) In your files, an installation dialogue will appear. After the installation completes, the application will be available to use. Open it and sign in.
+
+#### Running the app
 
  We will also provide a dummy Google credential. Here are the credentials for a dummy Google account:
  * Email: tdsbprojectdummy@gmail.com
