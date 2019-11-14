@@ -27,6 +27,9 @@
  > * Ordered from most to least important.
  > * Feel free to refer/link to process artifact(s).
 * Having people individually pick Trello issues to work on was not a good decision because this ended up making the work done by team members uneven. We should have instead had one or two people assign work to other members so that the work is distributed more or less evenly. This would also make our workflow faster since some members lagged behind in choosing things to work on.
+* Not enforcing sprint deadlines and relying on members of the group being proactive about meeting deadlines was not a good decision. This prevented us from completing some tasks in a timely manner and slowed down our progress.  
+* Deciding to demo the app so early on may have not been a good idea because we did not have some of the front end features working at that point. While we were and still are moving in the right direction with the features themselves, we might have missed out on some feedback about how the frontend design looks like and whether that needs changing. 
+
 
 #### Planned changes
 
