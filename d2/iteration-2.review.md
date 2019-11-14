@@ -134,3 +134,16 @@ We learned that sometimes we need to better articulate our questions and require
 From a product perspective, we learned that allowing an app to develop naturally has its pros and cons. While it may lead to some great results, the lack of specific roles between team members can make it hard to meet deadlines and integrate different portions of the app.
 
 
+# Meeting Highlights
+
+> Going into the next iteration, our main insights are:
+ > * 2 - 4 items
+ > * Short (no more than one short paragraph per item)
+ > * High-level concepts that should guide your work for the next iteration.
+ > * These concepts should help you decide on where to focus your efforts.
+ > * Can be related to product and/or process.
+
+* Need to split tasks better to avoid work being split unevenly between group members creating inefficiencies in the development process.
+* Need more descriptions of code that will be used by other members
+    * In the example of our backend API, members cleared up any confusion by reading the documentation and looking at the diagrams that were created by the backend developer
+* Now that the structure of the application is complete we will focus on completing features directly by linking front end views to the backend API
