@@ -26,7 +26,7 @@
  > * 2 - 4 decisions.
  > * Ordered from most to least important.
  > * Feel free to refer/link to process artifact(s).
-
+* Having people individually pick Trello issues to work on was not a good decision because this ended up making the work done by team members uneven. We should have instead had one or two people assign work to other members so that the work is distributed more or less evenly. This would also make our workflow faster since some members lagged behind in choosing things to work on.
 
 #### Planned changes
 
