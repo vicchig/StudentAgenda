@@ -78,5 +78,5 @@ The app uses flutter as a frontend framework, and firebase as a backend framewor
 
 ## Helpful Links
 
-[Documentation](Documentation.md)
+[Documentation](../Documentation.md)
 
