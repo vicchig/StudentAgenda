@@ -1,4 +1,4 @@
-# Student Agenda
+# Student Agenda Documentation
 
 ## Helpful Links
 
