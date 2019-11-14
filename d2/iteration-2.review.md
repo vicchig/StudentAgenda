@@ -81,18 +81,42 @@
  
 
 #### How was your product demo?
- > * How did you prepare your demo?
+ 
+ > * How did you prepare your demo?  
+ 
+ We Prepared by 
+ * Completing all UI/frontend elements before the demo meeting 
+ * Added temporary routing/navigation to show all screens
+ * Prepared a phone with the app running
+ 
  > * What did you manage to demo to your partner?
+ 
+ We were able to demo all of our frontend/UI and the google sign-in functionality 
+ 
  > * Did your partner accept the features?
+ 
+ The partner accepted all the demoed features, all change requests were additions
+ 
  > * Were there change requests?
+ 
+ The partner requested that we not only have course/assignment specific goals but also overarching goals for the students themselves
+ 
  > * What did you learn from the demo from either a process or product perspective?
+ 
+ We learned that requirements may change arbitrarily because the client does not know how to express what they want. For example, at first the partner said that she wanted course specific goals, but during the demo we found out that we needed overarching goals as well
+
+ 
 
 ## Meeting Highlights
 
 > Going into the next iteration, our main insights are:
-
  > * 2 - 4 items
  > * Short (no more than one short paragraph per item)
  > * High-level concepts that should guide your work for the next iteration.
  > * These concepts should help you decide on where to focus your efforts.
  > * Can be related to product and/or process.
+
+* Need to split tasks better to avoid a few people carrying the group unintentionally 
+* Need more descriptions of code that will be used by other members
+	* In the example of our backend API, members cleared up any confusion by reading the documentation and looking at the diagrams that were created by the backend developer
+* Now that the structure of the application is complete we will focus on completing features directly
