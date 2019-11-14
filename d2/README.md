@@ -45,7 +45,7 @@ We will provide the [APK file on Google Drive](https://drive.google.com/open?id=
 ### Android Device Installation Instructions:
 1) On your Android Device, download the APK from the provided Google Drive link
 
-2) In your files, an installation dialogue will appear. After the installation completes, the application will be available to use. Open it and sign in.
+2) In your files, find the APK and open it. An installation dialogue will appear. After the installation completes, the application will be available to use. Open it and sign in.
 
 #### Running the app
 
