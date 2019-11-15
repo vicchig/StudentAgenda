@@ -45,6 +45,7 @@ class Goal{
   }
 
   String getStatus(){
+    setStatus();
     return _status;
   }
 
