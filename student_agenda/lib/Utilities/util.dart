@@ -265,9 +265,14 @@ final Map<String, String>numToMonth = {"1": "January", "2": "February",
   "8": "August", "9": "September", "10": "October", "11": "November",
   "12": "December"};
 
-String getMonthFromDateStr(String dateString){
+String getMonthFromDateStr(String dateString) {
   List<String> splitStr = dateString.split("/");
-  return numToMonth[splitStr[1]];
+
+  if(splitStr.length > 1 && numToMonth.keys.contains(splitStr[1])){
+      return numToMonth[splitStr[1]];
+  }
+  throw new FormatException("Date String could not be parsed. Got: " +
+      dateString, " but expected string in format: 'dd/mm/yyyy'");
 }
 
 String getMonthFromDateObj(DateTime date){
