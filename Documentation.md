@@ -256,7 +256,7 @@ The internal class representation of a student goal within our app. Should be as
 #### Attributes
 * __`String name`__:           name of this goal
 * __`String text`__:           description of this goal
-* __`DateTime dueDate`__:      due date of this goal. The raw format of this object is "yyyy-mm-ddThh:mm:ss:nnnn" and so special getter methods should be used to access the full date. Access directly to this object is provided as a convinience in case a specific attribute (such as the month) is needed.
+* __`DateTime dueDate`__:      due date of this goal. The raw format of this object is "yyyy-mm-ddThh:mm:ss:nnnn" and so special getter methods should be used to access the full date. Access directly to this object is provided as a convenience in case a specific attribute (such as the month) is needed.
 * __`String _status`__:        status indicating that the goal is in one of these states: "IN_PROGRESS", "COMPLETED", "COMPLETED_LATE" and "IN_PROGRESS_LATE"
 * __`String _courseID`__:      ID of Course object that this goal belongs to 
 * __`String _courseWorkID`__:  ID of the CourseWork object that this goal is associated with.
@@ -337,6 +337,8 @@ Extract and convert the numerical month in a date string to its text representat
 would be "November".
 ##### Parameters:
 * __`dateString`__:  the string representation of the date the month of which is to be extracted
+##### Exceptions and Preconditions:
+Assumes that the string is properly formatted as specified. Throws a __FormatException__ otherwise when the string cannot be parsed.
 ##### Return:
 Text representation of the month within the given date.  
   
