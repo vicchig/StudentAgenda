@@ -38,7 +38,8 @@ class Goal{
     else if(currDateTime.isAfter(dueDate) && _status == S_COMPLETED){
       _status = S_COMPLETED_LATE;
     }
-    else if(currDateTime.isBefore(dueDate)){
+    else if(currDateTime.isBefore(dueDate) && _status != S_COMPLETED &&
+        _status != S_COMPLETED_LATE){
       _status = S_IN_PROGRESS;
     }
   }
@@ -49,6 +50,7 @@ class Goal{
 
   void completeGoal(){
     _status = S_COMPLETED;
+    setStatus();
   }
 
   //returns the time this task is due (DOES NOT DISTINGUISH BETWEEN AM/PM,
