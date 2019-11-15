@@ -43,6 +43,10 @@ class Goal{
     }
   }
 
+  String getStatus(){
+    return _status;
+  }
+
   void completeGoal(){
     _status = S_COMPLETED;
   }
