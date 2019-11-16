@@ -268,6 +268,10 @@ final Map<String, String>numToMonth = {"1": "January", "2": "February",
 String getMonthFromDateStr(String dateString) {
   List<String> splitStr = dateString.split("/");
 
+  if( splitStr.length > 1 && splitStr[1][0] == "0"){
+    splitStr[1] = splitStr[1].substring(1);
+  }
+
   if(splitStr.length > 1 && numToMonth.keys.contains(splitStr[1])){
       return numToMonth[splitStr[1]];
   }
