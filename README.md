@@ -19,7 +19,7 @@ Our application is a mobile app for both iOS and Android where students organize
 6. Dashboard (Main Screen): This screen has a progress bar showing task completion performance (tasks completed on-time vs late). Pressing on the progress bar will move you to the performance screen with more detailed performance information. This screen lists some upcoming tasks in the same format as the Goal List Screen. The user can click on the "View More Tasks" button to go to the Goal List Screen which lists all the goals.
 
 ### Current Issues
-1. Android back button takes you back to login instead of previous page
+All current issues that we are aware of on the APK are listed in the [Issues tab on github](https://github.com/csc301-fall-2019/team-project-tdsb-team-1/issues)
 
 
 ## Instructions

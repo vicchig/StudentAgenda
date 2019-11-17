@@ -18,11 +18,36 @@ Our application is a mobile app for both iOS and Android where students organize
 5. Performance Screen: This screen includes a pie chart comparing how many tasks are completed on time and completed late. This screen also shows the values for those as well as how many tasks have been created and are remaining.
 6. Dashboard (Main Screen): This screen has a progress bar showing task completion performance (tasks completed on-time vs late). Pressing on the progress bar will move you to the performance screen with more detailed performance information. This screen lists some upcoming tasks in the same format as the Goal List Screen. The user can click on the "View More Tasks" button to go to the Goal List Screen which lists all the goals.
 
-
+### Current Issues
+All current issues that we are aware of on the APK are listed in the [Issues tab on github](https://github.com/csc301-fall-2019/team-project-tdsb-team-1/issues)
 
 
 ## Instructions
- We will provide the [APK file on Google Drive](https://drive.google.com/open?id=1jB17rdsIsMsg4Ml-wohERdrAKem1_m_T). The APK can be installed on a phone running Android.
+
+We will provide the [APK file on Google Drive](https://drive.google.com/open?id=1jB17rdsIsMsg4Ml-wohERdrAKem1_m_T). The APK can be installed on a phone running Android.
+
+
+ ### Emulator Installation Instructions:
+1) [Download Android Studio](https://developer.android.com/studio)
+
+2) In Android Studio, [create an Android Virtual Device](https://developer.android.com/studio/run/managing-avds#createavd)
+
+3) In the toolbar, select the AVD that you want to run the application on from the target device drop-down menu.
+
+4) [Open the AVD Manager](https://developer.android.com/studio/run/managing-avds)
+
+5) Double-click on an AVD, or click Run. The emulator will load.
+
+6) To install an APK file on the emulated device, drag an APK file onto the emulator screen. An APK installer dialog will appear. When the installation completes, you can view the application in the apps list of the device.
+
+7) The application will now be available to use. Open it and sign in using your Gmail account.
+
+### Android Device Installation Instructions:
+1) On your Android Device, download the APK from the provided Google Drive link
+
+2) In your files, find the APK and open it. An installation dialogue will appear. After the installation completes, the application will be available to use. Open it and sign in.
+
+#### Running the app
 
  We will also provide a dummy Google credential. Here are the credentials for a dummy Google account:
  * Email: tdsbprojectdummy@gmail.com
@@ -43,3 +68,15 @@ Our application is a mobile app for both iOS and Android where students organize
  * Performance: Goes to the performance screen. If you hold your finger on top of the pie chart, it expands the section your finger is over and highlights the matching legend entry.
  * Log Out: Logs you out of the app and puts you to the screen where you can log in.
  * Dashboard: Goes to the Dashboard (Main Screen).
+
+
+## Architecture
+
+The app uses flutter as a frontend framework, and firebase as a backend framework to store data and link google classroom through students accounts
+
+<img src="../Images/csc301_app_backend_diagram.png" width="480" height="300">
+
+## Helpful Links
+
+[Documentation](../Documentation.md)
+
