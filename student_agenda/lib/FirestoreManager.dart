@@ -19,7 +19,7 @@ void doTransaction(String onSuccess, String onError, Function transaction) async
 
 void setUserData(FirebaseUser user) async {
   DocumentReference ref = Firestore.instance.collection('users').
-                          document(user.uid);
+  document(user.uid);
 
   await ref.setData({
     'uid': user.uid,
@@ -32,7 +32,7 @@ void setUserData(FirebaseUser user) async {
 
 void setUserClassroomData(FirebaseUser user) async{
   DocumentReference ref = Firestore.instance.collection("users").
-                          document(user.uid);
+  document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
   List<classroom.Course> userCourses = await classroomInst.getCourses();
@@ -145,7 +145,11 @@ void setUserClassTopics(FirebaseUser user) async {
   }, merge: true);
 }
 
-void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals) async {
+/*
+* goalType should be one of: "CourseGoalObjects", "GeneralGoalObjects" or
+*  "CourseWorkGoalObjects"
+* */
+void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals, String goalType) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -158,7 +162,7 @@ void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals) async {
   });
 
   await ref.setData({
-    "CourseGoalObjects": mapToUpload
+    goalType: mapToUpload
   }, merge: true);
 }
 
@@ -283,13 +287,17 @@ Future<List<classroom.Topic>> pullTopics(FirebaseUser user) async{
   return courseTopics;
 }
 
-Future<List<Goal>> pullGoals(FirebaseUser user) async {
+/*
+* goalType should be one of: "CourseGoalObjects", "GeneralGoalObjects" or
+*  "CourseWorkGoalObjects"
+* */
+Future<List<Goal>> pullGoals(FirebaseUser user, String goalType) async {
   List<Goal> courseGoals = new List<Goal>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
     await Firestore.instance.collection("users").document(user.uid).get().then((
         result) {
-      courseObjectListMap = result.data["CourseGoalObjects"];
+      courseObjectListMap = result.data[goalType];
     });
 
 
