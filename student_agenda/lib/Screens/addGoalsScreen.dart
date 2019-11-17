@@ -11,12 +11,7 @@ import 'package:student_agenda/FirestoreManager.dart';
 
 import 'dart:async';
 import 'dart:collection';
-
-class Subtask {
-    String assignmentID;
-    String subtask;
-    String dueDate;
-}
+import '../Utilities/goal.dart';
 
 class AddGoalsScreen extends StatefulWidget {
   @override
@@ -184,14 +179,18 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
       print('Adding subtask ...' + "${months[selectedDate.month - 1]} ${selectedDate.day}, ${selectedDate.year}");
       
       
-      Subtask packedSubtask = new Subtask();
-      packedSubtask.assignmentID = "123";
-      packedSubtask.subtask = selectedSubtask;
-      packedSubtask.dueDate = "${selectedDate.month}/${selectedDate.day}/${selectedDate.year}";
-      print(packedSubtask.dueDate);
-      print("done");
+      Goal subtask = new Goal(name: "Placeholder for goal name",
+                              text: selectedSubtask,
+        dueDate: selectedDate.toString(),
+        courseID: "placeholder for courseID",
+        courseWorkID: "placeholder for courseWorkID",
+      );
 
-      addUserSubtask(firebaseUser, packedSubtask);
+      subtask.setStatus();
+
+
+
+      addUserGoal(firebaseUser, subtask);
       
       
   }

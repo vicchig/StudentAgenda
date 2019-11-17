@@ -128,8 +128,10 @@ void setUserClassTeachers(FirebaseUser user) async {
 
 
 
-void addUserSubtask(FirebaseUser user, Subtask st) async {
-  if (st.subtask == null) {
+void addUserGoal(FirebaseUser user, Goal st) async {
+  // May require additional error checking depending on how
+  // how we choose to differentiate between goal types
+  if (st.text == null) {
     return;
   }
 
@@ -148,7 +150,7 @@ void addUserSubtask(FirebaseUser user, Subtask st) async {
     }
   }
 
-  subtasks[newKey.toString()] = {"subtask":st.subtask, "duedate": st.dueDate, "assignmentId": st.assignmentID};
+  subtasks[newKey.toString()] = st.toJson();
 
   await ref.setData({
     "Subtasks": subtasks
