@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import '../Utilities/util.dart';
-import 'courseGoalsScreen.dart';
 import '../FirestoreManager.dart';
 
-import 'package:googleapis/classroom/v1.dart' as classroom;
-import '../FirestoreManager.dart';
 import 'package:student_agenda/Utilities/auth.dart';
-
 import 'package:student_agenda/FirestoreManager.dart';
 
 import 'dart:async';
@@ -187,8 +183,6 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
       );
 
       subtask.setStatus();
-
-
 
       addUserGoal(firebaseUser, subtask);
       
