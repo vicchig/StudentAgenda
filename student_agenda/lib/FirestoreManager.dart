@@ -125,38 +125,6 @@ void setUserClassTeachers(FirebaseUser user) async {
   }, merge: true);
 }
 
-
-
-void addUserGoal(FirebaseUser user, Goal st) async {
-  // May require additional error checking depending on how
-  // how we choose to differentiate between goal types
-  if (st.text == null) {
-    return;
-  }
-
-  DocumentReference ref = Firestore.instance.collection("users").
-  document(user.uid);
-
-  // print(user.uid);
-  // print((await ref.get()).data["Subtasks"]);
-
-  Map<dynamic, dynamic> subtasks = (await ref.get()).data["Subtasks"];
-  List<int> keys = subtasks.keys.toList().map((ele) => int.parse(ele)).toList();
-  int newKey;
-  for (newKey = 0; newKey < subtasks.length; newKey++) {
-    if (!(keys.contains(newKey))) {
-      break;
-    }
-  }
-
-  subtasks[newKey.toString()] = st.toJson();
-
-  await ref.setData({
-    "Subtasks": subtasks
-  }, merge: true);
-}
-
-
 void setUserClassTopics(FirebaseUser user) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
