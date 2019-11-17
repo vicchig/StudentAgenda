@@ -170,11 +170,11 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     return retButton;
   }
   
-  void finalizeSubtask() {
-      
+  void finalizeSubtask() async {
+
       print('Adding subtask ...' + "${months[selectedDate.month - 1]} ${selectedDate.day}, ${selectedDate.year}");
-      
-      
+
+
       Goal subtask = new Goal(name: "Placeholder for goal name",
                               text: selectedSubtask,
         dueDate: selectedDate.toString(),
@@ -183,8 +183,9 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
       );
 
       subtask.setStatus();
-
-      addUserGoal(firebaseUser, subtask);
+      List<Goal> subtasks = await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+      subtasks.add(subtask);
+      setUserCourseGoals(firebaseUser, subtasks, "CourseWorkGoalObjects");
       
       
   }
