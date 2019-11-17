@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import '../Utilities/util.dart';
 import 'courseGoalsScreen.dart';
+import '../FirestoreManager.dart';
+
+import 'package:googleapis/classroom/v1.dart' as classroom;
+import '../FirestoreManager.dart';
+import 'package:student_agenda/Utilities/auth.dart';
+
+import 'package:student_agenda/FirestoreManager.dart';
 
 import 'dart:async';
 import 'dart:collection';
+
+class Subtask {
+    String assignmentID;
+    String subtask;
+    String dueDate;
+}
 
 class AddGoalsScreen extends StatefulWidget {
   @override
@@ -13,7 +26,7 @@ class AddGoalsScreen extends StatefulWidget {
 }
 
 class AddGoalsScreenState extends State<AddGoalsScreen> {
-  static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion', 'Write the conclusion','Write the conclusion','Write the conclusion''Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion'];
+  static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the body paragraphs','Write the conclusion'];
   var selectedSubtask = null; // NOTE: Depending on implementation, may need to check for empty
   
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -67,6 +80,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     Widget dropdownbox = Align(
       alignment: Alignment.center,
       child: DropdownButton<String>(
+           value: selectedSubtask,
           items: subtasks.map((String dropDownStringItem) {
             return DropdownMenuItem<String>(
               value: dropDownStringItem,
@@ -80,7 +94,6 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
           },
           underline: Container(),
           hint: Text('Subtask', style: TextStyle(fontStyle: FontStyle.italic)),
-          value: selectedSubtask,
           isExpanded: true,
           style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w500),
         ),
@@ -168,7 +181,18 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   
   void finalizeSubtask() {
       
-      print('Adding subtask ...');
+      print('Adding subtask ...' + "${months[selectedDate.month - 1]} ${selectedDate.day}, ${selectedDate.year}");
+      
+      
+      Subtask packedSubtask = new Subtask();
+      packedSubtask.assignmentID = "123";
+      packedSubtask.subtask = selectedSubtask;
+      packedSubtask.dueDate = "${selectedDate.month}/${selectedDate.day}/${selectedDate.year}";
+      print(packedSubtask.dueDate);
+      print("done");
+
+      addUserSubtask(firebaseUser, packedSubtask);
+      
       
   }
   

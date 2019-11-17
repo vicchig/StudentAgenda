@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
 
+import 'Screens/addGoalsScreen.dart';
 import 'ClassroomApiAccess.dart';
 import 'Utilities/goal.dart';
 
@@ -122,6 +123,35 @@ void setUserClassTeachers(FirebaseUser user) async {
 
   await ref.setData({
     "TeacherObjects": mapToUpload
+  }, merge: true);
+}
+
+
+
+void addUserSubtask(FirebaseUser user, Subtask st) async {
+  if (st.subtask == null) {
+    return;
+  }
+
+  DocumentReference ref = Firestore.instance.collection("users").
+  document(user.uid);
+
+  // print(user.uid);
+  // print((await ref.get()).data["Subtasks"]);
+
+  Map<dynamic, dynamic> subtasks = (await ref.get()).data["Subtasks"];
+  List<int> keys = subtasks.keys.toList().map((ele) => int.parse(ele)).toList();
+  int newKey;
+  for (newKey = 0; newKey < subtasks.length; newKey++) {
+    if (!(keys.contains(newKey))) {
+      break;
+    }
+  }
+
+  subtasks[newKey.toString()] = {"subtask":st.subtask, "duedate": st.dueDate, "assignmentId": st.assignmentID};
+
+  await ref.setData({
+    "Subtasks": subtasks
   }, merge: true);
 }
 
