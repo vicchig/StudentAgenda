@@ -17,7 +17,7 @@ void doTransaction(String onSuccess, String onError, Function transaction) async
   }
 }
 
-void setUserData(FirebaseUser user) async {
+void setUserData(FirebaseUser user, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection('users').
   document(user.uid);
 
@@ -27,10 +27,10 @@ void setUserData(FirebaseUser user) async {
     'photoURL': user.photoUrl,
     'displayName': user.displayName,
     'lastSeen': DateTime.now()
-  }, merge: true);
+  }, merge: toMerge);
 }
 
-void setUserClassroomData(FirebaseUser user) async{
+void setUserClassroomData(FirebaseUser user, {toMerge: true}) async{
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -46,10 +46,10 @@ void setUserClassroomData(FirebaseUser user) async{
 
   await ref.setData({
     "CourseObjects": mapToUpload
-  }, merge: true);
+  }, merge: toMerge);
 }
 
-void setUserCourseWorkData(FirebaseUser user) async {
+void setUserCourseWorkData(FirebaseUser user, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -65,10 +65,10 @@ void setUserCourseWorkData(FirebaseUser user) async {
 
   await ref.setData({
     "CourseWorkObjects": mapToUpload
-  }, merge: true);
+  }, merge: toMerge);
 }
 
-void setUserAnnouncementData(FirebaseUser user) async {
+void setUserAnnouncementData(FirebaseUser user, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -84,10 +84,10 @@ void setUserAnnouncementData(FirebaseUser user) async {
 
   await ref.setData({
     "AnnouncementObjects": mapToUpload
-  }, merge: true);
+  }, merge: toMerge);
 }
 
-void setUserClassStudents(FirebaseUser user) async {
+void setUserClassStudents(FirebaseUser user, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -103,10 +103,10 @@ void setUserClassStudents(FirebaseUser user) async {
 
   await ref.setData({
     "StudentObjects": mapToUpload
-  }, merge: true);
+  }, merge: toMerge);
 }
 
-void setUserClassTeachers(FirebaseUser user) async {
+void setUserClassTeachers(FirebaseUser user, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -122,11 +122,11 @@ void setUserClassTeachers(FirebaseUser user) async {
 
   await ref.setData({
     "TeacherObjects": mapToUpload
-  }, merge: true);
+  }, merge: toMerge);
 }
 
 
-void setUserClassTopics(FirebaseUser user) async {
+void setUserClassTopics(FirebaseUser user, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -142,14 +142,14 @@ void setUserClassTopics(FirebaseUser user) async {
 
   await ref.setData({
     "TopicObjects": mapToUpload
-  }, merge: true);
+  }, merge: toMerge);
 }
 
 /*
 * goalType should be one of: "CourseGoalObjects", "GeneralGoalObjects" or
 *  "CourseWorkGoalObjects"
 * */
-void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals, String goalType) async {
+void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals, String goalType, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
 
@@ -163,7 +163,7 @@ void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals, String goalTy
 
   await ref.setData({
     goalType: mapToUpload
-  }, merge: true);
+  }, merge: toMerge);
 }
 
 
