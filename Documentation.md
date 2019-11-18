@@ -60,54 +60,61 @@ Wrapper that performs a Firestore Transaction in a synchronized manner. Called d
 * __`transaction`__: operation to be performed during a transcation. This should be a read or write operation to the Firestore. ...
 
 
-__2.__ `void setUserData(FirebaseUser user) async`
+__2.__ `void setUserData(FirebaseUser user, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current user information, if the information exists. Otherwise,
 creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
-* __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__3.__ `void setClassroomData(FirebaseUser user) async`
+__3.__ `void setClassroomData(FirebaseUser user, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about courses that they are subscribed to, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
-* __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__4.__ `void setUserCourseWorkData(FirebaseUser user) async`
+__4.__ `void setUserCourseWorkData(FirebaseUser user, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about course work that they are allowed to view from classes that they are subscribed to, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
-* __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__5.__ `void setUserAnnouncementData(FirebaseUser user) async`
+__5.__ `void setUserAnnouncementData(FirebaseUser user, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about course announcements that they are allowed to view from classes that they are subscribed to, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
-* __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__5.__ `void setUserClassStudents(FirebaseUser user) async`
+__5.__ `void setUserClassStudents(FirebaseUser user, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about students in the current user's subscribed classes, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
-* __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__6.__ `void setUserClassTeachers(FirebaseUser user) async`
+__6.__ `void setUserClassTeachers(FirebaseUser user, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about teachers of the current user's subscribed classes, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
-* __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__7.__ `void setUserClassTopics(FirebaseUser user) async`
+__7.__ `void setUserClassTopics(FirebaseUser user, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about course topics from the current user's subscribed classes, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
-* __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
 __8.__ `Future<List<classroom.Course>> pullCourses(FirebaseUser user) async`
@@ -146,7 +153,7 @@ Pulls information about course work objects for the courses that the current use
 ##### Parameters:
 * __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
 ##### Return:
-A Future of `List<classroom.CourseWork>` where the list value of the future contains the `classroom.CourseWork` objects that define each of the user's courses. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
+A Future of `List<classroom.CourseWork>` where the list value of the future contains the `classroom.CourseWork` objects that define user course work. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
 
 
 __10.__ `Future<List<classroom.Announcement>> pullCourseAnnouncements(FirebaseUser user) async`
@@ -155,7 +162,7 @@ Pulls information about announcements that the user is allowed to see for the co
 ##### Parameters:
 * __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
 ##### Return:
-A Future of `List<classroom.Announcement>` where the list value of the future contains the `classroom.Announcement` objects that define each of the user's courses. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
+A Future of `List<classroom.Announcement>` where the list value of the future contains the `classroom.Announcement` objects that define announcements in courses that the user is subscribed to. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
 
 
 __11.__ `Future<List<classroom.Student>> pullClassmates(FirebaseUser user) async`
@@ -164,7 +171,7 @@ Pulls information about students for the courses that the current user is subscr
 ##### Parameters:
 * __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
 ##### Return:
-A Future of `List<classroom.Student>` where the list value of the future contains the `classroom.Student` objects that define each of the user's courses. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
+A Future of `List<classroom.Student>` where the list value of the future contains the `classroom.Student` objects that define students in classes that the user is subscribed to. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
 
 
 __12.__ `Future<List<classroom.Teacher>> pullTeachers(FirebaseUser user) async`
@@ -173,7 +180,7 @@ Pulls information about teachers of the courses that the current user is subscri
 ##### Parameters:
 * __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
 ##### Return:
-A Future of `List<classroom.Teacher>` where the list value of the future contains the `classroom.Teacher` objects that define each of the user's courses. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
+A Future of `List<classroom.Teacher>` where the list value of the future contains the `classroom.Teacher` objects that define teachers for classes that the user is subscribed to. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
 
 
 __13.__ `Future<List<classroom.Topic>> pullTopics(FirebaseUser user) async`
@@ -182,7 +189,27 @@ Pulls information about course material topics for the courses that the current 
 ##### Parameters:
 * __`user`__:  object storing the currently logged in FireBase user from which appropriate information is extracted.
 ##### Return:
-A Future of `List<classroom.Topic>` where the list value of the future contains the `classroom.Topic` objects that define each of the user's courses. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
+A Future of `List<classroom.Topic>` where the list value of the future contains the `classroom.Topic` objects that define each of the user's course topics. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
+
+
+__14.__ `void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals, String goalType, {toMerge: true}) async`
+##### Summary:
+Updates per user goals on Firebase with goals from courseGoals in the goalType section of the document. Merges with the document if toMerge is set to true, otherwise overwrites the document section.
+##### Parameters:
+* __`user`__:      object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`goalType`__:  specifies which section of the Firebase document to push the goals to. One of "CourseGoalObjects" (main goals for a specific course), "GeneralGoalObjects" (general goals for no particular course) or "CourseWorkGoalObjects" (specific goals for an assignment of some course).
+* __`toMerge`__:   __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
+
+
+__15.__ `Future<List<Goal>> pullGoals(FirebaseUser user, String goalType) async`
+##### Summary:
+Pulls information about goals of a given goalType for this user.
+##### Parameters:
+* __`user`__:      object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`goalType`__:  specifies which section of the Firebase document to pull goals from. One of "CourseGoalObjects" (main goals for a specific course), "GeneralGoalObjects" (general goals for no particular course) or "CourseWorkGoalObjects" (specific goals for an assignment of some course).
+##### Return:
+A Future of `List<Goal>` where the list value of the future contains the `Goal` objects that define each of the user's goals. __The return of this function cannot be used directly and must be processed to extract it from the Future by awaiting its completion.__
+
 
 ## FirestoreDataManager Documentation
 API for processing data obtained from the Cloud Firestore. __This API deals a lot with data types defined in Google's Classroom API, it is suggested to review its documentation as needed to see what fields and methods the returned objects contain.__

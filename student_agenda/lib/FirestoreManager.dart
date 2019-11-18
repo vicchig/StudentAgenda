@@ -145,10 +145,7 @@ void setUserClassTopics(FirebaseUser user, {toMerge: true}) async {
   }, merge: toMerge);
 }
 
-/*
-* goalType should be one of: "CourseGoalObjects", "GeneralGoalObjects" or
-*  "CourseWorkGoalObjects"
-* */
+
 void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals, String goalType, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
@@ -287,10 +284,7 @@ Future<List<classroom.Topic>> pullTopics(FirebaseUser user) async{
   return courseTopics;
 }
 
-/*
-* goalType should be one of: "CourseGoalObjects", "GeneralGoalObjects" or
-*  "CourseWorkGoalObjects"
-* */
+
 Future<List<Goal>> pullGoals(FirebaseUser user, String goalType) async {
   List<Goal> courseGoals = new List<Goal>();
   Map<dynamic, dynamic> courseObjectListMap;
