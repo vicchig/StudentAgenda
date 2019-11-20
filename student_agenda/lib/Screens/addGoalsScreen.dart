@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import '../Utilities/util.dart';
-import 'courseGoalsScreen.dart';
+import '../FirestoreManager.dart';
+
+import 'package:student_agenda/Utilities/auth.dart';
+import 'package:student_agenda/FirestoreManager.dart';
 
 import 'dart:async';
 import 'dart:collection';
+import '../Utilities/goal.dart';
 
 class AddGoalsScreen extends StatefulWidget {
   @override
@@ -13,7 +17,7 @@ class AddGoalsScreen extends StatefulWidget {
 }
 
 class AddGoalsScreenState extends State<AddGoalsScreen> {
-  static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion', 'Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion', 'Write the conclusion','Write the conclusion','Write the conclusion''Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion','Write the conclusion'];
+  static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the body paragraphs','Write the conclusion'];
   var selectedSubtask = null; // NOTE: Depending on implementation, may need to check for empty
   
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -67,6 +71,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     Widget dropdownbox = Align(
       alignment: Alignment.center,
       child: DropdownButton<String>(
+           value: selectedSubtask,
           items: subtasks.map((String dropDownStringItem) {
             return DropdownMenuItem<String>(
               value: dropDownStringItem,
@@ -80,7 +85,6 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
           },
           underline: Container(),
           hint: Text('Subtask', style: TextStyle(fontStyle: FontStyle.italic)),
-          value: selectedSubtask,
           isExpanded: true,
           style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w500),
         ),
@@ -166,9 +170,20 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     return retButton;
   }
   
-  void finalizeSubtask() {
+  void finalizeSubtask() async {
+
+      Goal subtask = new Goal(name: "Placeholder for goal name",
+                              text: selectedSubtask,
+        dueDate: selectedDate.toString(),
+        courseID: "placeholder for courseID",
+        courseWorkID: "placeholder for courseWorkID",
+      );
+
+      subtask.setStatus();
+      List<Goal> subtasks = await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+      subtasks.add(subtask);
+      setUserCourseGoals(firebaseUser, subtasks, "CourseWorkGoalObjects");
       
-      print('Adding subtask ...');
       
   }
   

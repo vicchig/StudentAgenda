@@ -125,7 +125,6 @@ void setUserClassTeachers(FirebaseUser user) async {
   }, merge: true);
 }
 
-
 void setUserClassTopics(FirebaseUser user) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
