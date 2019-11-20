@@ -172,9 +172,6 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   
   void finalizeSubtask() async {
 
-      print('Adding subtask ...' + "${months[selectedDate.month - 1]} ${selectedDate.day}, ${selectedDate.year}");
-
-
       Goal subtask = new Goal(name: "Placeholder for goal name",
                               text: selectedSubtask,
         dueDate: selectedDate.toString(),
