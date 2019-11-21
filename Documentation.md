@@ -5,8 +5,8 @@
 * [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)  
 
 ## Links to Items within this Document
-* [FirebaseManager Doc](#firestoremanager-documentation)
-* [FirebaseDataManager Doc](#firestoredatamanager-documentation)
+* [FirestoreManager Doc](#firestoremanager-documentation)
+* [FirestoreDataManager Doc](#firestoredatamanager-documentation)
 
 ## Dev Notes
 
@@ -122,7 +122,7 @@ A Future of `List<classroom.Course>` where the list value of the future contains
 class DashboardScreenState extends State<DashboardScreen> {
   List<classroom.Course> _courses = new List<classroom.Course>();
   
-  void processFuture() async {
+  Future<void> processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
     setState(()  {
       _courses = tempCourses;
@@ -132,7 +132,15 @@ class DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    processFuture();
+    processFuture().then((arg) {
+    
+    // ANY CODE THAT DEPENDS ON processFuture() COMPLETING FIRST
+    
+    }, onError: (e) {
+        print(e);
+        // ERROR HANDLING CODE
+    });
+    // ANY CODE THAT DOES NOT DEPEND ON processFuture() TO COMPLETE
   }
 }
 ```
