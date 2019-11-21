@@ -70,7 +70,7 @@ class _CalPageState extends State<CalPage> with TickerProviderStateMixin{
       for(Goal goal in _pulledGoals){
         for(DateTime dt in _events.keys){
           //determine whether the date for the goal is a key in the map
-          if(getCalendarDueDate(dt) == goal.getCalendarDueDate()){
+          if(getCalendarDueDate(dt) == getCalendarDueDate(goal.dueDate)){
             dateUsed = true;
             date = dt;
             break;
