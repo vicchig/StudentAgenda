@@ -22,11 +22,6 @@ void main(){
       expect(testGoal.getDueTime(), equals("10:25:00"));
     });
 
-    test(".getCalendarDueDate() should return a calendar in the format "
-        "dd/mm/yyyy", () {
-      expect(testGoal.getCalendarDueDate(), equals("15/11/2019"));
-    });
-
     test(".getCourseId() should correctly return the courses id", () {
       expect(testGoal.getCourseId(), equals("1"));
     });

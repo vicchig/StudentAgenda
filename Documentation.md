@@ -298,31 +298,25 @@ Get the string representation of this goal's due time on a 24-hour clock.
 ##### Return:
 String in the format "hh:mm:ss".
 
-__5.__ `String getCalendarDueDate()`
-##### Summary: 
-Get the string representation of this goal's due date. See [Util Doc](#util-functions-documentation)
-##### Return:
-String in the format "dd/mm/yyyy".
-
-__6.__ `String getCourseId()`
+__5.__ `String getCourseId()`
 ##### Summary: 
 Get the ID of the course that this goal is associated with.
 ##### Return:
 A numeric course ID as a string.
 
-__7.__ `String getCourseWorkId()`
+__6.__ `String getCourseWorkId()`
 ##### Summary: 
 Get the ID of the course work that this goal is associated with.
 ##### Return:
 A numeric course work ID as a string.
 
-__8.__ `String toString()`
+__7.__ `String toString()`
 ##### Summary: 
 Get the String summary of the object.
 ##### Return:
 This object as a description string.
 
-__9.__ `Map<String, dynamic> toJson()`
+__8.__ `Map<String, dynamic> toJson()`
 ##### Summary:
 Converts this object into a Json serializable representation using a hash map. For example, the name of the Goal object that was converted can be accessed from the returned Map as follows: returnedMap["name"].
 ##### Return:
@@ -351,3 +345,11 @@ Extract the month from a date object and return its text representation.
 ##### Return:
 Text representation of the month within the given date.
 
+
+__3.__ `String getCalendarDueDate(DateTime date)`
+##### Summary: 
+Get the string representation of date.
+##### Parameters:
+* __`date`__:  object from which to extract the date string. 
+##### Return:
+String in the format "dd/mm/yyyy".

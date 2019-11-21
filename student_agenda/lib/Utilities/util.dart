@@ -283,4 +283,9 @@ String getMonthFromDateObj(DateTime date){
   return numToMonth[date.month.toString()];
 }
 
+String getCalendarDueDate(DateTime date){
+  return "" + date.day.toString() + "/" + date.month.toString() + "/" +
+      date.year.toString();
+}
+
 

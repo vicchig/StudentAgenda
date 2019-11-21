@@ -1,6 +1,7 @@
 //CLASS FOR REPRESENTING A STUDENT GOAL
 
-import 'package:googleapis/classroom/v1.dart' as classroom;
+
+import 'package:student_agenda/Utilities/util.dart';
 
 const String S_IN_PROGRESS = "IN_PROGRESS";
 const String S_COMPLETED   = "COMPLETED";
@@ -16,7 +17,6 @@ class Goal{
   String _courseID;
   String _courseWorkID;
 
-  //the dueDate string should be in the following format "yyyy-mm-ddThh:mm:ss"
   Goal({String name: "BlankGoal", String text: "", courseID: "-1",
     courseWorkID: "-1",  String dueDate: ""}){
 
@@ -29,7 +29,6 @@ class Goal{
     this.dueDate = DateTime.parse(dueDate);
   }
 
-  //The complete status should be set through the method
   void setStatus(){
     DateTime currDateTime = DateTime.now();
     if(currDateTime.isAfter(dueDate) && _status == S_IN_PROGRESS){
@@ -54,8 +53,7 @@ class Goal{
     setStatus();
   }
 
-  //returns the time this task is due (DOES NOT DISTINGUISH BETWEEN AM/PM,
-  // SO USE THE 24 HOUR CLOCK)
+
   String getDueTime(){
     String result = dueDate.toIso8601String();
     result = result.substring(result.indexOf("T"));
@@ -64,12 +62,6 @@ class Goal{
         timeParts[2].substring(0, 2);
   }
 
-  //Returns the calendar due date for this task in the format "dd/mm/yyyy"
-  //Can extract the month by calling util.getMonthFromDateStr(dateStr);
-  String getCalendarDueDate(){
-    return "" + dueDate.day.toString() + "/" + dueDate.month.toString() + "/" +
-        dueDate.year.toString();
-  }
 
   String getCourseId(){
     return _courseID;
@@ -80,8 +72,8 @@ class Goal{
   }
 
   String toString(){
-    return name + "\n" + getCalendarDueDate() + "\n" + getDueTime() + "\n" +
-        _status + "\n\n" + text + "\n\n";
+    return name + "\n" + getCalendarDueDate(this.dueDate) + "\n" + getDueTime()
+        + "\n" + _status + "\n\n" + text + "\n\n";
   }
 
   Map<String, dynamic> toJson() => {
