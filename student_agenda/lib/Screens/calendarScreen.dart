@@ -45,7 +45,7 @@ class _CalPageState extends State<CalPage> with TickerProviderStateMixin{
 
   List<Goal> _pulledGoals = new List<Goal>();
 
-  void processFuture() async {
+  Future<void> processFuture() async {
     List<Goal> tempGoals = await pullGoals(firebaseUser, "GeneralGoalObjects");
     setState(()  {
       _pulledGoals = tempGoals;
@@ -53,46 +53,44 @@ class _CalPageState extends State<CalPage> with TickerProviderStateMixin{
   }
 
   @override
-  void initState() {
-
+  void initState(){
     super.initState();
-    processFuture();
-    final _selectedDay = DateTime.now();
+    processFuture().then((arg) {
+      //add goals to Map that the calendar view uses from firebase
+      //goals must be added so that multiple goals due on the same day
+      //go in the same key in the map.
 
-    //add goals to Map that the calendar view uses from firebase
-    //goals must be added so that multiple goals due on the same day
-    //go in the same key in the map.
+      //Note we use getCalendarDueDate to compare a string representation of
+      // the dateTime objects since if we just compared dateTimes, then
+      //the goals would have to be due at the exact same time (hour, min).
+      //This way, we only check if goals on same day to draw multiple goals
+      //on a single day in the calendar.
+      bool dateUsed = false;
+      DateTime date;
+      for(Goal goal in _pulledGoals){
+        for(DateTime dt in _events.keys){
+          //determine whether the date for the goal is a key in the map
+          if(getCalendarDueDate(dt) == goal.getCalendarDueDate()){
+            dateUsed = true;
+            date = dt;
+            break;
+          }
+        }
 
-    //Note we use getCalendarDueDate to compare a string representation of
-    // the dateTime objects since if we just compared dateTimes, then
-    //the goals would have to be due at the exact same time (hour, min).
-    //This way, we only check if goals on same day to draw multiple goals
-    //on a single day in the calendar.
-    bool dateUsed = false;
-    DateTime date;
-    for(Goal goal in _pulledGoals){
-      for(DateTime dt in _events.keys){
-        //determine whether the date for the goal is a key in the map
-        if(getCalendarDueDate(dt) == goal.getCalendarDueDate()){
-          dateUsed = true;
-          date = dt;
-          break;
+        if(!dateUsed){
+          _events[goal.dueDate] = new List();
+          _events[goal.dueDate].add(goal.name);
+        }
+        else{
+          _events[date].add(goal.name);
         }
       }
+    });
 
-      if(!dateUsed){
-        _events[goal.dueDate] = new List();
-        _events[goal.dueDate].add(goal.name);
-      }
-      else{
-        _events[date].add(goal.name);
-      }
-    }
-
+    final _selectedDay = DateTime.now();
 
     _selectedEvents = _events[_selectedDay] ?? [];
     _calendarController = CalendarController();
-
 
 
     _animationController = AnimationController(
