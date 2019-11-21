@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:student_agenda/FirestoreManager.dart';
+import 'package:student_agenda/Utilities/auth.dart';
 import 'package:student_agenda/Utilities/util.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
 import 'package:student_agenda/FirestoreDataManager.dart';
-import '../ClassroomApiAccess.dart';
 import '../Utilities/util.dart';
 import '../FirestoreDataManager.dart';
 
@@ -24,9 +25,8 @@ class ClassViewState extends State<ClassViewScreen> {
   List<classroom.Student> _students = new List<classroom.Student>();
 
   void retrieveStudents() async {
-    ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-    List<classroom.Student> allStudents = await classroomInst.getStudents();
-    List<classroom.Student> tempStudents = getClassRoster(courseID, allStudents);
+    List<classroom.Student> allSubscribedStudents = await pullClassmates(firebaseUser);
+    List<classroom.Student> tempStudents = getClassRoster(courseID, allSubscribedStudents);
     setState(() {
       _students = tempStudents;
     });
