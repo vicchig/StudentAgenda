@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:student_agenda/Utilities/util.dart';
 import "package:test/test.dart";
-import 'package:collection/collection.dart';
 
 
 void main(){
@@ -24,7 +23,8 @@ void main(){
     dateStrEx = "";
     dateStrEx2 = "";
 
-
+    dateObj = null;
+    dateObjDiff = null;
   });
 
   group("Test getMonthFromDateStr", (){
@@ -100,6 +100,13 @@ void main(){
       }
       
       expect(listEquals(actual, expected), equals(true));
+    });
+  });
+
+  group("Test getCalendarDate", (){
+    test(".getCalendarDueDate() should return a calendar in the format "
+    "dd/mm/yyyy", () {
+    expect(getCalendarDueDate(dateObj), equals("15/11/2019"));
     });
   });
 }
