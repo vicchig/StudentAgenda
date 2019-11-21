@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_agenda/Utilities/auth.dart';
+import 'package:student_agenda/Utilities/goal.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import '../FirestoreManager.dart';
 import '../Utilities/util.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 // Example holidays
 final Map<DateTime, List> _holidays = {
@@ -34,34 +38,56 @@ class CalPage extends StatefulWidget {
 }
 
 class _CalPageState extends State<CalPage> with TickerProviderStateMixin{
-  Map<DateTime, List> _events;
+  Map<DateTime, List> _events = new Map<DateTime, List>();
   List _selectedEvents;
   AnimationController _animationController;
   CalendarController _calendarController;
+
+  List<Goal> _pulledGoals = new List<Goal>();
+
+  void processFuture() async {
+    List<Goal> tempGoals = await pullGoals(firebaseUser, "GeneralGoalObjects");
+    setState(()  {
+      _pulledGoals = tempGoals;
+    });
+  }
 
   @override
   void initState() {
 
     super.initState();
+    processFuture();
     final _selectedDay = DateTime.now();
 
-    _events = {
-      _selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
-      _selectedDay.subtract(Duration(days: 27)): ['Event A1'],
-      _selectedDay.subtract(Duration(days: 20)): ['Event A2', 'Event B2', 'Event C2', 'Event D2'],
-      _selectedDay.subtract(Duration(days: 16)): ['Event A3', 'Event B3'],
-      _selectedDay.subtract(Duration(days: 10)): ['Event A4', 'Event B4', 'Event C4'],
-      _selectedDay.subtract(Duration(days: 4)): ['Event A5', 'Event B5', 'Event C5'],
-      _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
-      _selectedDay: ['Event A7', 'Event B7', 'Event C7', 'Event D7'],
-      _selectedDay.add(Duration(days: 1)): ['Event A8', 'Event B8', 'Event C8', 'Event D8', 'Event T1', 'Event T2'],
-      _selectedDay.add(Duration(days: 3)): Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-      _selectedDay.add(Duration(days: 7)): ['Event A10', 'Event B10', 'Event C10'],
-      _selectedDay.add(Duration(days: 11)): ['Event A11', 'Event B11'],
-      _selectedDay.add(Duration(days: 17)): ['Event A12', 'Event B12', 'Event C12', 'Event D12'],
-      _selectedDay.add(Duration(days: 22)): ['Event A13', 'Event B13'],
-      _selectedDay.add(Duration(days: 26)): ['Event A14', 'Event B14', 'Event C14'],
-    };
+    //add goals to Map that the calendar view uses from firebase
+    //goals must be added so that multiple goals due on the same day
+    //go in the same key in the map.
+
+    //Note we use getCalendarDueDate to compare a string representation of
+    // the dateTime objects since if we just compared dateTimes, then
+    //the goals would have to be due at the exact same time (hour, min).
+    //This way, we only check if goals on same day to draw multiple goals
+    //on a single day in the calendar.
+    bool dateUsed = false;
+    DateTime date;
+    for(Goal goal in _pulledGoals){
+      for(DateTime dt in _events.keys){
+        //determine whether the date for the goal is a key in the map
+        if(getCalendarDueDate(dt) == goal.getCalendarDueDate()){
+          dateUsed = true;
+          date = dt;
+          break;
+        }
+      }
+
+      if(!dateUsed){
+        _events[goal.dueDate] = new List();
+        _events[goal.dueDate].add(goal.name);
+      }
+      else{
+        _events[date].add(goal.name);
+      }
+    }
 
 
     _selectedEvents = _events[_selectedDay] ?? [];
