@@ -1,6 +1,8 @@
 //CLASS FOR REPRESENTING A STUDENT GOAL
 
 
+import 'package:student_agenda/Utilities/util.dart';
+
 const String S_IN_PROGRESS = "IN_PROGRESS";
 const String S_COMPLETED   = "COMPLETED";
 const String S_COMPLETED_LATE = "COMPLETED_LATE";
@@ -61,11 +63,6 @@ class Goal{
   }
 
 
-  String getCalendarDueDate(){
-    return "" + dueDate.day.toString() + "/" + dueDate.month.toString() + "/" +
-        dueDate.year.toString();
-  }
-
   String getCourseId(){
     return _courseID;
   }
@@ -75,8 +72,8 @@ class Goal{
   }
 
   String toString(){
-    return name + "\n" + getCalendarDueDate() + "\n" + getDueTime() + "\n" +
-        _status + "\n\n" + text + "\n\n";
+    return name + "\n" + getCalendarDueDate(this.dueDate) + "\n" + getDueTime()
+        + "\n" + _status + "\n\n" + text + "\n\n";
   }
 
   Map<String, dynamic> toJson() => {
