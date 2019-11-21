@@ -112,7 +112,7 @@ class DashboardScreenState extends State<DashboardScreen> {
 // @param user     the current user
 // @param courseid the courseid to lookup
 // @param inst     the current classroom context
-// @return          a boolean representing whether or not the user is a teacher
+// @return         a boolean representing whether or not the user is a teacher
 Future<bool> isTeacher(FirebaseUser user, String courseid, ClassroomApiAccess inst) async {
 
   List<classroom.Teacher> teachers = await inst.getTeachers();
