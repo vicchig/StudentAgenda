@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_agenda/FirestoreDataManager.dart';
 import '../Utilities/util.dart';
 import '../FirestoreManager.dart';
 
@@ -20,15 +21,20 @@ class AddGoalsScreen extends StatefulWidget {
 class AddGoalsScreenState extends State<AddGoalsScreen> {
 
   List<classroom.Course> _courses = new List<classroom.Course>();
-  List<String> _courses_name = new List<String>();
+  List<classroom.CourseWork> _courseWork = new List<classroom.CourseWork>();
+  List<classroom.CourseWork> _original = new List<classroom.CourseWork>();
 
   void processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
+    List<classroom.CourseWork> tempWork = await pullCourseWorkData(firebaseUser);
     setState(() {
       _courses = tempCourses;
-      _courses_name = tempCourses.map((course) => course.name.toString()).toList();
+      _courseWork = tempWork;
+      _original = tempWork;
     });
   }
+
+
 
   @override
   void initState() {
@@ -37,8 +43,15 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   }
 
   static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the body paragraphs','Write the conclusion', 'Other'];
-  var selectedSubtask = null; // NOTE: Depending on implementation, may need to check for empty
-  var selectedCourse = null;
+  String selectedSubtask = null; // NOTE: Depending on implementation, may need to check for empty
+  classroom.Course selectedCourse = null;
+  classroom.CourseWork selectedCourseWork = null;
+
+
+
+
+
+
 
   String otherSubtask = null;
 
@@ -72,9 +85,13 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
       body: ListView(
       children: [
       
-      SizedBox(height: 140),
+      SizedBox(height: 70),
 
       courseDropbox(context),
+
+      SizedBox(height: 20),
+
+      courseWorkDropbox(context),
 
       SizedBox(height: 20),
 
@@ -96,6 +113,59 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   }
 
 
+  Widget courseWorkDropbox(BuildContext context) {
+    Widget dropdownbox = Align(
+      alignment: Alignment.center,
+      child: DropdownButton<classroom.CourseWork>(
+        value: selectedCourseWork,
+
+        items: _courseWork.map((classroom.CourseWork dropDownItem) {
+          return DropdownMenuItem<classroom.CourseWork>(
+            value: dropDownItem,
+            child: Text(dropDownItem.description,
+              overflow: TextOverflow.ellipsis,),
+          );
+        }).toList(),
+
+        onChanged: (classroom.CourseWork newValueSelected) {
+          _onDropDownItemSelectedCourseWork(newValueSelected);
+        },
+        underline: Container(),
+        hint: Text('Goal for the Course', style: TextStyle(fontStyle: FontStyle.italic, color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green)),
+        isExpanded: true,
+        style: TextStyle(
+            color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green, fontSize: 18, fontWeight: FontWeight.w500),
+      ),
+    );
+
+    Widget alignedBox = IgnorePointer(
+      ignoring: selectedCourse == null,
+      ignoringSemantics: selectedCourse == null,
+      child:
+      Align(
+        alignment: Alignment(0.0, -0.7),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green,
+                width: 3,
+              ),
+              borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(10.0),
+                  topRight: const Radius.circular(10.0),
+                  bottomLeft: const Radius.circular(10.0),
+                  bottomRight: const Radius.circular(10.0))),
+          height: 50,
+          width: 330,
+          padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+          child: dropdownbox,
+        ),
+      ),
+    );
+
+
+    return alignedBox;
+  }
 
 
   Widget otherTextfield(BuildContext context) {
@@ -249,9 +319,17 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   void _onDropDownItemSelectedCourse(classroom.Course newValueSelected) {
     setState(() {
       this.selectedCourse = newValueSelected;
+      this._courseWork = getCourseWorksForCourse(this.selectedCourse.id, this._original);
+      this.selectedCourseWork = null;
     });
   }
-  
+
+  void _onDropDownItemSelectedCourseWork(classroom.CourseWork newValueSelected) {
+    setState(() {
+      this.selectedCourseWork = newValueSelected;
+    });
+  }
+
   void _onDropDownItemSelected(String newValueSelected) {
 	  setState(() {
 		  this.selectedSubtask = newValueSelected;
@@ -336,6 +414,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
 
 
       Goal subtask = new Goal(name: (selectedSubtask == 'Other') ? otherSubtask:selectedSubtask,
+        courseWorkID: (selectedCourseWork != null) ? selectedCourseWork.id : "-1",
         dueDate: selectedDate.toString(),
         courseID: selectedCourse.id,
       );
@@ -343,9 +422,9 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
 
 
       subtask.setStatus();
-      List<Goal> subtasks = await pullGoals(firebaseUser, "CourseGoalObjects");
+      List<Goal> subtasks = await pullGoals(firebaseUser, (selectedCourseWork != null) ? "CourseWorkGoalObjects" : "CourseGoalObjects");
       subtasks.add(subtask);
-      setUserCourseGoals(firebaseUser, subtasks, "CourseGoalObjects");
+      setUserCourseGoals(firebaseUser, subtasks, (selectedCourseWork != null) ? "CourseWorkGoalObjects" : "CourseGoalObjects");
       
       
   }
