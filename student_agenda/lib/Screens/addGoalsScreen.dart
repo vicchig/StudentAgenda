@@ -41,7 +41,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the body paragraphs','Write the conclusion', 'Other'];
   var selectedSubtask = null; // NOTE: Depending on implementation, may need to check for empty
   var selectedCourse = null;
-  
+
 
   var otherSelected = false;
 
@@ -243,23 +243,27 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   
   Widget addButton(BuildContext context) {
       Widget retButton =
-        FlatButton(
-        onPressed: () => finalizeSubtask(),
-            textColor: Colors.white,
-            color: Colors.green,
-            padding: const EdgeInsets.all(0.0),
-            shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(10.0),
-            side: BorderSide(color: Colors.green, width: 3)),
-        child: Container(
-            height: 70,
-            width: 100,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(10.0),
-            child: Text('Add',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700)),
-        ),
-    );
+        IgnorePointer(
+          ignoring:selectedCourse == null,
+          ignoringSemantics: selectedCourse == null,
+          child:FlatButton(
+            onPressed: () => finalizeSubtask(),
+                textColor: Colors.white,
+                color: Colors.green,
+                padding: const EdgeInsets.all(0.0),
+                shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(10.0),
+                side: BorderSide(color: Colors.green, width: 3)),
+            child: Container(
+                height: 70,
+                width: 100,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10.0),
+                child: Text('Add',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700)),
+            ),
+          )
+      );
     return retButton;
   }
   
