@@ -5,6 +5,7 @@ import '../FirestoreManager.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import 'package:student_agenda/FirestoreManager.dart';
 
+import 'package:googleapis/classroom/v1.dart' as classroom;
 import 'dart:async';
 import 'dart:collection';
 import '../Utilities/goal.dart';
@@ -17,12 +18,36 @@ class AddGoalsScreen extends StatefulWidget {
 }
 
 class AddGoalsScreenState extends State<AddGoalsScreen> {
-  static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the body paragraphs','Write the conclusion'];
+
+  List<classroom.Course> _courses = new List<classroom.Course>();
+  List<String> _courses_name = new List<String>();
+
+  void processFuture() async {
+    List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
+    setState(() {
+      _courses = tempCourses;
+      _courses_name = tempCourses.map((course) => course.name.toString()).toList();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    processFuture();
+  }
+
+
+
+  static var subtasks = ['Write the intro paragraph', 'Write the first body', 'Write the body paragraphs','Write the conclusion', 'Other'];
   var selectedSubtask = null; // NOTE: Depending on implementation, may need to check for empty
+  var selectedCourse = null;
   
+
+  var otherSelected = false;
+
+
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   DateTime selectedDate = DateTime.now();
-  
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -51,10 +76,12 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
       children: [
       
       SizedBox(height: 140),
-      
+      courseDropbox(context),
+      SizedBox(height: 20),
+
       subtaskDropbox(context),
       
-      SizedBox(height: 30),
+      SizedBox(height: 20),
 
       datepicker(context),
       
@@ -65,6 +92,55 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     ),
     );
   }
+
+  Widget courseDropbox(BuildContext context) {
+    Widget dropdownbox = Align(
+      alignment: Alignment.center,
+      child: DropdownButton<classroom.Course>(
+        value: selectedCourse,
+
+        items: _courses.map((classroom.Course dropDownItem) {
+          return DropdownMenuItem<classroom.Course>(
+            value: dropDownItem,
+            child: Text((dropDownItem.ownerId != null) ? dropDownItem.ownerId : "Nobody" + "'s " + dropDownItem.name.toString(),
+              overflow: TextOverflow.ellipsis,),
+          );
+        }).toList(),
+
+        onChanged: (classroom.Course newValueSelected) {
+          _onDropDownItemSelectedCourse(newValueSelected);
+        },
+        underline: Container(),
+        hint: Text('Course', style: TextStyle(fontStyle: FontStyle.italic)),
+        isExpanded: true,
+        style: TextStyle(
+            color: Colors.green, fontSize: 18, fontWeight: FontWeight.w500),
+      ),
+    );
+
+    Widget alignedBox = Align(
+      alignment: Alignment(0.0, -0.7),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.green,
+              width: 3,
+            ),
+            borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(10.0),
+                topRight: const Radius.circular(10.0),
+                bottomLeft: const Radius.circular(10.0),
+                bottomRight: const Radius.circular(10.0))),
+        height: 50,
+        width: 330,
+        padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+        child: dropdownbox,
+      ),
+    );
+
+    return alignedBox;
+  }
+
 
   Widget subtaskDropbox(BuildContext context) {
     
@@ -84,34 +160,47 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
             _onDropDownItemSelected(newValueSelected);
           },
           underline: Container(),
-          hint: Text('Subtask', style: TextStyle(fontStyle: FontStyle.italic)),
+          hint: Text('Goal', style: TextStyle(fontStyle: FontStyle.italic,
+                                              color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.greenAccent)),
           isExpanded: true,
-          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w500),
+          style: TextStyle(color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green,
+                          fontSize: 18, fontWeight: FontWeight.w500),
         ),
       );
-     
-    Widget alignedBox = Align(
-        alignment: Alignment(0.0, -0.7),
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.green,
-                width: 3,
-              ),
-              borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(10.0),
-                  topRight: const Radius.circular(10.0),
-                  bottomLeft: const Radius.circular(10.0),
-                  bottomRight: const Radius.circular(10.0))),
-          height: 50,
-          width: 330,
-          padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-          child: dropdownbox,
+
+
+    Widget alignedBox =
+      IgnorePointer(
+        ignoring: selectedCourse == null,
+        ignoringSemantics: selectedCourse == null,
+        child: Align(
+          alignment: Alignment(0.0, -0.7),
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green,
+                  width: 3,
+                ),
+                borderRadius: new BorderRadius.only(
+                    topLeft: const Radius.circular(10.0),
+                    topRight: const Radius.circular(10.0),
+                    bottomLeft: const Radius.circular(10.0),
+                    bottomRight: const Radius.circular(10.0))),
+            height: 50,
+            width: 330,
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+            child: dropdownbox,
+          ),
         ),
       );
      
      
     return alignedBox;
+  }
+  void _onDropDownItemSelectedCourse(classroom.Course newValueSelected) {
+    setState(() {
+      this.selectedCourse = newValueSelected;
+    });
   }
   
   void _onDropDownItemSelected(String newValueSelected) {
@@ -122,15 +211,18 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
 
   Widget datepicker(BuildContext context) {
     Widget retDate =
-        FlatButton(
+      IgnorePointer(
+        ignoring: selectedCourse == null,
+        ignoringSemantics: selectedCourse == null,
+        child:FlatButton(
             onPressed: () => _selectDate(context),
-            textColor: Colors.green,
+            textColor: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green,
             color: Colors.white,
             padding: const EdgeInsets.all(0.0),
             shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(10.0),
-            side: BorderSide(color: Colors.green, width: 3)),
-            
+            side: BorderSide(color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green, width: 3)),
+
           child: Container(
             height: 50,
             width: 330,
@@ -138,12 +230,13 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
             padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
             child: Text(
               "${months[selectedDate.month - 1]} ${selectedDate.day}, ${selectedDate.year}",
-              
+
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)
             ),
           ),
-            
-          );
+
+          ),
+      );
       
     return retDate;
   }
@@ -172,11 +265,16 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   
   void finalizeSubtask() async {
 
+      List<classroom.Course> courses = await pullCourses(firebaseUser);
+      for (final course in courses) {
+        print(course.name);
+      }
+
+
       Goal subtask = new Goal(name: "Placeholder for goal name",
                               text: selectedSubtask,
         dueDate: selectedDate.toString(),
-        courseID: "placeholder for courseID",
-        courseWorkID: "placeholder for courseWorkID",
+        courseID: selectedCourse.id,
       );
 
       subtask.setStatus();
