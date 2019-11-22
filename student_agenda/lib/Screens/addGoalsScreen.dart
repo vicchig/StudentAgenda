@@ -244,16 +244,16 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   Widget addButton(BuildContext context) {
       Widget retButton =
         IgnorePointer(
-          ignoring:selectedCourse == null,
-          ignoringSemantics: selectedCourse == null,
+          ignoring:selectedCourse == null || selectedSubtask == null,
+          ignoringSemantics: selectedCourse == null || selectedSubtask == null,
           child:FlatButton(
             onPressed: () => finalizeSubtask(),
                 textColor: Colors.white,
-                color: (selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green,
+                color: (selectedCourse == null || selectedSubtask == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green,
                 padding: const EdgeInsets.all(0.0),
                 shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(10.0),
-                side: BorderSide(color:(selectedCourse == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green, width: 3)),
+                side: BorderSide(color:(selectedCourse == null || selectedSubtask == null) ? Color.fromRGBO(200,200,200, 1.0) : Colors.green, width: 3)),
             child: Container(
                 height: 70,
                 width: 100,
