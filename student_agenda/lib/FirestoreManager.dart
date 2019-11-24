@@ -73,10 +73,7 @@ Future<void> setUserClassroomData(FirebaseUser user, {toMerge: true}) async{
   }, merge: toMerge);
 }
 
-/*
-TODO: 1. Test this
-      2. Update documentation
- */
+
 Future<void> setUserCourseWorkData(FirebaseUser user, String courseId, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
@@ -124,10 +121,7 @@ Future<void> setUserCourseWorkData(FirebaseUser user, String courseId, {toMerge:
   }, merge: toMerge);
 }
 
-/*
-TODO: 1. Test this
-      2. Update documentation
- */
+
 Future<void> setUserAnnouncementData(FirebaseUser user, String courseId, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
@@ -175,10 +169,7 @@ Future<void> setUserAnnouncementData(FirebaseUser user, String courseId, {toMerg
   }, merge: toMerge);
 }
 
-/*
-TODO: 1. Test this
-      2. Update documentation
- */
+
 Future<void> setUserClassStudents(FirebaseUser user, String courseId, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
@@ -227,10 +218,7 @@ Future<void> setUserClassStudents(FirebaseUser user, String courseId, {toMerge: 
     }, merge: toMerge);
   }
 }
-/*
-TODO: 1. Test this
-      2. Update documentation
- */
+
 Future<void> setUserClassTeachers(FirebaseUser user, String courseId, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);
@@ -280,10 +268,7 @@ Future<void> setUserClassTeachers(FirebaseUser user, String courseId, {toMerge: 
   }, merge: toMerge);
 }
 
-/*
-TODO: 1. Test this
-      2. Update documentation
- */
+
 Future<void> setUserClassTopics(FirebaseUser user, String courseId, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
   document(user.uid);

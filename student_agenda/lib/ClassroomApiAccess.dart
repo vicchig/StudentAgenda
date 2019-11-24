@@ -5,9 +5,7 @@ import 'package:student_agenda/Utilities/util.dart';
 
 final Future<Map<String, String>> _authHeaders = authService.getAuthHeaders();
 
-/*TODO: This class currently implements dummy functions. In the future we need
-* to actually pull data from Google Classroom
-*/
+
 class ClassroomApiAccess {
   static ClassroomApiAccess _instance;
   static GoogleHttpClient _client;
@@ -27,8 +25,7 @@ class ClassroomApiAccess {
   }
 
   /*
-  TODO: 1. Test this
-        2. Update documentation
+  TODO:
         3. Remove the fake data if everything works well
    */
   Future<List<classroom.Course>> getCourses() async {
@@ -92,8 +89,7 @@ class ClassroomApiAccess {
   }
 
   /*
-  TODO: 1. Test this
-        2. Update documentation
+  TODO:
         3. Remove the fake data if everything works well
    */
   Future<List<classroom.CourseWork>> getCourseWork(String courseId) async {
@@ -167,8 +163,7 @@ class ClassroomApiAccess {
   }
 
   /*
-  TODO: 1. Test this
-        2. Update documentation
+  TODO:
         3. Remove the fake data if everything works well
    */
   Future<List<classroom.Announcement>> getAnnouncements(String courseId) async {
@@ -216,8 +211,7 @@ class ClassroomApiAccess {
   }
 
   /*
-  TODO: 1. Test this
-        2. Update documentation
+  TODO:
         3. Remove the fake data if everything works well
    */
   Future<List<classroom.Student>> getStudents(String courseId) async {
@@ -264,8 +258,7 @@ class ClassroomApiAccess {
     return students;*/
   }
   /*
-  TODO: 1. Test this
-        2. Update documentation
+  TODO:
         3. Remove the fake data if everything works well
    */
   Future<List<classroom.Teacher>> getTeachers(String courseId) async {
@@ -308,8 +301,7 @@ class ClassroomApiAccess {
     return teachers;*/
   }
   /*
-  TODO: 1. Test this
-        2. Update documentation
+  TODO: 
         3. Remove the fake data if everything works well
    */
   Future<List<classroom.Topic>> getTopics(String courseId) async {
