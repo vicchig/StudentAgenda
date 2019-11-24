@@ -288,7 +288,7 @@ void printError(String header, String error, String stackTrace,
   print("\n");
   print("-------------------------------------"+  header +
       "-------------------------------------\n" + error);
-  print(extraInfo + "\n");
+  print(extraInfo + "\n\n");
   print("Stack Trace: \n" + stackTrace);
   print("\n\n");
 }
