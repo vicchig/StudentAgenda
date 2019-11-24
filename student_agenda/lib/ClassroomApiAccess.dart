@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/observer.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
+import 'package:student_agenda/Utilities/util.dart';
 
 final Future<Map<String, String>> _authHeaders = authService.getAuthHeaders();
 
@@ -29,15 +30,30 @@ class ClassroomApiAccess {
   TODO: 1. Test this
         2. Update documentation
         3. Remove the fake data if everything works well
-        4. Error check
    */
   Future<List<classroom.Course>> getCourses() async {
     List<classroom.Course> courseList = new List<classroom.Course>();
+    classroom.ListCoursesResponse courses;
 
     await _connectClient();
-    classroom.ListCoursesResponse courses = await new classroom.ClassroomApi
-      (_client).courses.list();
-    courseList = courses.courses;
+
+    try{
+      courses = await new classroom.ClassroomApi(_client).courses.list();
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        courseList = courses.courses;
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        courseList = new List<classroom.Course>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
+
     return courseList;
     /* // EXAMPLE CODE FOR WHEN WE ACTUALLY HAVE TO IMPLEMENT THESE
    //TODO: Should be wrapped in a try catch for the actual implementation
