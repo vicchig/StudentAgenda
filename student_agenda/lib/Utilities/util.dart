@@ -283,12 +283,14 @@ String getMonthFromDateObj(DateTime date){
   return numToMonth[date.month.toString()];
 }
 
-void printError(String header, String error, String stackTrace){
+void printError(String header, String error, String stackTrace,
+    {String extraInfo = ""}){
   print("\n");
   print("-------------------------------------"+  header +
       "-------------------------------------\n" + error);
-  print(stackTrace);
-  print("\n");
+  print(extraInfo + "\n\n");
+  print("Stack Trace: \n" + stackTrace);
+  print("\n\n");
 }
 
 
