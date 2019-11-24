@@ -46,7 +46,10 @@ Future<void> setUserClassroomData(FirebaseUser user, {toMerge: true}) async{
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map = new Map<int, classroom.Course>();
   }on NoSuchMethodError catch(e, stackTrace) {
-    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
   }catch (e, stackTrace){
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -90,7 +93,10 @@ Future<void> setUserCourseWorkData(FirebaseUser user, String courseId, {toMerge:
     map  = new Map<int, classroom.CourseWork>();
 
   }on NoSuchMethodError catch(e, stackTrace) {
-    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -138,7 +144,10 @@ Future<void> setUserAnnouncementData(FirebaseUser user, String courseId, {toMerg
     map  = new Map<int, classroom.Announcement>();
 
   }on NoSuchMethodError catch(e, stackTrace) {
-    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -186,7 +195,10 @@ Future<void> setUserClassStudents(FirebaseUser user, String courseId, {toMerge: 
     map  = new Map<int, classroom.Student>();
 
   } on NoSuchMethodError catch(e, stackTrace){
-    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -235,7 +247,10 @@ Future<void> setUserClassTeachers(FirebaseUser user, String courseId, {toMerge: 
     map  = new Map<int, classroom.Teacher>();
 
   }on NoSuchMethodError catch(e, stackTrace) {
-    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -284,7 +299,10 @@ Future<void> setUserClassTopics(FirebaseUser user, String courseId, {toMerge: tr
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map = new Map<int, classroom.Topic>();
   }on NoSuchMethodError catch(e, stackTrace) {
-    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
   }catch (e, stackTrace){
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
