@@ -170,18 +170,34 @@ class ClassroomApiAccess {
   TODO: 1. Test this
         2. Update documentation
         3. Remove the fake data if everything works well
-        4. Error check
    */
   Future<List<classroom.Announcement>> getAnnouncements(String courseId) async {
     List<classroom.Announcement> announcements = new List<classroom.Announcement>();
+    classroom.ListAnnouncementsResponse response;
 
     await  _connectClient();
 
-    classroom.ListAnnouncementsResponse response = await new classroom.ClassroomApi
-      (_client).courses.announcements.list(courseId);
-    announcements = response.announcements;
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.announcements.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        announcements = response.announcements;
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        announcements = new List<classroom.Announcement>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
 
     return announcements;
+
+
     /*
     List<classroom.Announcement> announcements =
     new List<classroom.Announcement>();
@@ -203,16 +219,30 @@ class ClassroomApiAccess {
   TODO: 1. Test this
         2. Update documentation
         3. Remove the fake data if everything works well
-        4. Error check
    */
   Future<List<classroom.Student>> getStudents(String courseId) async {
     List<classroom.Student> students= new List<classroom.Student>();
+    classroom.ListStudentsResponse response;
 
     await _connectClient();
 
-    classroom.ListStudentsResponse response = await new classroom.ClassroomApi
-      (_client).courses.students.list(courseId);
-    students = response.students;
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.students.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        students = response.students;
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        students = new List<classroom.Student>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
 
     return students;/*
     List<classroom.Student> students = new List<classroom.Student>();
@@ -237,16 +267,31 @@ class ClassroomApiAccess {
   TODO: 1. Test this
         2. Update documentation
         3. Remove the fake data if everything works well
-        4. Error check
    */
   Future<List<classroom.Teacher>> getTeachers(String courseId) async {
     List<classroom.Teacher> teachers = new List<classroom.Teacher>();
+    classroom.ListTeachersResponse response;
 
     await _connectClient();
 
-    classroom.ListTeachersResponse response = await new classroom.ClassroomApi
-      (_client).courses.teachers.list(courseId);
-    teachers = response.teachers;
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.teachers.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        teachers = response.teachers;
+
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        teachers = new List<classroom.Teacher>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
 
     return teachers;/*
     List<classroom.Teacher> teachers = new List<classroom.Teacher>();
@@ -266,16 +311,31 @@ class ClassroomApiAccess {
   TODO: 1. Test this
         2. Update documentation
         3. Remove the fake data if everything works well
-        4. Error check
    */
   Future<List<classroom.Topic>> getTopics(String courseId) async {
     List<classroom.Topic> topics = new List<classroom.Topic>();
+    classroom.ListTopicResponse response;
 
     await _connectClient();
 
-    classroom.ListTopicResponse response = await new classroom.ClassroomApi
-      (_client).courses.topics.list(courseId);
-    topics = response.topic;
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.topics.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        topics = response.topic;
+
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        topics = new List<classroom.Topic>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
 
     return topics;/*
     List<classroom.Topic> topics = new List<classroom.Topic>();
