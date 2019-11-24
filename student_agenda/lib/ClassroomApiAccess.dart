@@ -9,6 +9,7 @@ final Future<Map<String, String>> _authHeaders = authService.getAuthHeaders();
 */
 class ClassroomApiAccess {
   static ClassroomApiAccess _instance;
+  static GoogleHttpClient _client;
 
   ClassroomApiAccess._();
 
@@ -19,7 +20,25 @@ class ClassroomApiAccess {
     return _instance;
   }
 
+
+  Future<void> _connectClient() async{
+    _client = new GoogleHttpClient(await _authHeaders);
+  }
+
+  /*
+  TODO: 1. Test this
+        2. Update documentation
+        3. Remove the fake data if everything works well
+        4. Error check
+   */
   Future<List<classroom.Course>> getCourses() async {
+    List<classroom.Course> courseList = new List<classroom.Course>();
+
+    await _connectClient();
+    classroom.ListCoursesResponse courses = await new classroom.ClassroomApi
+      (_client).courses.list();
+    courseList = courses.courses;
+    return courseList;
     /* // EXAMPLE CODE FOR WHEN WE ACTUALLY HAVE TO IMPLEMENT THESE
    //TODO: Should be wrapped in a try catch for the actual implementation
     GoogleHttpClient httpClient = new GoogleHttpClient(await _authHeaders);
@@ -29,7 +48,7 @@ class ClassroomApiAccess {
     );
     return courses.courses; will be null for now since there are no courses,
      BUT return courses should never be null, if it is, there is an error*/
-
+/*
     const List<String> courseNames = <String>[
       'Mathematics',
       'Language',
@@ -53,10 +72,27 @@ class ClassroomApiAccess {
       courses[i].name = courseNames[i];
     }
 
-    return courses;
+    return courses;*/
   }
 
-  Future<List<classroom.CourseWork>> getCourseWork() async {
+  /*
+  TODO: 1. Test this
+        2. Update documentation
+        3. Remove the fake data if everything works well
+        4. Error check
+   */
+  Future<List<classroom.CourseWork>> getCourseWork(String courseId) async {
+    List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
+
+    await _connectClient();
+
+    classroom.ListCourseWorkResponse courses = await new classroom.ClassroomApi
+      (_client).courses.courseWork.list(courseId);
+    courseWorks = courses.courseWork;
+
+    return courseWorks;
+
+    /*
     List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
     int count = 0;
 
@@ -98,10 +134,26 @@ class ClassroomApiAccess {
         count++;
       }
     }
-    return courseWorks;
+    return courseWorks;*/
   }
 
-  Future<List<classroom.Announcement>> getAnnouncements() async {
+  /*
+  TODO: 1. Test this
+        2. Update documentation
+        3. Remove the fake data if everything works well
+        4. Error check
+   */
+  Future<List<classroom.Announcement>> getAnnouncements(String courseId) async {
+    List<classroom.Announcement> announcements = new List<classroom.Announcement>();
+
+    await  _connectClient();
+
+    classroom.ListAnnouncementsResponse response = await new classroom.ClassroomApi
+      (_client).courses.announcements.list(courseId);
+    announcements = response.announcements;
+
+    return announcements;
+    /*
     List<classroom.Announcement> announcements =
     new List<classroom.Announcement>();
     int count = 0;
@@ -115,10 +167,25 @@ class ClassroomApiAccess {
         count++;
       }
     }
-    return announcements;
+    return announcements;*/
   }
 
-  Future<List<classroom.Student>> getStudents() async {
+  /*
+  TODO: 1. Test this
+        2. Update documentation
+        3. Remove the fake data if everything works well
+        4. Error check
+   */
+  Future<List<classroom.Student>> getStudents(String courseId) async {
+    List<classroom.Student> students= new List<classroom.Student>();
+
+    await _connectClient();
+
+    classroom.ListStudentsResponse response = await new classroom.ClassroomApi
+      (_client).courses.students.list(courseId);
+    students = response.students;
+
+    return students;/*
     List<classroom.Student> students = new List<classroom.Student>();
     int count = 0;
     for (int i = 0; i < 8; i++) {
@@ -135,10 +202,24 @@ class ClassroomApiAccess {
         count++;
       }
     }
-    return students;
+    return students;*/
   }
+  /*
+  TODO: 1. Test this
+        2. Update documentation
+        3. Remove the fake data if everything works well
+        4. Error check
+   */
+  Future<List<classroom.Teacher>> getTeachers(String courseId) async {
+    List<classroom.Teacher> teachers = new List<classroom.Teacher>();
 
-  Future<List<classroom.Teacher>> getTeachers() async {
+    await _connectClient();
+
+    classroom.ListTeachersResponse response = await new classroom.ClassroomApi
+      (_client).courses.teachers.list(courseId);
+    teachers = response.teachers;
+
+    return teachers;/*
     List<classroom.Teacher> teachers = new List<classroom.Teacher>();
 
     for (int i = 0; i < 8; i++) {
@@ -150,10 +231,24 @@ class ClassroomApiAccess {
       teachers[i].profile.name.fullName = "Teacher of Course " + i.toString();
     }
 
-    return teachers;
+    return teachers;*/
   }
+  /*
+  TODO: 1. Test this
+        2. Update documentation
+        3. Remove the fake data if everything works well
+        4. Error check
+   */
+  Future<List<classroom.Topic>> getTopics(String courseId) async {
+    List<classroom.Topic> topics = new List<classroom.Topic>();
 
-  Future<List<classroom.Topic>> getTopics() async {
+    await _connectClient();
+
+    classroom.ListTopicResponse response = await new classroom.ClassroomApi
+      (_client).courses.topics.list(courseId);
+    topics = response.topic;
+
+    return topics;/*
     List<classroom.Topic> topics = new List<classroom.Topic>();
     int count = 0;
     for (int i = 0; i < 8; i++) {
@@ -167,6 +262,6 @@ class ClassroomApiAccess {
       }
     }
 
-    return topics;
+    return topics;*/
   }
 }
