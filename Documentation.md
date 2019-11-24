@@ -5,8 +5,8 @@
 * [Markdown CheatSheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)  
 
 ## Links to Items within this Document
-* [FirebaseManager Doc](#firestoremanager-documentation)
-* [FirebaseDataManager Doc](#firestoredatamanager-documentation)
+* [FirestoreManager Doc](#firestoremanager-documentation)
+* [FirestoreDataManager Doc](#firestoredatamanager-documentation)
 
 ## Dev Notes
 
@@ -133,8 +133,8 @@ A Future of `List<classroom.Course>` where the list value of the future contains
 ```Java
 class DashboardScreenState extends State<DashboardScreen> {
   List<classroom.Course> _courses = new List<classroom.Course>();
-
-  void processFuture() async {
+  
+  Future<void> processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
     setState(()  {
       _courses = tempCourses;
@@ -144,7 +144,15 @@ class DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    processFuture();
+    processFuture().then((arg) {
+    
+    // ANY CODE THAT DEPENDS ON processFuture() COMPLETING FIRST
+    
+    }, onError: (e) {
+        print(e);
+        // ERROR HANDLING CODE
+    });
+    // ANY CODE THAT DOES NOT DEPEND ON processFuture() TO COMPLETE
   }
 }
 ```
@@ -337,24 +345,24 @@ Get the string representation of this goal's due date. See [Util Doc](#util-func
 String in the format "dd/mm/yyyy".
 
 __6.__ `String getCourseId()`
-##### Summary:
+##### Summary: 
 Get the ID of the course that this goal is associated with.
 ##### Return:
 A numeric course ID as a string.
 
 __7.__ `String getCourseWorkId()`
-##### Summary:
+##### Summary: 
 Get the ID of the course work that this goal is associated with.
 ##### Return:
 A numeric course work ID as a string.
 
 __8.__ `String toString()`
-##### Summary:
+##### Summary: 
 Get the String summary of the object.
 ##### Return:
 This object as a description string.
 
-__9.__ `Map<String, dynamic> toJson()`
+__8.__ `Map<String, dynamic> toJson()`
 ##### Summary:
 Converts this object into a Json serializable representation using a hash map. For example, the name of the Goal object that was converted can be accessed from the returned Map as follows: returnedMap["name"].
 ##### Return:
@@ -415,3 +423,11 @@ Stack Trace:
 #1      setUserClassTopics (package:student_agenda/FirestoreManager.dart:297:22)
 """
 ```
+
+__4.__ `String getCalendarDueDate(DateTime date)`
+##### Summary: 
+Get the string representation of date.
+##### Parameters:
+* __`date`__:  object from which to extract the date string. 
+##### Return:
+String in the format "dd/mm/yyyy".

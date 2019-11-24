@@ -293,4 +293,9 @@ void printError(String header, String error, String stackTrace,
   print("\n\n");
 }
 
+String getCalendarDueDate(DateTime date){
+  return "" + date.day.toString() + "/" + date.month.toString() + "/" +
+      date.year.toString();
+}
+
 
