@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
+import 'package:student_agenda/Utilities/util.dart';
 
 import 'ClassroomApiAccess.dart';
 import 'Utilities/goal.dart';
@@ -108,17 +109,42 @@ Future<void> setUserClassStudents(FirebaseUser user, String courseId, {toMerge: 
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
   List<classroom.Student> userStudents = await classroomInst.getStudents(courseId);
-  Map<int, classroom.Student> map = userStudents.asMap();
+  Map<int, classroom.Student> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try{
+    map = userStudents.asMap();
+  }on ArgumentError catch(e, stackTrace){
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map  = new Map<int, classroom.Student>();
 
-  await ref.setData({
-    "StudentObjects": mapToUpload
-  }, merge: toMerge);
+  }catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  }finally{
+
+    List<int> keys;
+
+    try{
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch(e, stackTrace){
+
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+
+    } catch (e, stackTrace){
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally{
+
+      keys.forEach((int index){
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+
+    }
+
+    await ref.setData({
+      "StudentObjects": mapToUpload
+    }, merge: toMerge);
+  }
 }
 /*
 TODO: 1. Test this
