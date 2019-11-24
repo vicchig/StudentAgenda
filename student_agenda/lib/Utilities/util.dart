@@ -283,6 +283,16 @@ String getMonthFromDateObj(DateTime date){
   return numToMonth[date.month.toString()];
 }
 
+void printError(String header, String error, String stackTrace,
+    {String extraInfo = ""}){
+  print("\n");
+  print("-------------------------------------"+  header +
+      "-------------------------------------\n" + error);
+  print(extraInfo + "\n\n");
+  print("Stack Trace: \n" + stackTrace);
+  print("\n\n");
+}
+
 String getCalendarDueDate(DateTime date){
   return "" + date.day.toString() + "/" + date.month.toString() + "/" +
       date.year.toString();
