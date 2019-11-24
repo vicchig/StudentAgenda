@@ -31,7 +31,7 @@ This will create an object that can be called later, the function name is the na
 ```Java
 onPressed: () async {
   try {
-    final HttpsCallableResult result = await callable.call(); 
+    final HttpsCallableResult result = await callable.call();
     print(result.data);
   } on CloudFunctionsException catch (e) {
     print('caught firebase functions exception');
@@ -77,43 +77,48 @@ Updates the per-user document in the 'users' collection with current information
 * __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__4.__ `void setUserCourseWorkData(FirebaseUser user, {toMerge: true}) async`
+__4.__ `void setUserCourseWorkData(FirebaseUser user, String courseId, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about course work that they are allowed to view from classes that they are subscribed to, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
 * __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`courseId`__: id of course for which to pull course works for from classroom.
 * __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__5.__ `void setUserAnnouncementData(FirebaseUser user, {toMerge: true}) async`
+__5.__ `void setUserAnnouncementData(FirebaseUser user, String courseId, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about course announcements that they are allowed to view from classes that they are subscribed to, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
 * __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`courseId`__: id of course for which to pull course announcements for from classroom.
 * __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__5.__ `void setUserClassStudents(FirebaseUser user, {toMerge: true}) async`
+__5.__ `void setUserClassStudents(FirebaseUser user, String courseId, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about students in the current user's subscribed classes, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
 * __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`courseId`__: id of course for which to pull course students for from classroom.
 * __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__6.__ `void setUserClassTeachers(FirebaseUser user, {toMerge: true}) async`
+__6.__ `void setUserClassTeachers(FirebaseUser user,String courseId, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about teachers of the current user's subscribed classes, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
 * __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`courseId`__: id of course for which to pull course teachers for from classroom.
 * __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
-__7.__ `void setUserClassTopics(FirebaseUser user, {toMerge: true}) async`
+__7.__ `void setUserClassTopics(FirebaseUser user, String courseTopics, {toMerge: true}) async`
 ##### Summary:
 Updates the per-user document in the 'users' collection with current information about course topics from the current user's subscribed classes, if the information exists. Otherwise, creates an entry in the document to contain the information. Called once on user sign in by default.
 ##### Parameters:
 * __`user`__:     object storing the currently logged in FireBase user from which appropriate information is extracted.
+* __`courseId`__: id of course for which to pull course topics for from classroom.
 * __`toMerge`__:  __optional__ flag that decides whether this data will be merged with the current data on Firebase (if true) or overwrite it (if false). __Set to true by default if no value is specified.__
 
 
@@ -128,7 +133,7 @@ A Future of `List<classroom.Course>` where the list value of the future contains
 ```Java
 class DashboardScreenState extends State<DashboardScreen> {
   List<classroom.Course> _courses = new List<classroom.Course>();
-  
+
   void processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
     setState(()  {
@@ -285,7 +290,7 @@ The internal class representation of a student goal within our app. Should be as
 * __`String text`__:           description of this goal
 * __`DateTime dueDate`__:      due date of this goal. The raw format of this object is "yyyy-mm-ddThh:mm:ss:nnnn" and so special getter methods should be used to access the full date. Access directly to this object is provided as a convenience in case a specific attribute (such as the month) is needed.
 * __`String _status`__:        status indicating that the goal is in one of these states: "IN_PROGRESS", "COMPLETED", "COMPLETED_LATE" and "IN_PROGRESS_LATE"
-* __`String _courseID`__:      ID of Course object that this goal belongs to 
+* __`String _courseID`__:      ID of Course object that this goal belongs to
 * __`String _courseWorkID`__:  ID of the CourseWork object that this goal is associated with.
 
 #### Constructors
@@ -326,25 +331,25 @@ Get the string representation of this goal's due time on a 24-hour clock.
 String in the format "hh:mm:ss".
 
 __5.__ `String getCalendarDueDate()`
-##### Summary: 
+##### Summary:
 Get the string representation of this goal's due date. See [Util Doc](#util-functions-documentation)
 ##### Return:
 String in the format "dd/mm/yyyy".
 
 __6.__ `String getCourseId()`
-##### Summary: 
+##### Summary:
 Get the ID of the course that this goal is associated with.
 ##### Return:
 A numeric course ID as a string.
 
 __7.__ `String getCourseWorkId()`
-##### Summary: 
+##### Summary:
 Get the ID of the course work that this goal is associated with.
 ##### Return:
 A numeric course work ID as a string.
 
 __8.__ `String toString()`
-##### Summary: 
+##### Summary:
 Get the String summary of the object.
 ##### Return:
 This object as a description string.
@@ -359,8 +364,8 @@ Map object with keys being the fields of the Goal object and the values their co
 ## Util Functions Documentation
 
 __1.__ `String getMonthFromDateStr(String dateString)`
-##### Summary: 
-Extract and convert the numerical month in a date string to its text representation. For example, for the input "15/11/2019" the return 
+##### Summary:
+Extract and convert the numerical month in a date string to its text representation. For example, for the input "15/11/2019" the return
 would be "November".
 ##### Parameters:
 * __`dateString`__:  the string representation of the date the month of which is to be extracted
@@ -368,13 +373,45 @@ would be "November".
 Assumes that the string is properly formatted as specified. Throws a __FormatException__ otherwise when the string cannot be parsed.
 ##### Return:
 Text representation of the month within the given date.  
-  
-  
+
+
 __2.__ `String getMonthFromDateObj(DateTime date)`
-##### Summary: 
+##### Summary:
 Extract the month from a date object and return its text representation.
 ##### Parameters:
-* __`date`__:  a date object from which to extract the month 
+* __`date`__:  a date object from which to extract the month
 ##### Return:
 Text representation of the month within the given date.
 
+__3.__ `printError(String header, String error, String stackTrace, {String extraInfo = ""})`
+##### Summary:
+Print a nicely formatted custom error message to the debug console using the header to label the message, error as the message text and stackTrace for the location of the error. extraInfo is used to provide optional
+details about the error.
+##### Parameters:
+* __`header`__:      error message header.
+* __`error`__:       error text. Should be e.toString() where e is the error object caught inside the try-catch block.
+* __`stackTrace`__:  stack trace of the error. You should use stackTrace.toString() for this argument where stackTrace is the stack trace caught in a try-catch block.
+* __`extraInfo`__:   optional argument for holding any extra information the developer may want to specify about the error.
+##### Example Usage and Output:
+```Java
+try{
+  //YOUR CODE
+} catch (e, stackTrace){
+  printError("ERROR!", e.toString(), stackTrace.toString(), "Optional Info");
+}
+
+
+"""
+Example Output:
+
+-------------------------------------ERROR!-------------------------------------
+NoSuchMethodError: The getter 'keys' was called on null.
+Receiver: null
+Tried calling: keys
+Optional Info
+
+Stack Trace:
+#0      Object.noSuchMethod (dart:core-patch/object_patch.dart:51:5)
+#1      setUserClassTopics (package:student_agenda/FirestoreManager.dart:297:22)
+"""
+```
