@@ -45,6 +45,8 @@ Future<void> setUserClassroomData(FirebaseUser user, {toMerge: true}) async{
   }on ArgumentError catch(e, stackTrace) {
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map = new Map<int, classroom.Course>();
+  }on NoSuchMethodError catch(e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
   }catch (e, stackTrace){
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -87,6 +89,8 @@ Future<void> setUserCourseWorkData(FirebaseUser user, String courseId, {toMerge:
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map  = new Map<int, classroom.CourseWork>();
 
+  }on NoSuchMethodError catch(e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -133,6 +137,8 @@ Future<void> setUserAnnouncementData(FirebaseUser user, String courseId, {toMerg
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map  = new Map<int, classroom.Announcement>();
 
+  }on NoSuchMethodError catch(e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -179,6 +185,8 @@ Future<void> setUserClassStudents(FirebaseUser user, String courseId, {toMerge: 
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map  = new Map<int, classroom.Student>();
 
+  } on NoSuchMethodError catch(e, stackTrace){
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
@@ -226,6 +234,8 @@ Future<void> setUserClassTeachers(FirebaseUser user, String courseId, {toMerge: 
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map  = new Map<int, classroom.Teacher>();
 
+  }on NoSuchMethodError catch(e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
   }catch (e, stackTrace) {
     printError("ERROR!", e.toString(), stackTrace.toString());
   }finally{
