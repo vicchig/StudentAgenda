@@ -37,13 +37,31 @@ Future<void> setUserClassroomData(FirebaseUser user, {toMerge: true}) async{
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
   List<classroom.Course> userCourses = await classroomInst.getCourses();
-  Map<int, classroom.Course> map = userCourses.asMap();
+  Map<int, classroom.Course> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try{
+    map = userCourses.asMap();
+  }on ArgumentError catch(e, stackTrace) {
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map = new Map<int, classroom.Course>();
+  }catch (e, stackTrace){
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  }finally{
+    List<int> keys;
+    try{
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch(e, stackTrace){
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+    } catch (e, stackTrace){
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally{
+      keys.forEach((int index){
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+  }
 
   await ref.setData({
     "CourseObjects": mapToUpload
