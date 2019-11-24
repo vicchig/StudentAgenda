@@ -13,7 +13,11 @@ class AuthService {
   final GoogleSignIn _googleSignIn = new GoogleSignIn(
                         scopes: [
                             'email',
-                            classroom.ClassroomApi.ClassroomCoursesScope,
+                            classroom.ClassroomApi.ClassroomCoursesReadonlyScope,
+                            classroom.ClassroomApi.ClassroomAnnouncementsReadonlyScope,
+                            classroom.ClassroomApi.ClassroomCourseworkStudentsReadonlyScope,
+                            classroom.ClassroomApi.ClassroomRostersReadonlyScope,
+                            classroom.ClassroomApi.ClassroomTopicsReadonlyScope
                         ],);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
@@ -61,7 +65,7 @@ class AuthService {
     //get courses from Firebase as we need the course ids to pull the rest of
     //the data
     List<classroom.Course> courses = await pullCourses(firebaseUser);
-    print(courses);
+
     await doTransaction("Successfully updated user course work data.",
                   "ERROR: Failed to update user course work data.",
                   (){
