@@ -117,7 +117,6 @@ Future<void> setUserCourseWorkData(FirebaseUser user, String courseId, {toMerge:
 /*
 TODO: 1. Test this
       2. Update documentation
-      3. error check
  */
 Future<void>setUserAnnouncementData(FirebaseUser user, String courseId, {toMerge: true}) async {
   DocumentReference ref = Firestore.instance.collection("users").
@@ -125,13 +124,36 @@ Future<void>setUserAnnouncementData(FirebaseUser user, String courseId, {toMerge
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
   List<classroom.Announcement> userAnnouncements = await classroomInst.getAnnouncements(courseId);
-  Map<int, classroom.Announcement> map = userAnnouncements.asMap();
+  Map<int, classroom.Announcement> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try{
+    map = userAnnouncements.asMap();
+  }on ArgumentError catch(e, stackTrace){
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map  = new Map<int, classroom.Announcement>();
+
+  }catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  }finally{
+
+    List<int> keys;
+
+    try{
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch(e, stackTrace){
+
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+
+    } catch (e, stackTrace){
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally {
+      keys.forEach((int index) {
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+  }
 
   await ref.setData({
     "AnnouncementObjects": mapToUpload
