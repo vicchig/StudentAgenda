@@ -28,18 +28,21 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
 
   Future<void> processFuture() async {
     List<Goal> tempGoals =
-    await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+        await pullGoals(firebaseUser, "CourseWorkGoalObjects");
     tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
-    tempGoals.sort((a, b) =>
-        DateTime(a.dueDate.year, a.dueDate.month,
+    tempGoals.removeWhere((goal) =>
+        goal.dueDate.compareTo(DateTime(
+            DateTime.now().year, DateTime.now().month, DateTime.now().day)) <
+        0);
+    tempGoals.sort((a, b) => DateTime(a.dueDate.year, a.dueDate.month,
             a.dueDate.day, a.dueDate.hour, a.dueDate.minute, a.dueDate.second)
-            .compareTo(DateTime(b.dueDate.year, b.dueDate.month, b.dueDate.day,
+        .compareTo(DateTime(b.dueDate.year, b.dueDate.month, b.dueDate.day,
             b.dueDate.hour, b.dueDate.minute, b.dueDate.second)));
 
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
 
     List<classroom.CourseWork> tempCourseWorks =
-    await pullCourseWorkData(firebaseUser);
+        await pullCourseWorkData(firebaseUser);
 
     setState(() {
       _goals = tempGoals;
@@ -109,11 +112,11 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
           Center(
             child: (_goals.length > 1)
                 ? FlatButton(
-              color: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-                side: BorderSide(color: Colors.green, width: 3),
-              ),
+                    color: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(10.0),
+                      side: BorderSide(color: Colors.green, width: 3),
+                    ),
                     textColor: Colors.white,
                     padding: EdgeInsets.all(8.0),
                     splashColor: Colors.blueAccent,
@@ -164,24 +167,15 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Course: ${_courses
-                  .firstWhere((course) =>
-              course.id == _goals[realIndex].getCourseId(),
-                  orElse: () => classroom.Course())
-                  .name}',
+              'Course: ${_courses.firstWhere((course) => course.id == _goals[realIndex].getCourseId(), orElse: () => classroom.Course()).name}',
               style: TextStyle(fontSize: 18),
             ),
             (_goals[realIndex].getCourseWorkId() != "-1")
                 ? Text(
-              'Course Work: ${_courseWorks
-                  .firstWhere((courseWork) =>
-              courseWork.courseId == _goals[realIndex].getCourseId() &&
-                  courseWork.id == _goals[realIndex].getCourseWorkId(),
-                  orElse: () => classroom.CourseWork())
-                  .description}'
-                  .replaceAll(new RegExp(r"null$"), "N/A"),
-              style: TextStyle(fontSize: 18),
-            )
+                    'Course Work: ${_courseWorks.firstWhere((courseWork) => courseWork.courseId == _goals[realIndex].getCourseId() && courseWork.id == _goals[realIndex].getCourseWorkId(), orElse: () => classroom.CourseWork()).description}'
+                        .replaceAll(new RegExp(r"null$"), "N/A"),
+                    style: TextStyle(fontSize: 18),
+                  )
                 : Container(width: 0, height: 0),
             Text(
               'Tasks: ${_goals[realIndex].name}',
@@ -189,17 +183,12 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
             ),
             (_goals[realIndex].text) != ""
                 ? Text(
-              'Description: ${_goals[realIndex].text}',
-              style: TextStyle(fontSize: 18),
-            )
+                    'Description: ${_goals[realIndex].text}',
+                    style: TextStyle(fontSize: 18),
+                  )
                 : Container(width: 0, height: 0),
             Text(
-              'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(
-                  _goals[realIndex].dueDate.year,
-                  _goals[realIndex].dueDate.month,
-                  _goals[realIndex].dueDate.day, _goals[realIndex].dueDate.hour,
-                  _goals[realIndex].dueDate.minute,
-                  _goals[realIndex].dueDate.second))}',
+              'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(_goals[realIndex].dueDate.year, _goals[realIndex].dueDate.month, _goals[realIndex].dueDate.day, _goals[realIndex].dueDate.hour, _goals[realIndex].dueDate.minute, _goals[realIndex].dueDate.second))}',
               style: TextStyle(fontSize: 18),
             ),
             Text(
@@ -234,13 +223,13 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
             });
           },
           child:
-          const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
+              const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
         );
       } else {
         return RaisedButton(
           onPressed: null,
           child:
-          const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
+              const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
         );
       }
     }
