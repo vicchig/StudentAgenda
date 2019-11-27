@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   isDefaultAction: true,
                   child: Text('Ok'),
                   onPressed: () async {
-                    Future<FirebaseUser> user = authService.googleSignIn();
+                    Future<FirebaseUser> user = authService.googleSilentSignIn();
                     Navigator.of(context, rootNavigator: true).pop();
                     await user.then((user) =>
                         Navigator.push(
@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
 
     selectNotificationSubject.stream.listen((String payload) async {
-      Future<FirebaseUser> user = authService.googleSignIn();
+      Future<FirebaseUser> user = authService.googleSilentSignIn();
       Navigator.of(context, rootNavigator: true).pop();
       await user
           .then((user) =>

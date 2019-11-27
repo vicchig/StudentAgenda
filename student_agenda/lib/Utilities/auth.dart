@@ -88,6 +88,22 @@ class AuthService {
     return _googleSignIn.currentUser.authHeaders;
   }
 
+  Future<FirebaseUser> googleSilentSignIn() async {
+    loading.add(true);
+    print("Signing in Silently");
+    GoogleSignInAccount googleUser = await _googleSignIn.signInSilently();//.whenComplete(() => loading.add(false));
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    firebaseUser = (await _auth.signInWithCredential(
+        GoogleAuthProvider.getCredential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken
+        )
+    )).user;
+
+    loading.add(false);
+    return firebaseUser;
+  }
+
 
   void signOut() {
     _auth.signOut();
