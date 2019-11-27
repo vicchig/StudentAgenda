@@ -178,7 +178,7 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
                   )
                 : Container(width: 0, height: 0),
             Text(
-              'Tasks: ${_goals[realIndex].name}',
+              'Task: ${_goals[realIndex].name}',
               style: TextStyle(fontSize: 18),
             ),
             (_goals[realIndex].text) != ""
