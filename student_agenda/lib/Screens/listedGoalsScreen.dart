@@ -57,172 +57,206 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Goals List'),
+        title: Text('Task List'),
       ),
 
       //draw the sidebar menu options
       drawer: MenuDrawer(),
 
-      body: ListView.separated(
+      body: ListView.builder(
         padding: const EdgeInsets.all(8),
-        itemCount: _goals.length + 1,
+        itemCount: _goals.length,
         itemBuilder: (BuildContext context, int index) {
           return buildList(index);
         },
-        separatorBuilder: (BuildContext context, int index) => separator(index),
       ),
     );
   }
 
   Color getBoxColor(index) {
-    if (index != 0) {
-      int realIndex = index - 1;
-      if (_goals[realIndex].getStatus() != S_COMPLETED &&
-          _goals[realIndex].getStatus() != S_COMPLETED_LATE) {
-        return Colors.green[100];
-      } else {
-        return Colors.grey;
-      }
-    }
-    return Colors.red;
-  }
-
-  Container buildList(index) {
-    if (index == 0) {
-      return Container(width: 0, height: 0);
+    if (_goals[index].getStatus() != S_COMPLETED &&
+        _goals[index].getStatus() != S_COMPLETED_LATE) {
+      return Colors.green[100];
     } else {
-      int realIndex = index - 1;
-
-      return Container(
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: getBoxColor(index),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Course: ${_courses
-                  .firstWhere((course) =>
-              course.id == _goals[realIndex].getCourseId(),
-                  orElse: () => classroom.Course())
-                  .name}',
-              style: TextStyle(fontSize: 18),
-            ),
-            (_goals[realIndex].getCourseWorkId() != "-1")
-                ? Text(
-              'Course Work: ${_courseWorks
-                  .firstWhere((courseWork) =>
-              courseWork.courseId == _goals[realIndex].getCourseId() &&
-                  courseWork.id == _goals[realIndex].getCourseWorkId(),
-                  orElse: () => classroom.CourseWork())
-                  .description}'
-                  .replaceAll(new RegExp(r"null$"), "N/A"),
-              style: TextStyle(fontSize: 18),
-            )
-                : Container(width: 0, height: 0),
-            Text(
-              'Task: ${_goals[realIndex].name}',
-              style: TextStyle(fontSize: 18),
-            ),
-            (_goals[realIndex].text) != ""
-                ? Text(
-              'Description: ${_goals[realIndex].text}',
-              style: TextStyle(fontSize: 18),
-            )
-                : Container(width: 0, height: 0),
-            Text(
-              'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(
-                  _goals[realIndex].dueDate.year,
-                  _goals[realIndex].dueDate.month,
-                  _goals[realIndex].dueDate.day, _goals[realIndex].dueDate.hour,
-                  _goals[realIndex].dueDate.minute,
-                  _goals[realIndex].dueDate.second))}',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Status: ${_goals[realIndex].getStatus().replaceAll("_", " ")}',
-              style: TextStyle(fontSize: 18),
-            ),
-            completeGoalButton(index)
-          ],
-        ),
-      );
+      return Colors.grey;
     }
   }
 
-  RaisedButton completeGoalButton(index) {
-    if (index != 0) {
-      int realIndex = index - 1;
-      if (_goals[realIndex].getStatus() != S_COMPLETED &&
-          _goals[realIndex].getStatus() != S_COMPLETED_LATE) {
-        return RaisedButton(
-          onPressed: () {
-            setState(() {
-              _goals[realIndex].completeGoal();
-              List<Goal> goal = List<Goal>();
-              goal.add(_goals[realIndex]);
-              setUserCourseGoals(
-                  firebaseUser,
-                  goal,
-                  (_goals[realIndex].getCourseWorkId() == "-1")
-                      ? "CourseGoalObjects"
-                      : "CourseWorkGoalObjects",
-                  toMerge: true);
-            });
-          },
-          child:
-          const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
-        );
-      } else {
-        return RaisedButton(
-          onPressed: null,
-          child:
-          const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
-        );
-      }
-    }
-    return RaisedButton(
-      onPressed: null,
-      child: const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
-    );
-  }
-
-  Column separator(index) {
+  Column buildList(index) {
     bool returnEmpty = true;
 
     if (index == 0) {
       currentDate = _goals[0].dueDate;
       returnEmpty = false;
-    } else if (index != 0 && currentDate.day < _goals[index].dueDate.day) {
+    } else if (index != 0 &&
+        _goals[index - 1].dueDate.day < _goals[index].dueDate.day) {
       currentDate = _goals[index].dueDate;
       returnEmpty = false;
     }
 
     if (returnEmpty == false) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Divider(
             color: Colors.black,
             thickness: 2,
           ),
-          Text(
-            '${DateFormat("EEEE, MMM. d, yyyy").format(currentDate)}',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Center(
+            child: Text(
+              '${DateFormat("EEEE, MMM. d, yyyy").format(currentDate)}',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
           Divider(
             color: Colors.black,
             thickness: 2,
+          ),
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: getBoxColor(index),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Course: ${_courses
+                      .firstWhere((course) =>
+                  course.id == _goals[index].getCourseId(),
+                      orElse: () => classroom.Course())
+                      .name}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                (_goals[index].getCourseWorkId() != "-1")
+                    ? Text(
+                  'Course Work: ${_courseWorks
+                      .firstWhere((courseWork) =>
+                  courseWork.courseId == _goals[index].getCourseId() &&
+                      courseWork.id == _goals[index].getCourseWorkId(),
+                      orElse: () => classroom.CourseWork())
+                      .description}'
+                      .replaceAll(new RegExp(r"null$"), "N/A"),
+                  style: TextStyle(fontSize: 18),
+                )
+                    : Container(width: 0, height: 0),
+                Text(
+                  'Task: ${_goals[index].name}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                (_goals[index].text) != ""
+                    ? Text(
+                  'Description: ${_goals[index].text}',
+                  style: TextStyle(fontSize: 18),
+                )
+                    : Container(width: 0, height: 0),
+                Text(
+                  'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(
+                      _goals[index].dueDate.year, _goals[index].dueDate.month,
+                      _goals[index].dueDate.day, _goals[index].dueDate.hour,
+                      _goals[index].dueDate.minute,
+                      _goals[index].dueDate.second))}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  'Status: ${_goals[index].getStatus().replaceAll("_", " ")}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                completeGoalButton(index)
+              ],
+            ),
           ),
         ],
       );
     }
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Divider(),
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: getBoxColor(index),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Course: ${_courses
+                    .firstWhere((course) =>
+                course.id == _goals[index].getCourseId(),
+                    orElse: () => classroom.Course())
+                    .name}',
+                style: TextStyle(fontSize: 18),
+              ),
+              (_goals[index].getCourseWorkId() != "-1")
+                  ? Text(
+                'Course Work: ${_courseWorks
+                    .firstWhere((courseWork) =>
+                courseWork.courseId == _goals[index].getCourseId() &&
+                    courseWork.id == _goals[index].getCourseWorkId(),
+                    orElse: () => classroom.CourseWork())
+                    .description}'
+                    .replaceAll(new RegExp(r"null$"), "N/A"),
+                style: TextStyle(fontSize: 18),
+              )
+                  : Container(width: 0, height: 0),
+              Text(
+                'Task: ${_goals[index].name}',
+                style: TextStyle(fontSize: 18),
+              ),
+              (_goals[index].text) != ""
+                  ? Text(
+                'Description: ${_goals[index].text}',
+                style: TextStyle(fontSize: 18),
+              )
+                  : Container(width: 0, height: 0),
+              Text(
+                'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(
+                    _goals[index].dueDate.year, _goals[index].dueDate.month,
+                    _goals[index].dueDate.day, _goals[index].dueDate.hour,
+                    _goals[index].dueDate.minute,
+                    _goals[index].dueDate.second))}',
+                style: TextStyle(fontSize: 18),
+              ),
+              Text(
+                'Status: ${_goals[index].getStatus().replaceAll("_", " ")}',
+                style: TextStyle(fontSize: 18),
+              ),
+              completeGoalButton(index)
+            ],
+          ),
+        ),
       ],
     );
+  }
+
+  RaisedButton completeGoalButton(index) {
+    if (_goals[index].getStatus() != S_COMPLETED &&
+        _goals[index].getStatus() != S_COMPLETED_LATE) {
+      return RaisedButton(
+        onPressed: () {
+          setState(() {
+            _goals[index].completeGoal();
+            setUserCourseGoals(
+                firebaseUser,
+                _goals,
+                (_goals[index].getCourseWorkId() == "-1")
+                    ? "CourseGoalObjects"
+                    : "CourseWorkGoalObjects",
+                toMerge: true);
+          });
+        },
+        child: const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
+      );
+    } else {
+      return RaisedButton(
+        onPressed: null,
+        child: const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
+      );
+    }
   }
 }

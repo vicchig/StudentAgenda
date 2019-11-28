@@ -20,7 +20,7 @@ class MainDashboardScreen extends StatefulWidget {
 }
 
 class _MainDashboardScreenState extends State<MainDashboardScreen> {
-  double performancePercent = 70;
+  double performancePercent = 0;
 
   List<Goal> _goals = new List<Goal>();
   List<classroom.Course> _courses = new List<classroom.Course>();
@@ -30,6 +30,23 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
     List<Goal> tempGoals =
         await pullGoals(firebaseUser, "CourseWorkGoalObjects");
     tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
+
+    int goalsCompletedOnTime = 0;
+    int goalsCompletedLate = 0;
+    for (Goal goal in tempGoals) {
+      if (goal.getStatus() == S_COMPLETED) {
+        goalsCompletedOnTime++;
+      } else if (goal.getStatus() == S_COMPLETED_LATE) {
+        goalsCompletedLate++;
+      }
+    }
+
+    performancePercent = (goalsCompletedOnTime + goalsCompletedLate == 0)
+        ? 100
+        : (goalsCompletedOnTime.toDouble() /
+        (goalsCompletedOnTime + goalsCompletedLate)) *
+        100;
+
     tempGoals.removeWhere((goal) =>
         goal.dueDate.compareTo(DateTime(
             DateTime.now().year, DateTime.now().month, DateTime.now().day)) <
@@ -82,26 +99,25 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Heading(text: 'Task Completion Performance'),
+                Heading(text: 'On Time Task Completion Performance'),
                 RoundedProgressBar(
                   style: RoundedProgressBarStyle(
                     widthShadow: 0,
                     colorProgress: Colors.green,
                     backgroundProgress: Color(0xffc8e6c9),
                   ),
-                  childLeft: Text("$performancePercent%",
+                  childLeft: Text(performancePercent.toStringAsFixed(2) + "%",
                       style: TextStyle(color: Colors.white)),
                   percent: performancePercent,
                 ),
               ],
             ),
           ),
-          SizedBox(height: 20),
           Heading(text: 'Upcoming Tasks'),
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.all(8),
-              itemCount: (_goals.length > 3) ? 3 + 1 : _goals.length + 1,
+              itemCount: (_goals.length > 3) ? 3 : _goals.length,
               itemBuilder: (BuildContext context, int index) {
                 return buildList(index);
               },
@@ -139,104 +155,101 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
   }
 
   Color getBoxColor(index) {
-    if (index != 0) {
-      int realIndex = index - 1;
-      if (_goals[realIndex].getStatus() != S_COMPLETED &&
-          _goals[realIndex].getStatus() != S_COMPLETED_LATE) {
-        return Colors.green[100];
-      } else {
-        return Colors.grey;
-      }
+    if (_goals[index].getStatus() != S_COMPLETED &&
+        _goals[index].getStatus() != S_COMPLETED_LATE) {
+      return Colors.green[100];
+    } else {
+      return Colors.grey;
     }
-    return Colors.red;
   }
 
-  Container buildList(index) {
-    if (index == 0) {
-      return Container(width: 0, height: 0);
-    } else {
-      int realIndex = index - 1;
-
-      return Container(
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: getBoxColor(index),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+  Column buildList(index) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: getBoxColor(index),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Course: ${_courses
+                    .firstWhere((course) =>
+                course.id == _goals[index].getCourseId(),
+                    orElse: () => classroom.Course())
+                    .name}',
+                style: TextStyle(fontSize: 18),
+              ),
+              (_goals[index].getCourseWorkId() != "-1")
+                  ? Text(
+                'Course Work: ${_courseWorks
+                    .firstWhere((courseWork) =>
+                courseWork.courseId == _goals[index].getCourseId() &&
+                    courseWork.id == _goals[index].getCourseWorkId(),
+                    orElse: () => classroom.CourseWork())
+                    .description}'
+                    .replaceAll(new RegExp(r"null$"), "N/A"),
+                style: TextStyle(fontSize: 18),
+              )
+                  : Container(width: 0, height: 0),
+              Text(
+                'Task: ${_goals[index].name}',
+                style: TextStyle(fontSize: 18),
+              ),
+              (_goals[index].text) != ""
+                  ? Text(
+                'Description: ${_goals[index].text}',
+                style: TextStyle(fontSize: 18),
+              )
+                  : Container(width: 0, height: 0),
+              Text(
+                'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(
+                    _goals[index].dueDate.year, _goals[index].dueDate.month,
+                    _goals[index].dueDate.day, _goals[index].dueDate.hour,
+                    _goals[index].dueDate.minute,
+                    _goals[index].dueDate.second))}',
+                style: TextStyle(fontSize: 18),
+              ),
+              Text(
+                'Status: ${_goals[index].getStatus().replaceAll("_", " ")}',
+                style: TextStyle(fontSize: 18),
+              ),
+              completeGoalButton(index)
+            ],
+          ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Course: ${_courses.firstWhere((course) => course.id == _goals[realIndex].getCourseId(), orElse: () => classroom.Course()).name}',
-              style: TextStyle(fontSize: 18),
-            ),
-            (_goals[realIndex].getCourseWorkId() != "-1")
-                ? Text(
-                    'Course Work: ${_courseWorks.firstWhere((courseWork) => courseWork.courseId == _goals[realIndex].getCourseId() && courseWork.id == _goals[realIndex].getCourseWorkId(), orElse: () => classroom.CourseWork()).description}'
-                        .replaceAll(new RegExp(r"null$"), "N/A"),
-                    style: TextStyle(fontSize: 18),
-                  )
-                : Container(width: 0, height: 0),
-            Text(
-              'Task: ${_goals[realIndex].name}',
-              style: TextStyle(fontSize: 18),
-            ),
-            (_goals[realIndex].text) != ""
-                ? Text(
-                    'Description: ${_goals[realIndex].text}',
-                    style: TextStyle(fontSize: 18),
-                  )
-                : Container(width: 0, height: 0),
-            Text(
-              'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(_goals[realIndex].dueDate.year, _goals[realIndex].dueDate.month, _goals[realIndex].dueDate.day, _goals[realIndex].dueDate.hour, _goals[realIndex].dueDate.minute, _goals[realIndex].dueDate.second))}',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Status: ${_goals[realIndex].getStatus().replaceAll("_", " ")}',
-              style: TextStyle(fontSize: 18),
-            ),
-            completeGoalButton(index)
-          ],
-        ),
-      );
-    }
+      ],
+    );
   }
 
   RaisedButton completeGoalButton(index) {
-    if (index != 0) {
-      int realIndex = index - 1;
-      if (_goals[realIndex].getStatus() != S_COMPLETED &&
-          _goals[realIndex].getStatus() != S_COMPLETED_LATE) {
-        return RaisedButton(
-          onPressed: () {
-            setState(() {
-              _goals[realIndex].completeGoal();
-              List<Goal> goal = List<Goal>();
-              goal.add(_goals[realIndex]);
-              setUserCourseGoals(
-                  firebaseUser,
-                  goal,
-                  (_goals[realIndex].getCourseWorkId() == "-1")
-                      ? "CourseGoalObjects"
-                      : "CourseWorkGoalObjects",
-                  toMerge: true);
-            });
-          },
-          child:
-              const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
-        );
-      } else {
-        return RaisedButton(
-          onPressed: null,
-          child:
-              const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
-        );
-      }
+    if (_goals[index].getStatus() != S_COMPLETED &&
+        _goals[index].getStatus() != S_COMPLETED_LATE) {
+      return RaisedButton(
+        onPressed: () {
+          setState(() {
+            _goals[index].completeGoal();
+            setUserCourseGoals(
+                firebaseUser,
+                _goals,
+                (_goals[index].getCourseWorkId() == "-1")
+                    ? "CourseGoalObjects"
+                    : "CourseWorkGoalObjects",
+                toMerge: true);
+          });
+        },
+        child: const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
+      );
+    } else {
+      return RaisedButton(
+        onPressed: null,
+        child: const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
+      );
     }
-    return RaisedButton(
-      onPressed: null,
-      child: const Text('Complete This Goal', style: TextStyle(fontSize: 20)),
-    );
   }
 }
 
@@ -251,7 +264,8 @@ class Heading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:
+      const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0, bottom: 2.0),
       child: Text(
         text,
         textAlign: TextAlign.start,
