@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:async';
 import 'package:student_agenda/Utilities/util.dart';
+import 'package:student_agenda/Utilities/goal.dart';
+import 'package:student_agenda/FirestoreManager.dart';
+import 'package:student_agenda/Utilities/auth.dart';
 
 class PerformanceScreen extends StatefulWidget {
   PerformanceScreen({Key key, this.title}) : super(key: key);
@@ -13,13 +16,13 @@ class PerformanceScreen extends StatefulWidget {
 }
 
 class _PerformanceScreenState extends State<PerformanceScreen> {
-  int onTimeNum = 99;
-  int lateNum = 7;
-  int tasksRemaining = 20;
-  int tasksCreated;
+  int onTimeNum = 0;
+  int lateNum = 0;
+  int tasksRemaining = 0;
+  int tasksCreated = 0;
 
-  double onTimePercent;
-  double latePercent;
+  double onTimePercent = 1;
+  double latePercent = 0;
 
   double onTimeLegendFont = 11;
   double lateLegendFont = 11;
@@ -28,14 +31,37 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
 
   int touchedIndex;
 
+  Future<void> processFuture() async {
+    List<Goal> tempGoals =
+    await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+    tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
+
+    for (Goal goal in tempGoals) {
+      tasksCreated++;
+      if (goal.getStatus() == S_COMPLETED) {
+        onTimeNum++;
+      } else if (goal.getStatus() == S_COMPLETED_LATE) {
+        lateNum++;
+      } else {
+        tasksRemaining++;
+      }
+    }
+    onTimePercent = (onTimeNum + lateNum == 0)
+        ? 1
+        : onTimeNum.toDouble() / (onTimeNum + lateNum);
+    latePercent = (onTimeNum + lateNum == 0)
+        ? 0
+        : lateNum.toDouble() / (onTimeNum + lateNum);
+    tasksCreated = onTimeNum + lateNum + tasksRemaining;
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
-
-    onTimePercent = onTimeNum.toDouble() / (onTimeNum + lateNum);
-    latePercent = lateNum.toDouble() / (onTimeNum + lateNum);
-    tasksCreated = onTimeNum + lateNum + tasksRemaining;
-
+    processFuture().then((arg) {}, onError: (e) {
+      print(e);
+    });
     pieTouchedResultStreamController = StreamController();
     pieTouchedResultStreamController.stream.distinct().listen((details) {
       if (details == null) {
