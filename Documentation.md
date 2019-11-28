@@ -207,7 +207,7 @@ A Future of `List<classroom.Topic>` where the list value of the future contains 
 
 __14.__ `void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals, String goalType, {toMerge: true}) async`
 ##### Summary:
-Updates per user goals on Firebase with goals from courseGoals in the goalType section of the document. Merges with the document if toMerge is set to true, otherwise overwrites the document section.
+Updates per user goals on Firebase with goals from courseGoals in the goalType section of the document. This method will remove every goal with the specified goal type and replace it with the list of goals inputted as the argument. If you want to keep the current goals, then add the goals from pullGoals to the courseGoals.
 ##### Parameters:
 * __`user`__:      object storing the currently logged in FireBase user from which appropriate information is extracted.
 * __`goalType`__:  specifies which section of the Firebase document to push the goals to. One of "CourseGoalObjects" (main goals for a specific course), "GeneralGoalObjects" (general goals for no particular course) or "CourseWorkGoalObjects" (specific goals for an assignment of some course).
@@ -318,45 +318,41 @@ Create a new Goal object from its JSON representation.
 A Goal object the fields of which are the keys of the map and their values the corresponding key values from the map.
 
 #### Methods
-__1.__ `void setStatus()`
+__1.__ `String getStatus()`
 ##### Summary:
-Sets the status of the goal based on the current date and the due date of the goal. Should be called whenever it is believed that the goal's state should change.
-
-__2.__ `String getStatus()`
-##### Summary:
-Get the current status of this goal. Calls setStatus() before returning the state in case the state may have changed.
+Get the current status of this goal. Before returning, this method will change the status from on time to late if the goal is in progress and it is currently past the due date.
 ##### Return:
 One of: ("IN_PROGRESS", "COMPLETED", "COMPLETED_LATE", "IN_PROGRESS_LATE").
 
-__3.__ `void completeGoal()`
+__2.__ `void completeGoal()`
 ##### Summary:
 Set the state of this goal to one of ("COMPLETED", "COMPLETED_LATE").
 
-__4.__ `String getDueTime()`
+__3.__ `String getDueTime()`
 ##### Summary:
 Get the string representation of this goal's due time on a 24-hour clock.
 ##### Return:
 String in the format "hh:mm:ss".
 
-__5.__ `String getCalendarDueDate()`
+__4.__ `String getCalendarDueDate()`
 ##### Summary:
 Get the string representation of this goal's due date. See [Util Doc](#util-functions-documentation)
 ##### Return:
 String in the format "dd/mm/yyyy".
 
-__6.__ `String getCourseId()`
+__5.__ `String getCourseId()`
 ##### Summary: 
 Get the ID of the course that this goal is associated with.
 ##### Return:
 A numeric course ID as a string.
 
-__7.__ `String getCourseWorkId()`
+__6.__ `String getCourseWorkId()`
 ##### Summary: 
 Get the ID of the course work that this goal is associated with.
 ##### Return:
 A numeric course work ID as a string.
 
-__8.__ `String toString()`
+__7.__ `String toString()`
 ##### Summary: 
 Get the String summary of the object.
 ##### Return:
