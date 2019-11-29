@@ -56,8 +56,9 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
     goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-08-02T10:10:10"));
     goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-07-30T10:10:10"));
     goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-29T10:10:10"));
+
     goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-07-28T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-07-28T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-07-28T10:10:10"));//these should not count under 4 months depending on time of day
 
     //8 months
     goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-15T10:10:10"));
@@ -133,22 +134,23 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
           data["12 Months"]["incomplete"]++;
         }
       }
-
-      for(String period in data.keys){
-        data[period]["tasksCreated"] = data[period]["completedOnTime"] +
-            data[period]["completedLate"] + data[period]["incomplete"];
-
-        data[period]["onTime%"] = (data[period]["completedOnTime"] * 1.0 /
-            data[period]["tasksCreated"]) * 100;
-
-        data[period]["late%"] = (data[period]["completedLate"] * 1.0 /
-            data[period]["tasksCreated"]) * 100;
-
-        data[period]["incomplete%"] = (data[period]["incomplete"] * 1.0 /
-            data[period]["tasksCreated"]) * 100;
-      }
     }
 
+    for(String period in data.keys){
+      data[period]["tasksCreated"] = data[period]["completedOnTime"] +
+          data[period]["completedLate"] + data[period]["incomplete"];
+
+      data[period]["onTime%"] = num.parse(((data[period]["completedOnTime"] *
+          1.0 / data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
+
+      data[period]["late%"] = num.parse(((data[period]["completedLate"] * 1.0 /
+          data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
+
+      data[period]["incomplete%"] = num.parse(((data[period]["incomplete"] * 1.0
+          / data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
+    }
+
+    print(data);
 
     setState(() {});
   }
@@ -205,17 +207,23 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
   }
 
   DateTime _getDateMonthsAgo(int ago, DateTime date){
+    String dateStr = date.toIso8601String();
+
     if(ago < 12){
-      return DateTime.parse(date.year.toString() + "-" +
-          (date.month - ago).toString() + "-" + date.day.toString() + "T" +
-          date.hour.toString() + ":" + date.minute.toString() + ":" +
-          date.second.toString());
+      String month = "";
+      int newMonth = date.month - ago;
+
+      if(newMonth < 10){
+        month = "0" + newMonth.toString();
+      }else{
+        month = newMonth.toString();
+      }
+      return DateTime.parse(dateStr.substring(0, 4) + "-" + month + "-" +
+          dateStr.substring(8, 10) + dateStr.substring(10, 19));
     }
 
-    return DateTime.parse((date.year - ago / 12).toString() + "-" +
-        (date.month).toString() + "-" + date.day.toString() + "T" +
-        date.hour.toString() + ":" + date.minute.toString() + ":" +
-        date.second.toString());
+    return DateTime.parse((date.year.toInt() - (ago ~/ 12)).toString() +
+        dateStr.substring(4, dateStr.length));
   }
 }
 
