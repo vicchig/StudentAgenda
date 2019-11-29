@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:student_agenda/Screens/courseDashboard.dart';
+import 'package:student_agenda/Screens/eightMonthsPerformanceTab.dart';
+import 'package:student_agenda/Screens/fourMonthsPerformanceTab.dart';
+import 'package:student_agenda/Screens/twelveMonthsPerformanceTab.dart';
 import 'dart:async';
 import 'package:student_agenda/Utilities/util.dart';
 import 'package:student_agenda/Utilities/goal.dart';
-import 'package:student_agenda/FirestoreManager.dart';
-import 'package:student_agenda/Utilities/auth.dart';
 
 class PerformanceScreen extends StatefulWidget {
   PerformanceScreen({Key key, this.title}) : super(key: key);
@@ -212,9 +211,9 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
         },
         body: TabBarView(
           children: <Widget>[
-            //PageOne(),
-            //PageTwo(),
-            //PageThree().
+            FourMonthsPerformanceTab(data["4 Months"]),
+            EightMonthsPerformanceTab(),
+            TwelveMonthsPerformanceTab()
           ],
           controller: _tabController,
         ),
