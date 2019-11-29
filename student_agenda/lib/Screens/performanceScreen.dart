@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_agenda/Screens/performanceTab.dart';
+import 'package:student_agenda/Utilities/auth.dart';
+import 'package:student_agenda/Utilities/goal.dart';
 import 'package:student_agenda/Utilities/tempTestGoal.dart';
+import 'package:student_agenda/Utilities/tempTestGoal.dart' as prefix0;
 import 'dart:async';
 import 'package:student_agenda/Utilities/util.dart';
+import "package:student_agenda/FirestoreManager.dart";
 
 class PerformanceScreen extends StatefulWidget {
   PerformanceScreen({Key key, this.title}) : super(key: key);
@@ -31,131 +35,157 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
   double onTimeLegendFont = 11;
   double lateLegendFont = 11;
 
-  Map<String, Map<String, num>> data = {
+  Map<String, Map<String, dynamic>> data = {
     "4 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
-      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0},
+      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0,
+      "goalCompletions": []},
     "8 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
-      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0},
+      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0,
+      "goalCompletions": []},
     "12 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
-      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0}
+      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0,
+      "goalCompletions": []}
   };
 
   //TODO: This is only for testing, remove later
   List<TempTestGoal> goals = new List<TempTestGoal>();
 
+
+
   Future<void> processFuture() async {
     //List<Goal> tempGoals =
-    //await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+   // await pullGoals(firebaseUser, "CourseWorkGoalObjects");
    // tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
+    setState(() {
+      //TODO: This is only for testing remove later
+      //4 month goals
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-11-02T10:10:10", dateAssigned: "2019-11-02T10:10:10", dateCompleted: "2019-11-02T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-11-02T10:10:10", dateAssigned: "2019-11-02T10:10:10", dateCompleted: "2019-11-02T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-10-15T10:10:10", dateAssigned: "2019-10-15T10:10:10", dateCompleted: "2019-10-15T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-10-25T10:10:10", dateAssigned: "2019-10-25T10:10:10", dateCompleted: "2019-10-25T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-09-17T10:10:10", dateAssigned: "2019-09-17T10:10:10", dateCompleted: "2019-09-17T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-09-09T10:10:10", dateAssigned: "2019-09-09T10:10:10", dateCompleted: "2019-09-09T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-08-02T10:10:10", dateAssigned: "2019-08-02T10:10:10", dateCompleted: "2019-08-02T10:10:10"));
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-07-30T10:10:10", dateAssigned: "2019-07-30T10:10:10", dateCompleted: "2019-07-30T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-29T10:10:10", dateAssigned: "2019-07-29T10:10:10", dateCompleted: "2019-07-29T10:10:10"));
 
-    //TODO: This is only for testing remove later
-    //4 month goals
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-11-02T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-11-02T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-10-15T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-10-25T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-09-17T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-09-09T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-08-02T10:10:10"));
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-07-30T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-29T10:10:10"));
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-07-28T10:10:10", dateAssigned: "2019-07-28T10:10:10", dateCompleted: "2019-07-28T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-07-28T10:10:10", dateAssigned: "2019-07-28T10:10:10", dateCompleted: "2019-07-28T10:10:10"));//these should not count under 4 months depending on time of day
 
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-07-28T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-07-28T10:10:10"));//these should not count under 4 months depending on time of day
+      //8 months
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-15T10:10:10", dateAssigned: "2019-07-15T10:10:10", dateCompleted: "2019-07-15T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-02T10:10:10", dateAssigned: "2019-07-02T10:10:10", dateCompleted: "2019-07-02T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-05-02T10:10:10", dateAssigned: "2019-05-02T10:10:10", dateCompleted: "2019-05-02T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-05-05T10:10:10", dateAssigned: "2019-05-05T10:10:10", dateCompleted: "2019-05-05T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-04-20T10:10:10", dateAssigned: "2019-04-20T10:10:10", dateCompleted: "2019-04-20T10:10:10"));
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10", dateAssigned: "2019-03-30T10:10:10", dateCompleted: "2019-03-30T10:10:10"));
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10", dateAssigned: "2019-03-30T10:10:10", dateCompleted: "2019-03-30T10:10:10"));
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-29T10:10:10", dateAssigned: "2019-03-29T10:10:10", dateCompleted: "2019-03-29T10:10:10"));
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-28T10:10:10", dateAssigned: "2019-03-28T10:10:10", dateCompleted: "2019-03-28T10:10:10"));
 
-    //8 months
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-15T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-02T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-05-02T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-05-05T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-04-20T10:10:10"));
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-29T10:10:10"));
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-28T10:10:10"));
-
-    //12 months
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-02-25T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-02-09T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-01-16T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-01-20T10:10:10"));
-    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-01-19T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-03-10T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-12-30T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-12-15T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-11-30T10:10:10"));
-    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2018-11-30T10:10:10"));
+      //12 months
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-02-25T10:10:10", dateAssigned: "2019-02-25T10:10:10", dateCompleted: "2019-02-25T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-02-09T10:10:10", dateAssigned: "2019-02-09T10:10:10", dateCompleted: "2019-02-09T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-01-16T10:10:10", dateAssigned: "2019-01-16T10:10:10", dateCompleted: "2019-01-16T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-01-20T10:10:10", dateAssigned: "2019-01-20T10:10:10", dateCompleted: "2019-01-20T10:10:10"));
+      goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-01-19T10:10:10", dateAssigned: "2019-01-19T10:10:10", dateCompleted: "2019-01-19T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-03-10T10:10:10", dateAssigned: "2019-03-10T10:10:10", dateCompleted: "2019-03-10T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-12-30T10:10:10", dateAssigned: "2018-12-30T10:10:10", dateCompleted: "2018-12-30T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-12-15T10:10:10", dateAssigned: "2018-12-15T10:10:10", dateCompleted: "2018-12-15T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-11-30T10:10:10", dateAssigned: "2018-11-30T10:10:10", dateCompleted: "2018-11-30T10:10:10"));
+      goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2018-11-30T10:10:10", dateAssigned: "2018-11-30T10:10:10", dateCompleted: "2018-11-30T10:10:10"));
 
 
 
-    DateTime currDate = DateTime.now();
-    DateTime fourMonthsAgo = _getDateMonthsAgo(4, currDate);
-    DateTime eightMonthsAgo = _getDateMonthsAgo(8, currDate);
-    DateTime twelveMonthsAgo = _getDateMonthsAgo(12, currDate);
+      DateTime currDate = DateTime.now();
+      DateTime fourMonthsAgo = _getDateMonthsAgo(4, currDate);
+      DateTime eightMonthsAgo = _getDateMonthsAgo(8, currDate);
+      DateTime twelveMonthsAgo = _getDateMonthsAgo(12, currDate);
 
-    for(TempTestGoal g in goals){
-      if(g.dueDate.isAfter(fourMonthsAgo) &&
-          g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
+      data["4 Months"]["goalCompletions"].add(fourMonthsAgo);
+      data["4 Months"]["goalCompletions"].add(currDate);
+      data["8 Months"]["goalCompletions"].add(eightMonthsAgo);
+      data["8 Months"]["goalCompletions"].add(currDate);
+      data["12 Months"]["goalCompletions"].add(twelveMonthsAgo);
+      data["12 Months"]["goalCompletions"].add(currDate);
 
-        if (g.getStatus() == S_COMPLETED) {
-          data["4 Months"]["completedOnTime"]++;
-          data["8 Months"]["completedOnTime"]++;
-          data["12 Months"]["completedOnTime"]++;
-        } else if (g.getStatus() == S_COMPLETED_LATE) {
-          data["4 Months"]["completedLate"]++;
-          data["8 Months"]["completedLate"]++;
-          data["12 Months"]["completedLate"]++;
-        } else {
-          data["4 Months"]["incomplete"]++;
-          data["8 Months"]["incomplete"]++;
-          data["12 Months"]["incomplete"]++;
+
+      for(TempTestGoal g in goals){
+        if(g.dueDate.isAfter(fourMonthsAgo) &&
+            g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
+
+          if (g.getStatus() == S_COMPLETED) {
+            data["4 Months"]["completedOnTime"]++;
+            data["8 Months"]["completedOnTime"]++;
+            data["12 Months"]["completedOnTime"]++;
+          } else if (g.getStatus() == S_COMPLETED_LATE) {
+            data["4 Months"]["completedLate"]++;
+            data["8 Months"]["completedLate"]++;
+            data["12 Months"]["completedLate"]++;
+          } else {
+            data["4 Months"]["incomplete"]++;
+            data["8 Months"]["incomplete"]++;
+            data["12 Months"]["incomplete"]++;
+          }
+
+          if(g.getStatus() == S_COMPLETED_LATE || g.getStatus() == S_COMPLETED && g.getDateCompleted().isAfter(fourMonthsAgo) && g.getDateCompleted().isBefore(currDate.add(new Duration(days: 1)))){
+            data["4 Months"]["goalCompletions"].add(g.getDateCompleted());
+            data["8 Months"]["goalCompletions"].add(g.getDateCompleted());
+            data["12 Months"]["goalCompletions"].add(g.getDateCompleted());
+          }
+        }
+        else if(g.dueDate.isAfter(eightMonthsAgo) &&
+            g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
+
+          if (g.getStatus() == S_COMPLETED) {
+            data["8 Months"]["completedOnTime"]++;
+            data["12 Months"]["completedOnTime"]++;
+          } else if (g.getStatus() == S_COMPLETED_LATE) {
+            data["8 Months"]["completedLate"]++;
+            data["12 Months"]["completedLate"]++;
+          } else {
+            data["8 Months"]["incomplete"]++;
+            data["12 Months"]["incomplete"]++;
+          }
+
+          if(g.getStatus() == S_COMPLETED_LATE || g.getStatus() == S_COMPLETED && g.getDateCompleted().isAfter(eightMonthsAgo) && g.getDateCompleted().isBefore(currDate.add(new Duration(days: 1)))){
+            data["8 Months"]["goalCompletions"].add(g.getDateCompleted());
+            data["12 Months"]["goalCompletions"].add(g.getDateCompleted());
+          }
+        }
+
+        else if(g.dueDate.isAfter(twelveMonthsAgo) &&
+            g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
+
+          if (g.getStatus() == S_COMPLETED) {
+            data["12 Months"]["completedOnTime"]++;
+          } else if (g.getStatus() == S_COMPLETED_LATE) {
+            data["12 Months"]["completedLate"]++;
+          } else {
+            data["12 Months"]["incomplete"]++;
+          }
+
+          if(g.getStatus() == S_COMPLETED_LATE || g.getStatus() == S_COMPLETED && g.getDateCompleted().isAfter(twelveMonthsAgo) && g.getDateCompleted().isBefore(currDate.add(new Duration(days: 1)))){
+            data["12 Months"]["goalCompletions"].add(g.getDateCompleted());
+          }
         }
       }
-      else if(g.dueDate.isAfter(eightMonthsAgo) &&
-          g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
 
-        if (g.getStatus() == S_COMPLETED) {
-          data["8 Months"]["completedOnTime"]++;
-          data["12 Months"]["completedOnTime"]++;
-        } else if (g.getStatus() == S_COMPLETED_LATE) {
-          data["8 Months"]["completedLate"]++;
-          data["12 Months"]["completedLate"]++;
-        } else {
-          data["8 Months"]["incomplete"]++;
-          data["12 Months"]["incomplete"]++;
-        }
+      for(String period in data.keys){
+        data[period]["tasksCreated"] = data[period]["completedOnTime"] +
+            data[period]["completedLate"] + data[period]["incomplete"];
+
+        data[period]["onTime%"] = num.parse(((data[period]["completedOnTime"] *
+            1.0 / data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
+
+        data[period]["late%"] = num.parse(((data[period]["completedLate"] * 1.0 /
+            data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
+
+        data[period]["incomplete%"] = num.parse(((data[period]["incomplete"] * 1.0
+            / data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
       }
 
-      else if(g.dueDate.isAfter(twelveMonthsAgo) &&
-          g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
-
-        if (g.getStatus() == S_COMPLETED) {
-          data["12 Months"]["completedOnTime"]++;
-        } else if (g.getStatus() == S_COMPLETED_LATE) {
-          data["12 Months"]["completedLate"]++;
-        } else {
-          data["12 Months"]["incomplete"]++;
-        }
-      }
-    }
-
-    for(String period in data.keys){
-      data[period]["tasksCreated"] = data[period]["completedOnTime"] +
-          data[period]["completedLate"] + data[period]["incomplete"];
-
-      data[period]["onTime%"] = num.parse(((data[period]["completedOnTime"] *
-          1.0 / data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
-
-      data[period]["late%"] = num.parse(((data[period]["completedLate"] * 1.0 /
-          data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
-
-      data[period]["incomplete%"] = num.parse(((data[period]["incomplete"] * 1.0
-          / data[period]["tasksCreated"]) * 100).toStringAsFixed(2));
-    }
-
-    print(data);
-
-    setState(() {});
+    });
   }
 
   @override
@@ -165,7 +195,9 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
     _tabController = TabController(vsync: this, length: 3);
     _scrollController = ScrollController();
 
-    processFuture().then((arg) {}, onError: (e) {
+
+    processFuture().then((arg) {
+    }, onError: (e) {
       print(e);
     });
   }
@@ -215,9 +247,9 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
         },
         body: TabBarView(
           children: <Widget>[
-            PerformanceTab(data["4 Months"]),
-            PerformanceTab(data["8 Months"]),
-            PerformanceTab(data["12 Months"])
+            PerformanceTab(data["4 Months"], 4),
+            PerformanceTab(data["8 Months"], 8),
+            PerformanceTab(data["12 Months"], 12)
           ],
           controller: _tabController,
         ),

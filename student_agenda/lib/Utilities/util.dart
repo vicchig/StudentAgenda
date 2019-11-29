@@ -308,7 +308,7 @@ class PieDatum {
   PieDatum(this.label, this.percentVal, this.color);
 }
 
-List<charts.Series<PieDatum, String>> createPieData(Map<String, num> chartData) {
+List<charts.Series<PieDatum, String>> createPieData(Map<String, dynamic> chartData) {
   List<PieDatum> data = new List<PieDatum>();
   data.add(new PieDatum("Completed on Time", chartData["onTime%"], Colors.green[200]));
   data.add(new PieDatum("Completed Late", chartData["late%"], Colors.orangeAccent[100]));
@@ -350,7 +350,7 @@ charts.PieChart buildPieChart(List<charts.Series<PieDatum, dynamic>> chartDataSe
   );
 }
 
-List<Widget> buildPerformanceScreen(Map<String, num> data, charts.PieChart pChart){
+List<Widget> buildPerformanceScreen(Map<String, dynamic> data, charts.PieChart pChart, charts.LineChart tChart){
   return <Widget>[
     Text("Task Breakdown by Completion Time"),
     SizedBox(height: 10.0),
@@ -441,10 +441,79 @@ List<Widget> buildPerformanceScreen(Map<String, num> data, charts.PieChart pChar
                   ]),
                 ]
             ),
+            SizedBox(
+              height: 35,
+            ),
+            SizedBox(
+                width: 3000,
+                height: 300,
+                child: tChart
+            ),
           ],
         ),
       ),
     ),
   ];
+}
+
+charts.LineChart buildLineChart(List<charts.Series<TimeSeriesValue, int>> chartDataSeries){
+  return new charts.LineChart(
+    chartDataSeries,
+    animate: true,
+    defaultRenderer: new charts.LineRendererConfig(),
+    customSeriesRenderers: [
+      new charts.PointRendererConfig(
+          customRendererId: 'customPoint')
+    ],
+    behaviors: [
+      new charts.SlidingViewport(),
+      new charts.PanAndZoomBehavior(),
+    ],
+  );
+}
+
+
+List<charts.Series<TimeSeriesValue, int>> createTimeLineData(Map<String, dynamic> chartData, int months) {
+  List<TimeSeriesValue> data = new List<TimeSeriesValue>();
+  for(int i = 0; i < months; i++){
+    data.add(TimeSeriesValue(i + 1, 0));
+  }
+
+  print(chartData);
+
+  int periodStartYear = chartData["goalCompletions"][0].year;
+  int periodStartMonth = chartData["goalCompletions"][0].month;
+  int periodEndMonth = chartData["goalCompletions"][1].month;
+  for(int i = 2; i < chartData["goalCompletions"].length; i++){
+    int goalCompletionYear = chartData["goalCompletions"][i].year;
+    int goalCompletionMonth = chartData["goalCompletions"][i].month;
+
+    if(goalCompletionYear <= periodStartYear){
+      int monthIdx = goalCompletionMonth - periodStartMonth;
+      monthIdx = monthIdx == months ? monthIdx - 1: monthIdx;
+      data[monthIdx].val++;
+    }
+    else if(goalCompletionYear > periodStartYear){
+      data[12 - ((periodEndMonth - months) + 12)].val++;
+    }
+  }
+
+
+  return [
+    new charts.Series<TimeSeriesValue, int>(
+        id: 'Data',
+        domainFn: (TimeSeriesValue point, _) => point.month,
+        measureFn: (TimeSeriesValue point, _) => point.val,
+        data: data,
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+    )
+  ];
+}
+
+class TimeSeriesValue{
+  final int month;
+  int val;
+
+  TimeSeriesValue(this.month, this.val);
 }
 
