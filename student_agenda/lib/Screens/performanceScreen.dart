@@ -34,22 +34,62 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
     "8 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
       "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0},
     "12 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
-      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0},
-    "allTime": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
       "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0}
   };
 
+  //TODO: This is only for testing, remove later
+  List<Goal> goals = new List<Goal>();
+
   Future<void> processFuture() async {
-    List<Goal> tempGoals =
-    await pullGoals(firebaseUser, "CourseWorkGoalObjects");
-    tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
+    //List<Goal> tempGoals =
+    //await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+   // tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
+
+    //TODO: This is only for testing remove later
+    //4 month goals
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-11-02T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-11-02T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-10-15T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-10-25T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-09-17T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-09-09T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-08-02T10:10:10"));
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-07-30T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-29T10:10:10"));
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-07-28T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-07-28T10:10:10"));
+
+    //8 months
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-15T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-02T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-05-02T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-05-05T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-04-20T10:10:10"));
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-29T10:10:10"));
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-28T10:10:10"));
+
+    //12 months
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-02-25T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-02-09T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-01-16T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-01-20T10:10:10"));
+    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-01-19T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-03-10T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2018-12-30T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2018-12-15T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED, dueDate: "2018-11-30T10:10:10"));
+    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2018-11-30T10:10:10"));
+
+
 
     DateTime currDate = DateTime.now();
     DateTime fourMonthsAgo = _getDateMonthsAgo(4, currDate);
     DateTime eightMonthsAgo = _getDateMonthsAgo(8, currDate);
     DateTime twelveMonthsAgo = _getDateMonthsAgo(12, currDate);
 
-    for(Goal g in tempGoals){
+    for(Goal g in goals){
       if(g.dueDate.isAfter(fourMonthsAgo) &&
           g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
 
@@ -109,23 +149,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
       }
     }
 
-    for (Goal goal in tempGoals) {
-      tasksCreated++;
-      if (goal.getStatus() == S_COMPLETED) {
-        onTimeNum++;
-      } else if (goal.getStatus() == S_COMPLETED_LATE) {
-        lateNum++;
-      } else {
-        tasksRemaining++;
-      }
-    }
-    onTimePercent = (onTimeNum + lateNum == 0)
-        ? 1
-        : onTimeNum.toDouble() / (onTimeNum + lateNum);
-    latePercent = (onTimeNum + lateNum == 0)
-        ? 0
-        : lateNum.toDouble() / (onTimeNum + lateNum);
-    tasksCreated = onTimeNum + lateNum + tasksRemaining;
+
     setState(() {});
   }
 
