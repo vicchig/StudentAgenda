@@ -193,6 +193,12 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
               floating: true,
               forceElevated: boxScrolled,
               bottom: TabBar(
+                onTap: (int idx){
+                  _scrollController.animateTo(
+                      _scrollController.position.minScrollExtent,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.decelerate);
+                },
                 tabs: <Widget>[
                   Tab(
                     text: "4 Months",
