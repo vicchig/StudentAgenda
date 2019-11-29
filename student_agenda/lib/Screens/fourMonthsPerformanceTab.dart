@@ -41,14 +41,7 @@ class _FourMonthsPerformanceTabState extends State<FourMonthsPerformanceTab> {
       child: Padding(
         padding: EdgeInsets.all(8.0),
           child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text("Task Breakdown by Completion Time"),
-            SizedBox(height: 10.0),
-            Expanded(
-              child: pChart
-            ),
-          ]
+              children: buildPerformanceScreen(data, pChart)
         ),
       ),
     );

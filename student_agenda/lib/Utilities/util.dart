@@ -350,3 +350,101 @@ charts.PieChart buildPieChart(List<charts.Series<PieDatum, dynamic>> chartDataSe
   );
 }
 
+List<Widget> buildPerformanceScreen(Map<String, num> data, charts.PieChart pChart){
+  return <Widget>[
+    Text("Task Breakdown by Completion Time"),
+    SizedBox(height: 10.0),
+    Expanded(
+      child: SizedBox(
+        height: 1000,
+        child: new ListView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            SizedBox(
+                width: 3000,
+                height: 300,
+                child: pChart
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 30,
+              child: Text("Stats", textAlign: TextAlign.center),
+            ),
+            Table(
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                defaultColumnWidth: FixedColumnWidth(150.0),
+                border: TableBorder.all(),
+                children: [
+                  TableRow(children: [
+                    Container(
+                      child: Text("Tasks Completed on Time"),
+                      width: 150,
+                      alignment: Alignment(-0.9, 0.0),
+                    ),
+                    Container(
+                      child: Text(data["completedOnTime"].toString()),
+                      color: Colors.green[50],
+                      width: 150,
+                      alignment: Alignment(0.0, 0.0),
+                    ),
+                  ]),
+                  TableRow(children: [
+                    Container(
+                      child: Text("Task Completed Late"),
+                      width: 150,
+                      alignment: Alignment(-0.9, 0.0),
+                    ),
+                    Container(
+                      child: Text(data["completedLate"].toString()),
+                      color: Colors.orange[50],
+                      width: 150,
+                      alignment: Alignment(0.0, 0.0),
+                    ),
+                  ]),
+                  TableRow(children: [
+                    Container(
+                      child: Text("Incomplete Tasks"),
+                      width: 150,
+                      alignment: Alignment(-0.9, 0.0),
+                    ),
+                    Container(
+                      child: Text(data["incomplete"].toString()),
+                      color: Colors.red[50],
+                      width: 150,
+                      alignment: Alignment(0.0, 0.0),
+                    ),
+                  ]),
+                  TableRow(children: [
+                    Container(
+                      child: Text("Total Tasks"),
+                      width: 150,
+                      alignment: Alignment(-0.95, 0.0),
+                    ),
+                    Container(
+                      child: Text(data["tasksCreated"].toString()),
+                      width: 150,
+                      alignment: Alignment(0.0, 0.0),
+                    ),
+                  ]),TableRow(children: [
+                    Container(
+                      child: Text("Average Completion Time"),
+                      width: 150,
+                      alignment: Alignment(-0.8, 0.0),
+                    ),
+                    Container(
+                      child: Text("15.0"),
+                      width: 150,
+                      alignment: Alignment(0.0, 0.0),
+                    ),
+                  ]),
+                ]
+            ),
+          ],
+        ),
+      ),
+    ),
+  ];
+}
+
