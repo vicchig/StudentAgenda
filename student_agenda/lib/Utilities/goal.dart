@@ -110,7 +110,9 @@ class Goal {
     "status": _status,
     "courseID": _courseID,
     "courseWorkID": _courseWorkID,
-    "dueDate": dueDate.toIso8601String()
+    "dueDate": dueDate.toIso8601String(),
+    "dateAssigned": _dateAssigned.toIso8601String(),
+    "dateCompleted": _dateCompleted.toIso8601String()
   };
 
   Goal.fromJson(Map<dynamic, dynamic> json)
@@ -119,5 +121,7 @@ class Goal {
         _status = json["status"],
         _courseID = json["courseID"],
         _courseWorkID = json["courseWorkID"],
-        dueDate = DateTime.parse(json["dueDate"]);
+        dueDate = DateTime.parse(json["dueDate"]),
+        _dateAssigned = DateTime.parse(json["dateAssigned"]),
+        _dateCompleted = DateTime.parse(json["dateCompleted"]);
 }
