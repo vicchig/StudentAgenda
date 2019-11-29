@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:student_agenda/Screens/courseDashboard.dart';
@@ -16,7 +17,12 @@ class PerformanceScreen extends StatefulWidget {
   _PerformanceScreenState createState() => _PerformanceScreenState();
 }
 
-class _PerformanceScreenState extends State<PerformanceScreen> {
+class _PerformanceScreenState extends State<PerformanceScreen> with
+    SingleTickerProviderStateMixin{
+
+  TabController _tabController;
+  ScrollController _scrollController;
+
   int onTimeNum = 0;
   int lateNum = 0;
   int tasksRemaining = 0;
@@ -158,6 +164,10 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
   @override
   void initState() {
     super.initState();
+
+    _tabController = TabController(vsync: this, length: 3);
+    _scrollController = ScrollController();
+
     processFuture().then((arg) {}, onError: (e) {
       print(e);
     });
@@ -165,43 +175,49 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
 
   @override
   void dispose() {
+    _tabController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Performance'),
-      ),
-
-      //draw the sidebar menu options
-      drawer: MenuDrawer(),
-
-      body: Column(
-        children: <Widget>[
-          SizedBox(height: 20),
-          TotalTasks(
-            onTimeNum: onTimeNum,
-            text: 'Tasks Completed on Time:',
-          ),
-          SizedBox(height: 20),
-          TotalTasks(
-            onTimeNum: lateNum,
-            text: 'Tasks Completed Late:',
-          ),
-          SizedBox(height: 20),
-          TotalTasks(
-            onTimeNum: tasksRemaining,
-            text: 'Tasks Remaining:',
-          ),
-          SizedBox(height: 20),
-          TotalTasks(
-            onTimeNum: tasksCreated,
-            text: 'Tasks Created:',
-          ),
-        ],
+      drawer: new MenuDrawer(),
+      body: NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (BuildContext context, bool boxScrolled){
+          return <Widget>[
+            SliverAppBar(
+              title: Text("Performance"),
+              pinned: true,
+              floating: true,
+              forceElevated: boxScrolled,
+              bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    text: "4 Months",
+                  ),
+                  Tab(
+                    text: "8 Months",
+                  ),
+                  Tab(
+                    text: "12 Months"
+                  ),
+                ],
+                controller: _tabController,
+              ),
+            )
+          ];
+        },
+        body: TabBarView(
+          children: <Widget>[
+            //PageOne(),
+            //PageTwo(),
+            //PageThree().
+          ],
+          controller: _tabController,
+        ),
       ),
     );
   }
