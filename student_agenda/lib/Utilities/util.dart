@@ -330,7 +330,7 @@ charts.PieChart buildPieChart(List<charts.Series<PieDatum, dynamic>> chartDataSe
   return charts.PieChart(
     chartDataSeries,
     animate: true,
-    animationDuration: Duration(seconds: 1),
+    animationDuration: Duration(milliseconds: 750),
     behaviors: [
       new charts.DatumLegend(
         outsideJustification: charts.OutsideJustification.endDrawArea,
