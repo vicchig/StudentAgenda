@@ -8,6 +8,8 @@ import '../Screens/addGoalsScreen.dart';
 import '../Screens/listedGoalsScreen.dart';
 import 'package:student_agenda/Screens/performanceScreen.dart';
 import 'package:student_agenda/Screens/mainScreen.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
 
 import '../Screens/settingsScreen.dart';
 import 'auth.dart';
@@ -298,4 +300,53 @@ String getCalendarDueDate(DateTime date){
       date.year.toString();
 }
 
+class PieDatum {
+  final String label;
+  final double percentVal;
+  final Color color;
+
+  PieDatum(this.label, this.percentVal, this.color);
+}
+
+List<charts.Series<PieDatum, String>> createPieData(Map<String, num> chartData) {
+  List<PieDatum> data = new List<PieDatum>();
+  data.add(new PieDatum("Completed on Time", chartData["onTime%"], Colors.green[200]));
+  data.add(new PieDatum("Completed Late", chartData["late%"], Colors.orangeAccent[100]));
+  data.add(new PieDatum("Incomplete", chartData["incomplete%"], Colors.redAccent[100]));
+
+  return [
+    new charts.Series<PieDatum, String>(
+      id: 'Data',
+      domainFn: (PieDatum point, _) => point.label,
+      measureFn: (PieDatum point, _) => point.percentVal,
+      data: data,
+      labelAccessorFn: (PieDatum row, _) => '${row.percentVal.toString() + "%"}',
+      colorFn: (PieDatum point, _) => charts.ColorUtil.fromDartColor(point.color)
+    )
+  ];
+}
+
+charts.PieChart buildPieChart(List<charts.Series<PieDatum, dynamic>> chartDataSeries){
+  return charts.PieChart(
+    chartDataSeries,
+    animate: true,
+    animationDuration: Duration(seconds: 1),
+    behaviors: [
+      new charts.DatumLegend(
+        outsideJustification: charts.OutsideJustification.endDrawArea,
+        horizontalFirst: false,
+        desiredMaxRows: 1,
+        cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+
+      )
+    ],
+    defaultRenderer: new charts.ArcRendererConfig(
+        arcRendererDecorators: [
+          new charts.ArcLabelDecorator(
+            labelPosition: charts.ArcLabelPosition.inside,
+          )
+        ]
+    ),
+  );
+}
 
