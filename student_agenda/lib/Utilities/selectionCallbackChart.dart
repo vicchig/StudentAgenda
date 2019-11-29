@@ -55,6 +55,15 @@ class _SelectionCallbackChartState extends State<SelectionCallbackChart> {
             behaviors: [
               new charts.SlidingViewport(),
               new charts.PanAndZoomBehavior(),
+
+              new charts.ChartTitle('Month of Time Period',
+                  behaviorPosition: charts.BehaviorPosition.bottom,
+                  titleOutsideJustification:
+                  charts.OutsideJustification.middleDrawArea),
+              new charts.ChartTitle('Goals Compelted',
+                  behaviorPosition: charts.BehaviorPosition.start,
+                  titleOutsideJustification:
+                  charts.OutsideJustification.middleDrawArea),
             ],
             selectionModels: [
               new charts.SelectionModelConfig(
