@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:student_agenda/Screens/courseDashboard.dart';
 import 'dart:async';
 import 'package:student_agenda/Utilities/util.dart';
 import 'package:student_agenda/Utilities/goal.dart';
@@ -27,14 +28,86 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
   double onTimeLegendFont = 11;
   double lateLegendFont = 11;
 
-  StreamController<PieTouchResponse> pieTouchedResultStreamController;
-
-  int touchedIndex;
+  Map<String, Map<String, num>> data = {
+    "4 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
+      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0},
+    "8 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
+      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0},
+    "12 Months": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
+      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0},
+    "allTime": {"completedOnTime": 0, "completedLate": 0, "incomplete": 0,
+      "tasksCreated": 0, "onTime%": 0.0, "late%": 0.0, "incomplete%": 0.0}
+  };
 
   Future<void> processFuture() async {
     List<Goal> tempGoals =
     await pullGoals(firebaseUser, "CourseWorkGoalObjects");
     tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
+
+    DateTime currDate = DateTime.now();
+    DateTime fourMonthsAgo = _getDateMonthsAgo(4, currDate);
+    DateTime eightMonthsAgo = _getDateMonthsAgo(8, currDate);
+    DateTime twelveMonthsAgo = _getDateMonthsAgo(12, currDate);
+
+    for(Goal g in tempGoals){
+      if(g.dueDate.isAfter(fourMonthsAgo) &&
+          g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
+
+        if (g.getStatus() == S_COMPLETED) {
+          data["4 Months"]["completedOnTime"]++;
+          data["8 Months"]["completedOnTime"]++;
+          data["12 Months"]["completedOnTime"]++;
+        } else if (g.getStatus() == S_COMPLETED_LATE) {
+          data["4 Months"]["completedLate"]++;
+          data["8 Months"]["completedLate"]++;
+          data["12 Months"]["completedLate"]++;
+        } else {
+          data["4 Months"]["incomplete"]++;
+          data["8 Months"]["incomplete"]++;
+          data["12 Months"]["incomplete"]++;
+        }
+      }
+      else if(g.dueDate.isAfter(eightMonthsAgo) &&
+          g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
+
+        if (g.getStatus() == S_COMPLETED) {
+          data["8 Months"]["completedOnTime"]++;
+          data["12 Months"]["completedOnTime"]++;
+        } else if (g.getStatus() == S_COMPLETED_LATE) {
+          data["8 Months"]["completedLate"]++;
+          data["12 Months"]["completedLate"]++;
+        } else {
+          data["8 Months"]["incomplete"]++;
+          data["12 Months"]["incomplete"]++;
+        }
+      }
+
+      else if(g.dueDate.isAfter(twelveMonthsAgo) &&
+          g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
+
+        if (g.getStatus() == S_COMPLETED) {
+          data["12 Months"]["completedOnTime"]++;
+        } else if (g.getStatus() == S_COMPLETED_LATE) {
+          data["12 Months"]["completedLate"]++;
+        } else {
+          data["12 Months"]["incomplete"]++;
+        }
+      }
+
+      for(String period in data.keys){
+        data[period]["tasksCreated"] = data[period]["completedOnTime"] +
+            data[period]["completedLate"] + data[period]["incomplete"];
+
+        data[period]["onTime%"] = (data[period]["completedOnTime"] * 1.0 /
+            data[period]["tasksCreated"]) * 100;
+
+        data[period]["late%"] = (data[period]["completedLate"] * 1.0 /
+            data[period]["tasksCreated"]) * 100;
+
+        data[period]["incomplete%"] = (data[period]["incomplete"] * 1.0 /
+            data[period]["tasksCreated"]) * 100;
+      }
+    }
 
     for (Goal goal in tempGoals) {
       tasksCreated++;
@@ -62,40 +135,11 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
     processFuture().then((arg) {}, onError: (e) {
       print(e);
     });
-    pieTouchedResultStreamController = StreamController();
-    pieTouchedResultStreamController.stream.distinct().listen((details) {
-      if (details == null) {
-        return;
-      }
-
-      setState(() {
-        if (details.touchInput is FlLongPressEnd) {
-          touchedIndex = -1;
-        } else {
-          touchedIndex = details.touchedSectionPosition;
-        }
-        switch (touchedIndex) {
-          case 0:
-            onTimeLegendFont = 15;
-            lateLegendFont = 11;
-            break;
-          case 1:
-            lateLegendFont = 15;
-            onTimeLegendFont = 11;
-            break;
-          default:
-            onTimeLegendFont = 11;
-            lateLegendFont = 11;
-            break;
-        }
-      });
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    pieTouchedResultStreamController.close();
   }
 
   @override
@@ -111,39 +155,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
 
       body: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlChart(
-                chart: PieChart(
-                  PieChartData(
-                      pieTouchData: PieTouchData(
-                          touchResponseStreamSink:
-                              pieTouchedResultStreamController.sink),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      sectionsSpace: 0,
-                      centerSpaceRadius: 0,
-                      sections: showingSections()),
-                ),
-              ),
-            ],
-          ),
-          LegendEntry(
-            onTimeLegendFont: onTimeLegendFont,
-            color: Colors.green,
-            text: ' : Tasks Completed On Time',
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          LegendEntry(
-            onTimeLegendFont: lateLegendFont,
-            color: Colors.red,
-            text: ' : Tasks Completed Late',
-          ),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           TotalTasks(
             onTimeNum: onTimeNum,
             text: 'Tasks Completed on Time:',
@@ -168,42 +180,18 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
     );
   }
 
-  List<PieChartSectionData> showingSections() {
-    return List.generate(2, (i) {
-      final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 25 : 16;
-      final double radius = isTouched ? 110 : 100;
-      switch (i) {
-        case 0:
-//          onTimeLegendFont = isTouched ? 15 : 11;
-          return PieChartSectionData(
-            color: Colors.green,
-            value: onTimePercent,
-            title: 'On Time',
-            showTitle: false,
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          );
-        case 1:
-//          lateLegendFont = isTouched ? 15 : 11;
-          return PieChartSectionData(
-            color: Colors.red,
-            value: latePercent,
-            title: 'Late',
-            showTitle: false,
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          );
-        default:
-          return null;
-      }
-    });
+  DateTime _getDateMonthsAgo(int ago, DateTime date){
+    if(ago < 12){
+      return DateTime.parse(date.year.toString() + "-" +
+          (date.month - ago).toString() + "-" + date.day.toString() + "T" +
+          date.hour.toString() + ":" + date.minute.toString() + ":" +
+          date.second.toString());
+    }
+
+    return DateTime.parse((date.year - ago / 12).toString() + "-" +
+        (date.month).toString() + "-" + date.day.toString() + "T" +
+        date.hour.toString() + ":" + date.minute.toString() + ":" +
+        date.second.toString());
   }
 }
 
