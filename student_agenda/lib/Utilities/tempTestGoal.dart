@@ -2,21 +2,25 @@
 
 import 'package:student_agenda/Utilities/util.dart';
 
-const String S_IN_PROGRESS = "IN_PROGRESS";
-const String S_COMPLETED = "COMPLETED";
-const String S_COMPLETED_LATE = "COMPLETED_LATE";
-const String S_IN_PROGRESS_LATE = "IN_PROGRESS_LATE";
+
 
 class TempTestGoal {
+  static const String S_IN_PROGRESS = "IN_PROGRESS";
+  static const String S_COMPLETED = "COMPLETED";
+  static const String S_COMPLETED_LATE = "COMPLETED_LATE";
+  static const String S_IN_PROGRESS_LATE = "IN_PROGRESS_LATE";
+
   String name;
   String text;
   DateTime dueDate;
+  DateTime dateAssigned; //these fields should be private in the actual Goal class
+  DateTime dateCompleted;
 
   String status;
   String _courseID;
   String _courseWorkID;
 
-  TempTestGoal({String status, String name: "BlankGoal",
+  TempTestGoal({String dateCompleted, String dateAssigned, String status, String name: "BlankGoal",
     String text: "",
     courseID: "-1",
     courseWorkID: "-1",
@@ -36,6 +40,9 @@ class TempTestGoal {
     } else {
       status = S_IN_PROGRESS;
     }
+
+    this.dateAssigned = DateTime.parse(dateAssigned);
+    this.dateCompleted = DateTime.parse(dateCompleted);
   }
 
   String getStatus() {
@@ -55,6 +62,16 @@ class TempTestGoal {
     } else {
       status = S_COMPLETED;
     }
+
+    this.dateCompleted = DateTime.now();
+  }
+
+  DateTime getDateCompleted(){
+    return this.dateCompleted;
+  }
+
+  DateTime getDateAssigned(){
+    return this.dateAssigned;
   }
 
   String getDueTime() {

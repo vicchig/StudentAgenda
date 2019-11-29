@@ -16,6 +16,9 @@ class Goal {
   String _courseID;
   String _courseWorkID;
 
+  DateTime _dateAssigned;
+  DateTime _dateCompleted;
+
   Goal({String name: "BlankGoal",
     String text: "",
     courseID: "-1",
@@ -34,6 +37,8 @@ class Goal {
     } else {
       _status = S_IN_PROGRESS;
     }
+
+    this._dateAssigned = DateTime.now();
   }
 
   String getStatus() {
@@ -53,6 +58,7 @@ class Goal {
     } else {
       _status = S_COMPLETED;
     }
+    this._dateCompleted = DateTime.now();
   }
 
   String getDueTime() {
@@ -67,6 +73,14 @@ class Goal {
         timeParts[1] +
         ":" +
         timeParts[2].substring(0, 2);
+  }
+
+  DateTime getDateCompleted(){
+    return this._dateCompleted;
+  }
+
+  DateTime getDateAssigned(){
+    return this._dateAssigned;
   }
 
   String getCourseId() {
