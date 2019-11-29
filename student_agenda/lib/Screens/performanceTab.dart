@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:student_agenda/Utilities/util.dart';
 
-class FourMonthsPerformanceTab extends StatefulWidget {
-  FourMonthsPerformanceTab(this.dataMap, {Key key, this.title}) : super(key: key);
+class PerformanceTab extends StatefulWidget {
+  PerformanceTab(this.dataMap, {Key key, this.title}) : super(key: key);
 
   final String title;
   final Map<String, num> dataMap;
 
   @override
-  _FourMonthsPerformanceTabState createState() => _FourMonthsPerformanceTabState(this.dataMap);
+  _PerformanceTabState createState() => _PerformanceTabState(this.dataMap);
 }
 
 //TODO: Add a table that shows the actual number for each goal
 //TODO: Add a line or bar graph that shows how many goals have been completed
 //TODO: during particular days in the give time period (might be more trouble than it is worth due to the amount of days involved in some of the periods)
-class _FourMonthsPerformanceTabState extends State<FourMonthsPerformanceTab> {
+class _PerformanceTabState extends State<PerformanceTab> {
   Map<String, num> data;
   List<charts.Series<PieDatum, String>> chartDataSeries;
   charts.PieChart pChart;
 
-  _FourMonthsPerformanceTabState(this.data);
+  _PerformanceTabState(this.data);
 
   @override
   void initState() {

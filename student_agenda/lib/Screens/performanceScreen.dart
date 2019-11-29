@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:student_agenda/Screens/eightMonthsPerformanceTab.dart';
-import 'package:student_agenda/Screens/fourMonthsPerformanceTab.dart';
-import 'package:student_agenda/Screens/twelveMonthsPerformanceTab.dart';
+import 'package:student_agenda/Screens/performanceTab.dart';
 import 'package:student_agenda/Utilities/tempTestGoal.dart';
 import 'dart:async';
 import 'package:student_agenda/Utilities/util.dart';
@@ -217,9 +215,9 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
         },
         body: TabBarView(
           children: <Widget>[
-            FourMonthsPerformanceTab(data["4 Months"]),
-            EightMonthsPerformanceTab(),
-            TwelveMonthsPerformanceTab()
+            PerformanceTab(data["4 Months"]),
+            PerformanceTab(data["8 Months"]),
+            PerformanceTab(data["12 Months"])
           ],
           controller: _tabController,
         ),
