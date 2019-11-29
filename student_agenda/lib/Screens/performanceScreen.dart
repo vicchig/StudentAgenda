@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:student_agenda/Screens/eightMonthsPerformanceTab.dart';
 import 'package:student_agenda/Screens/fourMonthsPerformanceTab.dart';
 import 'package:student_agenda/Screens/twelveMonthsPerformanceTab.dart';
+import 'package:student_agenda/Utilities/tempTestGoal.dart';
 import 'dart:async';
 import 'package:student_agenda/Utilities/util.dart';
-import 'package:student_agenda/Utilities/goal.dart';
 
 class PerformanceScreen extends StatefulWidget {
   PerformanceScreen({Key key, this.title}) : super(key: key);
@@ -43,7 +43,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
   };
 
   //TODO: This is only for testing, remove later
-  List<Goal> goals = new List<Goal>();
+  List<TempTestGoal> goals = new List<TempTestGoal>();
 
   Future<void> processFuture() async {
     //List<Goal> tempGoals =
@@ -52,41 +52,41 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
 
     //TODO: This is only for testing remove later
     //4 month goals
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-11-02T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-11-02T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-10-15T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-10-25T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-09-17T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-09-09T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-08-02T10:10:10"));
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-07-30T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-29T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-11-02T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-11-02T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-10-15T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-10-25T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-09-17T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-09-09T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-08-02T10:10:10"));
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-07-30T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-29T10:10:10"));
 
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-07-28T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-07-28T10:10:10"));//these should not count under 4 months depending on time of day
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-07-28T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-07-28T10:10:10"));//these should not count under 4 months depending on time of day
 
     //8 months
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-15T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-07-02T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-05-02T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-05-05T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-04-20T10:10:10"));
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-29T10:10:10"));
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-03-28T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-15T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-07-02T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-05-02T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-05-05T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-04-20T10:10:10"));
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-30T10:10:10"));
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-29T10:10:10"));
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-03-28T10:10:10"));
 
     //12 months
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-02-25T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-02-09T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-01-16T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2019-01-20T10:10:10"));
-    goals.add(new Goal(status: S_IN_PROGRESS, dueDate: "2019-01-19T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2019-03-10T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2018-12-30T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2018-12-15T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED, dueDate: "2018-11-30T10:10:10"));
-    goals.add(new Goal(status: S_COMPLETED_LATE, dueDate: "2018-11-30T10:10:10"));
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-02-25T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-02-09T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-01-16T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2019-01-20T10:10:10"));
+    goals.add(new TempTestGoal(status: S_IN_PROGRESS, dueDate: "2019-01-19T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2019-03-10T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-12-30T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-12-15T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED, dueDate: "2018-11-30T10:10:10"));
+    goals.add(new TempTestGoal(status: S_COMPLETED_LATE, dueDate: "2018-11-30T10:10:10"));
 
 
 
@@ -95,7 +95,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> with
     DateTime eightMonthsAgo = _getDateMonthsAgo(8, currDate);
     DateTime twelveMonthsAgo = _getDateMonthsAgo(12, currDate);
 
-    for(Goal g in goals){
+    for(TempTestGoal g in goals){
       if(g.dueDate.isAfter(fourMonthsAgo) &&
           g.dueDate.isBefore(currDate.add(new Duration(days: 1)))){
 
