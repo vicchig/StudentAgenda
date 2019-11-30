@@ -22,15 +22,20 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   List<classroom.Course> _courses = new List<classroom.Course>();
   List<classroom.CourseWork> _courseWork = new List<classroom.CourseWork>();
   List<classroom.CourseWork> _original = new List<classroom.CourseWork>();
+  List<classroom.Teacher> _teachers = new List<classroom.Teacher>();
+  HashMap courseToTeacher = new HashMap<String, classroom.Teacher>();
 
   void processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
     List<classroom.CourseWork> tempWork =
     await pullCourseWorkData(firebaseUser);
+    List<classroom.Teacher> tempTeachers = await pullTeachers(firebaseUser);
     setState(() {
       _courses = tempCourses;
       _courseWork = tempWork;
       _original = tempWork;
+      _teachers = tempTeachers;
+      createCourseTeacherMap();
     });
   }
 
@@ -230,7 +235,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
             value: dropDownItem,
             child: Text(
               (dropDownItem.ownerId != null)
-                  ? dropDownItem.ownerId
+                  ? createTeacherCourseOption(dropDownItem)
                   : "Someone" + "'s " + dropDownItem.name.toString(),
               overflow: TextOverflow.ellipsis,
             ),
@@ -465,5 +470,23 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         (selectedCourseWork != null)
             ? "CourseWorkGoalObjects"
             : "CourseGoalObjects");
+  }
+
+  String createTeacherCourseOption(classroom.Course course) {
+    String ret = courseToTeacher[course.id].profile.name.givenName[0] + ". "
+        + courseToTeacher[course.id].profile.name.familyName + "'s "
+        + course.name.toString();
+    return ret;
+  }
+
+  HashMap<int, classroom.Teacher> createCourseTeacherMap() {
+    for (final course in _courses) {
+      for (final teacher in _teachers) {
+        if (course.ownerId == teacher.userId) {
+          courseToTeacher[course.id] = teacher;
+          break;
+        }
+      }
+    }
   }
 }
