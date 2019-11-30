@@ -16,6 +16,9 @@ class Goal {
   String _courseID;
   String _courseWorkID;
 
+  DateTime _dateAssigned;
+  DateTime _dateCompleted;
+
   Goal({String name: "BlankGoal",
     String text: "",
     courseID: "-1",
@@ -34,6 +37,9 @@ class Goal {
     } else {
       _status = S_IN_PROGRESS;
     }
+
+    this._dateAssigned = DateTime.now();
+    this._dateCompleted = DateTime.fromMillisecondsSinceEpoch(0);
   }
 
   String getStatus() {
@@ -53,6 +59,7 @@ class Goal {
     } else {
       _status = S_COMPLETED;
     }
+    this._dateCompleted = DateTime.now();
   }
 
   String getDueTime() {
@@ -67,6 +74,14 @@ class Goal {
         timeParts[1] +
         ":" +
         timeParts[2].substring(0, 2);
+  }
+
+  DateTime getDateCompleted() {
+    return this._dateCompleted;
+  }
+
+  DateTime getDateAssigned() {
+    return this._dateAssigned;
   }
 
   String getCourseId() {
@@ -96,7 +111,9 @@ class Goal {
     "status": _status,
     "courseID": _courseID,
     "courseWorkID": _courseWorkID,
-    "dueDate": dueDate.toIso8601String()
+    "dueDate": dueDate.toIso8601String(),
+    "dateAssigned": _dateAssigned.toIso8601String(),
+    "dateCompleted": _dateCompleted.toIso8601String()
   };
 
   Goal.fromJson(Map<dynamic, dynamic> json)
@@ -105,5 +122,7 @@ class Goal {
         _status = json["status"],
         _courseID = json["courseID"],
         _courseWorkID = json["courseWorkID"],
-        dueDate = DateTime.parse(json["dueDate"]);
+        dueDate = DateTime.parse(json["dueDate"]),
+        _dateAssigned = DateTime.parse(json["dateAssigned"]),
+        _dateCompleted = DateTime.parse(json["dateCompleted"]);
 }

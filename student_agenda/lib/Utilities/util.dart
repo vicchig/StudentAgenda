@@ -8,6 +8,8 @@ import '../Screens/addGoalsScreen.dart';
 import '../Screens/listedGoalsScreen.dart';
 import 'package:student_agenda/Screens/performanceScreen.dart';
 import 'package:student_agenda/Screens/mainScreen.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
 
 import '../Screens/settingsScreen.dart';
 import 'auth.dart';
