@@ -39,6 +39,7 @@ class Goal {
     }
 
     this._dateAssigned = DateTime.now();
+    this._dateCompleted = DateTime.fromMillisecondsSinceEpoch(0);
   }
 
   String getStatus() {
@@ -75,11 +76,11 @@ class Goal {
         timeParts[2].substring(0, 2);
   }
 
-  DateTime getDateCompleted(){
+  DateTime getDateCompleted() {
     return this._dateCompleted;
   }
 
-  DateTime getDateAssigned(){
+  DateTime getDateAssigned() {
     return this._dateAssigned;
   }
 

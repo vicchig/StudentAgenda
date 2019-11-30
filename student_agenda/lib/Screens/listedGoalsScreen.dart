@@ -152,6 +152,15 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
                 )
                     : Container(width: 0, height: 0),
                 Text(
+                  'Date Assigned: ${DateFormat("yyyy/MM/dd hh:mm aaa").format(
+                      _goals[index].getDateAssigned())}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  'Status: ${_goals[index].getStatus().replaceAll("_", " ")}',
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
                   'Due: ${DateFormat("EEEE, MMM. d, yyyy").format(DateTime(
                       _goals[index].dueDate.year, _goals[index].dueDate.month,
                       _goals[index].dueDate.day, _goals[index].dueDate.hour,
@@ -159,10 +168,14 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
                       _goals[index].dueDate.second))}',
                   style: TextStyle(fontSize: 18),
                 ),
-                Text(
-                  'Status: ${_goals[index].getStatus().replaceAll("_", " ")}',
+                (_goals[index].getStatus() == S_COMPLETED ||
+                    _goals[index].getStatus() == S_COMPLETED_LATE)
+                    ? Text(
+                  'Date Completed: ${DateFormat("yyyy/MM/dd hh:mm aaa").format(
+                      _goals[index].getDateCompleted())}',
                   style: TextStyle(fontSize: 18),
-                ),
+                )
+                    : Container(width: 0, height: 0),
                 completeGoalButton(index)
               ],
             ),
