@@ -21,8 +21,8 @@ class LineSeriesValue{
 //creates pie chart data from a value map
 List<charts.Series<PieDatum, String>> createPieData(Map<String, dynamic> chartData) {
   List<PieDatum> data = new List<PieDatum>();
-  data.add(new PieDatum("Completed on Time", chartData["onTime%"], Colors.green[200]));
-  data.add(new PieDatum("Completed Late", chartData["late%"], Colors.orangeAccent[100]));
+  data.add(new PieDatum("Done on Time", chartData["onTime%"], Colors.green[200]));
+  data.add(new PieDatum("Done Late", chartData["late%"], Colors.orangeAccent[100]));
   data.add(new PieDatum("Incomplete", chartData["incomplete%"], Colors.redAccent[100]));
 
   return [
