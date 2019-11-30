@@ -1,9 +1,9 @@
-# YOUR PRODUCT/TEAM NAME
+# Student Agenda
 
-## Iteration XX
+## Iteration 03
 
- * Start date: 
- * End date: 
+ * Start date: 14/11/2019
+ * End date:   01/12/2019
 
 ### Changes from you `product.md`
 
@@ -14,6 +14,23 @@ List the most significant changes you made to your product (if any). It's normal
  * For each change, explain why you are making it and what you are hoping to achieve from it
 
  > *Note:* If you are not making (or haven't made) any changes to your product, it means you successfully scoped, planned and executed the development of your application.This is a very rare occurrence - describe what you believed enabled your team to do so and why. 
+
+__1. Scope Reduction:__
+In order to meet our deadlines we had to remove the following features from the project:
+* Reduce platform scope from Desktop and Mobile (iOS and Android) to just Mobile (Android).
+* Chat function
+* Camera integration
+* Ability to get notifications for marks posted on Google Classroom. We discovered that this is already done by default on Google Classroom and so we do not have to redo it in our app.
+* File sharing ability
+* Parent monitoring of student account
+* Points for goal completions
+
+Removing these has allowed us to spend significantly more time on the critical features that our product had to have and make sure that those are complete by the deadline.
+
+__2. Stack Changes:__
+At first we thought that the backend would have to be written in Java as Dart is primarily a front-end language. However, we have since then learned that Dart can be used for backend programming as well and decided to use that for our backend. This change simplified our development process as we could have all of our code in one place and in one language instead of people having to focus on writing code in two separate languages at the same time.
+
+
 
 ### Handoff plan
 
