@@ -28,7 +28,7 @@ class teacherAssignmentState extends State<teacherAssignmentScreen> {
     List<classroom.CourseWork> allSubscribedCourseWork =
         await pullCourseWorkData(firebaseUser);
     List<classroom.CourseWork> tempCourseWork =
-        await getCourseWorksForCourse(courseID, allSubscribedCourseWork);
+        getCourseWorksForCourse(courseID, allSubscribedCourseWork);
 
     setState(() {
       _courseWork = tempCourseWork;
@@ -57,15 +57,15 @@ class teacherAssignmentState extends State<teacherAssignmentScreen> {
                   return new Card(
                       child: ListTile(
                     leading: Icon(Icons.book),
-                    title: Text(_courseWork[index].description),
-                    subtitle: Text(
-                      'Due: ${DateTime(_courseWork[index].dueDate.year,
-                          _courseWork[index].dueDate.month,
-                          _courseWork[index].dueDate.day,
-                          _courseWork[index].dueTime?.hours ?? 0,
-                          _courseWork[index].dueTime?.minutes ?? 0).toString().replaceAll(new RegExp("\\..+"), "")}',
-                      style: TextStyle(fontSize: 18),
-                    ),
+                    title: Text(_courseWork[index].description,
+                        style: TextStyle(fontSize: 18)),
+                    subtitle: (_courseWork[index].dueDate == null ||
+                            _courseWork[index].dueTime == null)
+                        ? Text("No Due Date", style: TextStyle(fontSize: 18))
+                        : Text(
+                            'Due: ${DateTime(_courseWork[index].dueDate.year, _courseWork[index].dueDate.month, _courseWork[index].dueDate.day, _courseWork[index].dueTime?.hours ?? 0, _courseWork[index].dueTime?.minutes ?? 0).toString().replaceAll(new RegExp("\\..+"), "")}',
+                            style: TextStyle(fontSize: 18),
+                          ),
                   ));
                 })),
         FlatButton(
@@ -84,7 +84,7 @@ class teacherAssignmentState extends State<teacherAssignmentScreen> {
                     builder: (context) => ClassViewScreen(courseID: courseID)));
           },
           child: Text(
-            "View Course Roster",
+            "View Class Roster",
             style: TextStyle(fontSize: 20.0),
           ),
         )
