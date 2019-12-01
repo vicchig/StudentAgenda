@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) =>
-                                ListedGoalsScreen()
+                                LandingScreen()
                             )
                         )
                     );
@@ -156,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           .then((user) =>
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ListedGoalsScreen())
+              MaterialPageRoute(builder: (context) => LandingScreen())
           )
       );
 //      await Navigator.push(
