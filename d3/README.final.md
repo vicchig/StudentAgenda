@@ -21,8 +21,9 @@ Our application then pulls the following information from their Google Classroom
     * Course teachers
     * Course topics
 <br/>
-__2. Users are able to make course specific goals:__<br/>
-Users are able to select goals from a predefined list of goals selected by the teacher and uploaded to the application. The user is able to choose the date the goal is due, change the description of the goal and mark goals as completed. After being added, the goal is stored in a database and the application keeps track of it for the user.
+
+__2. Users are able to make course specific goals:__ <br/>
+Users are able to select goals from a predefined list of goals selected by the teacher and uploaded to the application. The user is able to choose the date the goal is due, change the description of the goal and mark goals as completed. After being added, the goal is stored in a database and the application keeps track of it for the user.<br/>
 
 __3. Goal Notifications:__ <br/>
 
