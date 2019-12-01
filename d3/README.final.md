@@ -34,6 +34,7 @@ Our application offers a variety of metrics to track a user's performance. It pr
 <br/>
 
 __5. Calendar View:__ <br/>
+Our application provides an internal calendar that allows users to see upcoming goals. Goals are marked as green dots for each day on the calendar where a goal is due. The user can switch between month, 2-week, and weekly view by pressing the orange button next to the month. The user is also able to see the description of the goals for a specific day once they click on that day in the calendar.
 <br/>
 
 __6. Goal List View:__<br/>
