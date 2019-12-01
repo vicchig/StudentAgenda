@@ -1,14 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:googleapis/classroom/v1.dart' as classroom;
 import '../main.dart';
-import '../Screens/calendarScreen.dart';
-import '../Screens/courseDashboard.dart';
 import '../Screens/addGoalsScreen.dart';
-import '../Screens/listedGoalsScreen.dart';
 import 'package:student_agenda/Screens/performanceScreen.dart';
-import 'package:student_agenda/Screens/mainScreen.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 
 import '../Screens/settingsScreen.dart';
@@ -110,7 +104,6 @@ class MenuDrawerState extends State<MenuDrawer> {
     super.initState();
 
     menuItems = createMenuItems(this.context);
-    selectedMenuItem = menuItems.first;
   }
 
   ///Select the provided menu item item and update the current state of the
@@ -204,28 +197,22 @@ class MenuDrawerState extends State<MenuDrawer> {
   List<MenuItem> createMenuItems(BuildContext context) {
     final menuItems = [
       new MenuItem(
-          text: 'My Courses',
+          text: 'Add Goal',
           colour: Colors.white,
           func: () {
-            return MaterialPageRoute(builder: (context) => DashboardScreen());
+            return MaterialPageRoute(builder: (context) => AddGoalsScreen());
+          }),
+      new MenuItem(
+          text: 'Performance',
+          colour: Colors.white,
+          func: () {
+            return MaterialPageRoute(builder: (context) => PerformanceScreen());
           }),
       new MenuItem(
           text: 'Settings',
           colour: Colors.white,
           func: () {
             return MaterialPageRoute(builder: (context) => SettingsScreen());
-          }),
-      new MenuItem(
-          text: 'Add Goal (For Demo Only)',
-          colour: Colors.white,
-          func: () {
-            return MaterialPageRoute(builder: (context) => AddGoalsScreen());
-          }),
-      new MenuItem(
-          text: 'Performance (For Demo Only)',
-          colour: Colors.white,
-          func: () {
-            return MaterialPageRoute(builder: (context) => PerformanceScreen());
           }),
       new MenuItem(
           text: 'Log Out',
