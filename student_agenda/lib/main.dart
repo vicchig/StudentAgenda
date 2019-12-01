@@ -1,18 +1,83 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:googleapis/chat/v1.dart' as prefix0;
+import 'package:googleapis/classroom/v1.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:student_agenda/Screens/courseGoalsScreen.dart';
 import 'package:student_agenda/Screens/landingScreen.dart';
+import 'package:student_agenda/Screens/listedGoalsScreen.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import 'Screens/courseDashboard.dart';
 import 'Utilities/util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:student_agenda/Screens/mainScreen.dart';
 import 'package:flutter/services.dart';
+import 'package:rxdart/subjects.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+
+// Stream so app can respond to notification-related events, since we define in
+// the main function.
+final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
+    BehaviorSubject<ReceivedNotification>();
+
+final BehaviorSubject<String> selectNotificationSubject =
+    BehaviorSubject<String>();
+
+class ReceivedNotification {
+  final int id;
+  final String title;
+  final String body;
+  final String payload;
+
+  ReceivedNotification({
+    @required this.id,
+    @required this.title,
+    @required this.body,
+    @required this.payload
+  });
+}
+
+Future<void> main() async {
+  // needed since we init in main
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // check if app was launched via notification
+  var notificationAppLaunchDetails =
+    await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+  // platform dependent init settings
+  var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+  var initializationSettingsIOS = IOSInitializationSettings(
+    onDidReceiveLocalNotification: (int id, String title, String body, String payload) async {
+      didReceiveLocalNotificationSubject.add(ReceivedNotification(
+          id: id,
+          title: title,
+          body: body,
+          payload: payload));
+    }
+  );
+
+  var initializationSettings = InitializationSettings(
+    initializationSettingsAndroid, initializationSettingsIOS
+  );
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+    onSelectNotification: (String payload) async {
+      if (payload != null) {
+        debugPrint('notification payload: ' + payload);
+      }
+      selectNotificationSubject.add(payload);
+    }
+  );
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(new MyApp());
+    runApp(MyApp());
   });
 }
 
@@ -40,12 +105,65 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   AnimationController logoController;
 
   @override
-  void initState() {
-    logoController = AnimationController(
+  void initState() {logoController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
     super.initState();
+
+    // listen for received notifications
+    didReceiveLocalNotificationSubject.stream.listen(
+        (ReceivedNotification receivedNotification) async {
+          await showDialog(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: receivedNotification.title != null
+                ? Text(receivedNotification.body)
+                : null,
+              actions: [
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () async {
+                    Future<FirebaseUser> user = authService.googleSignIn();
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await user.then((user) =>
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                                ListedGoalsScreen()
+                            )
+                        )
+                    );
+//                    await Navigator.push(
+//                      context,
+//                      MaterialPageRoute(
+//                        builder: (context) => ListedGoalsScreen()
+//                      )
+//                    );
+                  },
+                )
+              ],
+            )
+          );
+        }
+    );
+
+    selectNotificationSubject.stream.listen((String payload) async {
+      Future<FirebaseUser> user = authService.googleSignIn();
+      Navigator.of(context, rootNavigator: true).pop();
+      await user
+          .then((user) =>
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ListedGoalsScreen())
+          )
+      );
+//      await Navigator.push(
+//        context,
+//        MaterialPageRoute(builder: (context) => ListedGoalsScreen())
+//      );
+    });
   }
 
   @override
@@ -84,7 +202,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             .catchError((e) => displayLogInFailedToast(e));
       },
     );
-
     // This method is rerun every time setState is called
     return Scaffold(
       backgroundColor: Color(0xff00AC52),
