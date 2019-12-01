@@ -59,7 +59,11 @@ class teacherAssignmentState extends State<teacherAssignmentScreen> {
                     leading: Icon(Icons.book),
                     title: Text(_courseWork[index].description),
                     subtitle: Text(
-                      'Due: ${DateTime(_courseWork[index].dueDate.year, _courseWork[index].dueDate.month, _courseWork[index].dueDate.day, _courseWork[index].dueTime?.hours ?? 0, _courseWork[index].dueTime?.minutes ?? 0).toString().replaceAll(new RegExp("\\..+"), "")}',
+                      'Due: ${DateTime(_courseWork[index].dueDate.year,
+                          _courseWork[index].dueDate.month,
+                          _courseWork[index].dueDate.day,
+                          _courseWork[index].dueTime?.hours ?? 0,
+                          _courseWork[index].dueTime?.minutes ?? 0).toString().replaceAll(new RegExp("\\..+"), "")}',
                       style: TextStyle(fontSize: 18),
                     ),
                   ));
