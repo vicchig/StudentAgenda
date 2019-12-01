@@ -3,6 +3,7 @@
 > _Note:_ This document is intended to be relatively short. Be concise and precise. Assume the reader has no prior knowledge of your application and is non-technical. 
 ### Users: 
 Arian Safaei 1004206691 Github id: ArianSafaei 
+Viktar Chyhir GitHub: vicchig viktar.chyhir@mail.utoronto.ca
 ## Description 
  * Provide a high-level description of your application and it's value from an end-user's perspective
  * What is the problem you're trying to solve?
