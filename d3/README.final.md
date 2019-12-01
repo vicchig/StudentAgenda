@@ -1,4 +1,4 @@
-# YOUR PRODUCT/TEAM NAME
+# CSC301 - TDSB TEAM 1 (Student Agenda)
 
 > _Note:_ This document is intended to be relatively short. Be concise and precise. Assume the reader has no prior knowledge of your application and is non-technical. 
 
@@ -39,14 +39,14 @@ Our application provides an internal calendar that allows users to see upcoming 
 
 __6. Goal List View:__<br/>
 The user is able to see all of their goals (complete, late and incomplete) in a single view. They are also able to mark goals as complete in the same view broken down by day.. This allows the user to have a detailed breakdown of everything that they have to do.
-<br/>
+<br/><br/>
 
 
 ## Instructions
  * Clear instructions for how to use the application from the end-user's perspective
  * How do you access it? Are accounts pre-created or does a user register? Where do you start? etc. 
  * Provide clear steps for using each feature described above
- * If you cannot deploy your application for technical reasons, please let your TA know at the beginning of the iteration. You will need to demo the application to your partner either way.
+ * If you cannot deploy your application for technical reasons, please let your TA know at the beginning of the iteration. You will need to demo the application to your partner either way. <br/>
  
  __Running the Application:__<br/>
 In order to install and run the application, the user will need an Android device. Our application only supports Android and will not work on other platforms.
@@ -57,12 +57,49 @@ The application is only accessible with a Google account, if a user does not hav
 
 __Using the App:__ <br/>
 The user is able to navigate to the calendar, goals screena and the main dashboard using a navigation bar at the bottom of the application window. They are able to access the rest of the views through the drawer menu in the top left corner of the main app bar. 
-<br/>
+<br/><br/>
 
  
  ## Development requirements
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
- * Briefly describe instructions for setting up and running the application (think a true README).
+ * Briefly describe instructions for setting up and running the application (think a true README). <br/>
+ 
+ __System Requirements:__<br/>
+ * An Operating System that supports running Android studio.
+ * Android Studio to be able to run, write and test the code.
+ * Flutter framework has to be installed to be able to build and run the project.
+ * The project requires all dependencies listed in the pybsepc.yaml file.
+ <br/><br/>
+ 
+ __Set Up Instructions:__ <br/> <br/>
+__1. Set Up Flutter:__ <br/>
+* Download flutter from https://flutter.dev/docs/development/tools/sdk/releases?tab=windows
+* Unzip the file in a directory of your choice and depending on what platform you are, update your PATH environment variable to include the path to the Flutter folder.
+* Run the command `flutter doctor` in the command line to ensure that the installation went smoothly. <br/>
+
+ __2. Set Up Android Studio:__ <br/>
+ __Although you can write code in any editor of your choice, Flutter relies on the complete installation of Android Studio to supply its Android dependencies, without it, you will not be able to run the app.__<br/>
+ 
+* Install the latest version of Android Studio and make sure to update the AndroidX library.
+* Update all SDKs to API version 27 or above.
+* Make sure that the virtual device you plan on testing the project on has Google Play Services enabled and updated to the latest version. This can be done from the SDK manager window in Android Studio.
+* Download the Flutter and Dart plugins from Android Studio's plugin manager. (In Android Studio: File->Settings->Plugins).
+* Run `flutter doctor` again to make sure that Flutter recognizes Android Studio.<br/>
+
+__3. Add the Codebase as a project to Android Studio:__<br/>
+* The easiest way to do this is to push the codebase to VCS like GitHub and then "checkout a project from version control" in the Android Studio dashboard. 
+* Alternatively you can do `File->New->New Flutter Project` and then add the codebase to the project files in the project directory.<br/>
+
+__4. Set Up Firebase and OAth2:__<br/>
+The project also requires it to be added to Firebase in order to use the Firebase Cloud Firestore. This is the NoSQL database that we decided to use to support this project.
+* The instructions for this can be found here: https://firebase.google.com/docs/android/setup
+* In addition, to enable user notifications you will have to set up your project in the Google Developer Console and link it to OAth2, instructions for this are here: https://developers.google.com/google-ads/api/docs/oauth/cloud-project
+* More detailed instructions can be found here: https://support.google.com/cloud/answer/6158849?hl=en <br/>
+* __Make sure to fill out ALL fields in the OAth consent screen tab in the Google Developers Console. IF YOU DO NOT DO THIS, YOU WILL LIKELY NOT BE ABLE TO LOG IN WITH GOOGLE.__
+* Add developer SHA-1 keys to the project using the Firebae console and the `keytool` command. Detailed instructions on enabling Google Sign In with Firebase are here: https://firebase.google.com/docs/auth/android/google-signin
+<br/>
+
+
 
 
  ## Licenses 
