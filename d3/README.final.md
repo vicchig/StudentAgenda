@@ -48,6 +48,18 @@ The user is able to see all of their goals (complete, late and incomplete) in a 
  * Provide clear steps for using each feature described above
  * If you cannot deploy your application for technical reasons, please let your TA know at the beginning of the iteration. You will need to demo the application to your partner either way.
  
+ __Running the Application:__<br/>
+In order to install and run the application, the user will need an Android device. Our application only supports Android and will not work on other platforms.
+<br/>
+
+__Accounts:__<br/>
+The application is only accessible with a Google account, if a user does not have a google account, they will not be able to sign in. If a user has a Google account, they can simply press the login button and enter their login information to use the application. Once they have logged in once, Android will save their sign in information and the next time a user logs in they can just click login without having to enter their information again. <br/>
+
+__Using the App:__ <br/>
+The user is able to navigate to the calendar, goals screena and the main dashboard using a navigation bar at the bottom of the application window. They are able to access the rest of the views through the drawer menu in the top left corner of the main app bar. 
+<br/>
+
+ 
  ## Development requirements
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
