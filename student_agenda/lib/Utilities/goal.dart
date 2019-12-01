@@ -19,7 +19,7 @@ class Goal {
   DateTime _dateAssigned;
   DateTime _dateCompleted;
 
-  Goal({String name: "BlankGoal",
+  Goal({String dateAssigned, String dateCompleted, String status, String name: "BlankGoal",
     String text: "",
     courseID: "-1",
     courseWorkID: "-1",
@@ -40,6 +40,9 @@ class Goal {
 
     this._dateAssigned = DateTime.now();
     this._dateCompleted = DateTime.fromMillisecondsSinceEpoch(0);
+    this._status = status;
+    this._dateAssigned = DateTime.parse(dateAssigned);
+    this._dateCompleted = DateTime.parse(dateCompleted);
   }
 
   String getStatus() {
