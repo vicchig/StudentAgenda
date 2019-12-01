@@ -549,6 +549,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         (selectedCourseWork != null)
             ? "CourseWorkGoalObjects"
             : "CourseGoalObjects");
+
     Fluttertoast.showToast(
         msg: "Goal Added!",
         toastLength: Toast.LENGTH_LONG,
@@ -558,7 +559,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         textColor: Colors.white,
         fontSize: 16.0);
     }
-  }
+
 
   String createTeacherCourseOption(classroom.Course course) {
     String ret = courseToTeacher[course.id].profile.name.givenName[0] + ". "
@@ -567,7 +568,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     return ret;
   }
 
-  HashMap<int, classroom.Teacher> createCourseTeacherMap() {
+  void createCourseTeacherMap() {
     for (final course in _courses) {
       for (final teacher in _teachers) {
         if (course.ownerId == teacher.userId) {
