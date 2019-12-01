@@ -72,20 +72,28 @@ Future<void> setUserClassroomData(FirebaseUser user, {toMerge: true}) async {
   await ref.setData({"CourseObjects": mapToUpload}, merge: toMerge);
 }
 
-Future<int> setUserCourseWorkData(FirebaseUser user, String courseId,
-    int startIndex,
+Future<void> setAllUserCourseWorkData(FirebaseUser user, List<String> courseIds,
     {toMerge: true}) async {
   DocumentReference ref =
   Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.CourseWork> userCourses =
-  await classroomInst.getCourseWork(courseId);
+  List<classroom.CourseWork> userCourseWorks = [];
+  for (String courseId in courseIds) {
+    List<classroom.CourseWork> tmp =
+    await classroomInst.getCourseWork(courseId);
+    if (tmp != null) {
+      userCourseWorks.addAll(tmp);
+    }
+  }
+  if (userCourseWorks.length == 0) {
+    return;
+  }
   Map<int, classroom.CourseWork> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
   try {
-    map = userCourses.asMap();
+    map = userCourseWorks.asMap();
   } on ArgumentError catch (e, stackTrace) {
     printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
     map = new Map<int, classroom.CourseWork>();
@@ -108,25 +116,34 @@ Future<int> setUserCourseWorkData(FirebaseUser user, String courseId,
       printError("ERROR!", e.toString(), stackTrace.toString());
     } finally {
       keys.forEach((int index) {
-        mapToUpload[(index + startIndex).toString()] = map[index].toJson();
+        mapToUpload[index.toString()] = map[index].toJson();
       });
     }
   }
 
-  await ref.setData({"CourseWorkObjects": mapToUpload}, merge: toMerge);
+  await ref.updateData({"CourseWorkObjects": FieldValue.delete()});
 
-  return userCourses?.length ?? 0;
+  await ref.setData({"CourseWorkObjects": mapToUpload}, merge: toMerge);
 }
 
-Future<int> setUserAnnouncementData(FirebaseUser user, String courseId,
-    int startIndex,
+Future<void> setAllUserAnnouncementData(FirebaseUser user,
+    List<String> courseIds,
     {toMerge: true}) async {
   DocumentReference ref =
   Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Announcement> userAnnouncements =
-  await classroomInst.getAnnouncements(courseId);
+  List<classroom.Announcement> userAnnouncements = [];
+  for (String courseId in courseIds) {
+    List<classroom.Announcement> tmp =
+    await classroomInst.getAnnouncements(courseId);
+    if (tmp != null) {
+      userAnnouncements.addAll(tmp);
+    }
+  }
+  if (userAnnouncements.length == 0) {
+    return;
+  }
   Map<int, classroom.Announcement> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
@@ -154,25 +171,32 @@ Future<int> setUserAnnouncementData(FirebaseUser user, String courseId,
       printError("ERROR!", e.toString(), stackTrace.toString());
     } finally {
       keys.forEach((int index) {
-        mapToUpload[(index + startIndex).toString()] = map[index].toJson();
+        mapToUpload[index.toString()] = map[index].toJson();
       });
     }
   }
 
-  await ref.setData({"AnnouncementObjects": mapToUpload}, merge: toMerge);
+  await ref.updateData({"AnnouncementObjects": FieldValue.delete()});
 
-  return userAnnouncements?.length ?? 0;
+  await ref.setData({"AnnouncementObjects": mapToUpload}, merge: toMerge);
 }
 
-Future<int> setUserClassStudents(FirebaseUser user, String courseId,
-    int startIndex,
+Future<void> setAllUserClassStudents(FirebaseUser user, List<String> courseIds,
     {toMerge: true}) async {
   DocumentReference ref =
   Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Student> userStudents =
-  await classroomInst.getStudents(courseId);
+  List<classroom.Student> userStudents = [];
+  for (String courseId in courseIds) {
+    List<classroom.Student> tmp = await classroomInst.getStudents(courseId);
+    if (tmp != null) {
+      userStudents.addAll(tmp);
+    }
+  }
+  if (userStudents.length == 0) {
+    return;
+  }
   Map<int, classroom.Student> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
@@ -200,23 +224,32 @@ Future<int> setUserClassStudents(FirebaseUser user, String courseId,
       printError("ERROR!", e.toString(), stackTrace.toString());
     } finally {
       keys.forEach((int index) {
-        mapToUpload[(index + startIndex).toString()] = map[index].toJson();
+        mapToUpload[index.toString()] = map[index].toJson();
       });
     }
 
+    await ref.updateData({"StudentObjects": FieldValue.delete()});
+
     await ref.setData({"StudentObjects": mapToUpload}, merge: toMerge);
   }
-  return userStudents?.length ?? 0;
 }
 
-Future<void> setUserClassTeachers(FirebaseUser user, String courseId,
+Future<void> setAllUserClassTeachers(FirebaseUser user, List<String> courseIds,
     {toMerge: true}) async {
   DocumentReference ref =
   Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Teacher> userTeachers =
-  await classroomInst.getTeachers(courseId);
+  List<classroom.Teacher> userTeachers = [];
+  for (String courseId in courseIds) {
+    List<classroom.Teacher> tmp = await classroomInst.getTeachers(courseId);
+    if (tmp != null) {
+      userTeachers.addAll(tmp);
+    }
+  }
+  if (userTeachers.length == 0) {
+    return;
+  }
   Map<int, classroom.Teacher> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
@@ -249,17 +282,27 @@ Future<void> setUserClassTeachers(FirebaseUser user, String courseId,
     }
   }
 
+  await ref.updateData({"TeacherObjects": FieldValue.delete()});
+
   await ref.setData({"TeacherObjects": mapToUpload}, merge: toMerge);
 }
 
-Future<int> setUserClassTopics(FirebaseUser user, String courseId,
-    int startIndex,
+Future<void> setAllUserClassTopics(FirebaseUser user, List<String> courseIds,
     {toMerge: true}) async {
   DocumentReference ref =
   Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Topic> userTopics = await classroomInst.getTopics(courseId);
+  List<classroom.Topic> userTopics = [];
+  for (String courseId in courseIds) {
+    List<classroom.Topic> tmp = await classroomInst.getTopics(courseId);
+    if (tmp != null) {
+      userTopics.addAll(tmp);
+    }
+  }
+  if (userTopics.length == 0) {
+    return;
+  }
   Map<int, classroom.Topic> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
@@ -286,14 +329,14 @@ Future<int> setUserClassTopics(FirebaseUser user, String courseId,
       printError("ERROR!", e.toString(), stackTrace.toString());
     } finally {
       keys.forEach((int index) {
-        mapToUpload[(index + startIndex).toString()] = map[index].toJson();
+        mapToUpload[index.toString()] = map[index].toJson();
       });
     }
   }
 
-  await ref.setData({"TopicObjects": mapToUpload}, merge: toMerge);
+  await ref.updateData({"TopicObjects": FieldValue.delete()});
 
-  return userTopics?.length ?? 0;
+  await ref.setData({"TopicObjects": mapToUpload}, merge: toMerge);
 }
 
 Future<void> setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals,
