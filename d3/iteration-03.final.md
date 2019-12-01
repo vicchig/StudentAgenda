@@ -23,7 +23,6 @@ In order to meet our deadlines we had to remove the following features from the 
 * Ability to get notifications for marks posted on Google Classroom. We discovered that this is already done by default on Google Classroom and so we do not have to redo it in our app.
 * File sharing ability (For Chat)
 * Parent monitoring of student account
-* Points for goal completions
 
 Removing these has allowed us to spend significantly more time on the critical features that our product had to have and make sure that those are complete by the deadline.<br/>
 
