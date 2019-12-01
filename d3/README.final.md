@@ -5,13 +5,15 @@
 ## Description 
  * Provide a high-level description of your application and it's value from an end-user's perspective
  * What is the problem you're trying to solve?
- * Is there any context required to understand **why** the application solves this problem?
+ * Is there any context required to understand **why** the application solves this problem?  
+ 
 Many middle school students have trouble keeping up with tasks they write down in their agendas; many don't even write anything down. Our application aims to help solve and simplify these organizational by automating some of the processes involved. Instead of constantly checking online for when an assignment has been assigned, students will get notifications from our application, which links to their Google Classroom accounts, every time an assignment has been posted. Students can then set up in-app goals and reminders for the work that has to be done for the assignment and track their overall progress through our performance metrics.
 
 
 ## Key Features
  * Described the key features in the application that the user can access
- * Feel free to provide a breakdown or detail for each feature that is most appropriate for your application <br/>
+ * Feel free to provide a breakdown or detail for each feature that is most appropriate for your application <br/>  
+ 
 __1. Log in through Google:__<br/>
 Users are able to link their Google Classroom accounts to our application by signing in through their Gmail account.
 Our application then pulls the following information from their Google Classroom classes and either displays it in our application or uses it internally:
