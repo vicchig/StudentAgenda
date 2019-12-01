@@ -52,7 +52,7 @@ class ClassViewState extends State<ClassViewScreen> {
       appBar: new AppBar(title: new Text("Class Roster"), centerTitle: true),
       drawer: new MenuDrawer(),
       body: new Column(children: <Widget>[
-        Text("\n\nTeachers\n",
+        Text("\nTeachers\n",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
         new Expanded(
             child: new ListView.builder(
