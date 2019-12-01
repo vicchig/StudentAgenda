@@ -19,9 +19,9 @@ __1. Scope Reduction:__<br/>
 In order to meet our deadlines we had to remove the following features from the project:
 * Reduce platform scope from Desktop and Mobile (iOS and Android) to just Mobile (Android).
 * Chat function
-* Camera integration
+* Camera integration (For Chat)
 * Ability to get notifications for marks posted on Google Classroom. We discovered that this is already done by default on Google Classroom and so we do not have to redo it in our app.
-* File sharing ability
+* File sharing ability (For Chat)
 * Parent monitoring of student account
 * Points for goal completions
 
