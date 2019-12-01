@@ -35,6 +35,11 @@ Our application offers a variety of metrics to track a user's performance. It pr
 __5. Calendar View:__ <br/>
 <br/>
 
+__6. Goal List View:__<br/>
+The user is able to see all of their goals (complete, late and incomplete) in a single view. They are also able to mark goals as complete in the same view broken down by day.. This allows the user to have a detailed breakdown of everything that they have to do.
+<br/>
+
+
 ## Instructions
  * Clear instructions for how to use the application from the end-user's perspective
  * How do you access it? Are accounts pre-created or does a user register? Where do you start? etc. 
