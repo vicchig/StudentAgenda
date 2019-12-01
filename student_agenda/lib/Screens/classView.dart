@@ -32,7 +32,7 @@ class ClassViewState extends State<ClassViewScreen> {
     List<classroom.Teacher> allSubscribedTeachers =
         await pullTeachers(firebaseUser);
     List<classroom.Teacher> tempTeachers =
-        await getCourseTeachers(courseID, allSubscribedTeachers);
+        getCourseTeachers(courseID, allSubscribedTeachers);
 
     setState(() {
       _students = tempStudents;
