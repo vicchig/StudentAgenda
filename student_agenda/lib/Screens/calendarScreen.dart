@@ -46,7 +46,8 @@ class _CalPageState extends State<CalPage> with TickerProviderStateMixin{
   List<Goal> _pulledGoals = new List<Goal>();
 
   Future<void> processFuture() async {
-    List<Goal> tempGoals = await pullGoals(firebaseUser, "GeneralGoalObjects");
+    List<Goal> tempGoals = await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+    tempGoals.addAll(await pullGoals(firebaseUser, "CourseGoalObjects"));
     setState(()  {
       _pulledGoals = tempGoals;
     });
@@ -65,9 +66,10 @@ class _CalPageState extends State<CalPage> with TickerProviderStateMixin{
       //the goals would have to be due at the exact same time (hour, min).
       //This way, we only check if goals on same day to draw multiple goals
       //on a single day in the calendar.
-      bool dateUsed = false;
       DateTime date;
       for(Goal goal in _pulledGoals){
+        bool dateUsed = false;
+
         for(DateTime dt in _events.keys){
           //determine whether the date for the goal is a key in the map
           if(getCalendarDueDate(dt) == getCalendarDueDate(goal.dueDate)){
