@@ -29,9 +29,7 @@ class teacherAssignmentState extends State<teacherAssignmentScreen> {
         await pullCourseWorkData(firebaseUser);
     List<classroom.CourseWork> tempCourseWork =
         getCourseWorksForCourse(courseID, allSubscribedCourseWork);
-    for (int i = 0; i < tempCourseWork.length; i++) {
-      print(tempCourseWork[i].dueDate);
-    }
+
     setState(() {
       _courseWork = tempCourseWork;
     });
