@@ -24,7 +24,7 @@ class CourseWorkScreenState extends State<CourseWorkScreen> {
 
   List<classroom.CourseWork> _courseWorks = new List<classroom.CourseWork>();
 
-  void processFuture() async {
+  Future<void> processFuture() async {
     List<classroom.CourseWork> tempCourseWorks =
         await pullCourseWorkData(firebaseUser);
 
@@ -41,15 +41,14 @@ class CourseWorkScreenState extends State<CourseWorkScreen> {
     setState(() {
       _courseWorks = tempCourseWorks;
     });
-//    for (classroom.CourseWork courseWork in _courseWorks) {
-//      print(courseWork.description);
-//    }
   }
 
   @override
   void initState() {
     super.initState();
-    processFuture();
+    processFuture().then((arg) {}, onError: (e) {
+      print(e);
+    });
   }
 
   @override

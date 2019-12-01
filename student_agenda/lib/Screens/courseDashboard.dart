@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:student_agenda/FirestoreDataManager.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import '../FirestoreManager.dart';
 import '../Utilities/util.dart';
 import 'courseWorkScreen.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
+import 'package:firebase_auth/firebase_auth.dart'; //For the firebase user
+import './classView.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -78,12 +81,22 @@ class DashboardScreenState extends State<DashboardScreen> {
         new CustomMaterialButton(
           text: course.name,
           colour: courseColours[coloursI],
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CourseWorkScreen(courseID: course.id)),
-            );
+          onPressed: () async {
+            if (await isTeacher(firebaseUser, course.id)) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ClassViewScreen(courseID: course.id)
+                )
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CourseWorkScreen(courseID: course.id)),
+              );
+            }
+
           },
         ),
       );
@@ -91,4 +104,21 @@ class DashboardScreenState extends State<DashboardScreen> {
     }
     return courseButtons;
   }
+}
+
+//Determine whether or not the current user is a teacher of a specific course.
+//
+// @param user     the current user
+// @param courseid the courseid to lookup
+// @param inst     the current classroom context
+// @return         a boolean representing whether or not the user is a teacher
+Future<bool> isTeacher(FirebaseUser user, String courseID) async {
+  List<classroom.Teacher> subscribedTeachers = await pullTeachers(firebaseUser);
+  List<classroom.Teacher> teachers = getCourseTeachers(courseID, subscribedTeachers);
+  for (int i = 0; i < teachers.length; i++) {
+    if (user.uid == teachers[i].profile.id) {
+      return true;
+    }
+  }
+  return false;
 }

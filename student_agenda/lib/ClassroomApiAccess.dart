@@ -1,14 +1,14 @@
 import 'package:firebase_analytics/observer.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
+import 'package:student_agenda/Utilities/util.dart';
 
 final Future<Map<String, String>> _authHeaders = authService.getAuthHeaders();
 
-/*TODO: This class currently implements dummy functions. In the future we need
-* to actually pull data from Google Classroom
-*/
+
 class ClassroomApiAccess {
   static ClassroomApiAccess _instance;
+  static GoogleHttpClient _client;
 
   ClassroomApiAccess._();
 
@@ -19,7 +19,39 @@ class ClassroomApiAccess {
     return _instance;
   }
 
+
+  Future<void> _connectClient() async{
+    _client = new GoogleHttpClient(await _authHeaders);
+  }
+
+  /*
+  TODO:
+        3. Remove the fake data if everything works well
+   */
   Future<List<classroom.Course>> getCourses() async {
+    List<classroom.Course> courseList = new List<classroom.Course>();
+    classroom.ListCoursesResponse courses;
+
+    await _connectClient();
+
+    try{
+      courses = await new classroom.ClassroomApi(_client).courses.list();
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        courseList = courses.courses;
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        courseList = new List<classroom.Course>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
+
+    return courseList;
     /* // EXAMPLE CODE FOR WHEN WE ACTUALLY HAVE TO IMPLEMENT THESE
    //TODO: Should be wrapped in a try catch for the actual implementation
     GoogleHttpClient httpClient = new GoogleHttpClient(await _authHeaders);
@@ -29,7 +61,7 @@ class ClassroomApiAccess {
     );
     return courses.courses; will be null for now since there are no courses,
      BUT return courses should never be null, if it is, there is an error*/
-
+/*
     const List<String> courseNames = <String>[
       'Mathematics',
       'Language',
@@ -53,10 +85,39 @@ class ClassroomApiAccess {
       courses[i].name = courseNames[i];
     }
 
-    return courses;
+    return courses;*/
   }
 
-  Future<List<classroom.CourseWork>> getCourseWork() async {
+  /*
+  TODO:
+        3. Remove the fake data if everything works well
+   */
+  Future<List<classroom.CourseWork>> getCourseWork(String courseId) async {
+    List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
+    classroom.ListCourseWorkResponse response;
+
+    await _connectClient();
+
+    try{
+      response = await new classroom.ClassroomApi(_client).courses.courseWork.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        courseWorks = response.courseWork;
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        courseWorks = new List<classroom.CourseWork>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
+
+    return courseWorks;
+
+    /*
     List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
     int count = 0;
 
@@ -98,10 +159,41 @@ class ClassroomApiAccess {
         count++;
       }
     }
-    return courseWorks;
+    return courseWorks;*/
   }
 
-  Future<List<classroom.Announcement>> getAnnouncements() async {
+  /*
+  TODO:
+        3. Remove the fake data if everything works well
+   */
+  Future<List<classroom.Announcement>> getAnnouncements(String courseId) async {
+    List<classroom.Announcement> announcements = new List<classroom.Announcement>();
+    classroom.ListAnnouncementsResponse response;
+
+    await  _connectClient();
+
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.announcements.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        announcements = response.announcements;
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        announcements = new List<classroom.Announcement>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
+
+    return announcements;
+
+
+    /*
     List<classroom.Announcement> announcements =
     new List<classroom.Announcement>();
     int count = 0;
@@ -115,10 +207,38 @@ class ClassroomApiAccess {
         count++;
       }
     }
-    return announcements;
+    return announcements;*/
   }
 
-  Future<List<classroom.Student>> getStudents() async {
+  /*
+  TODO:
+        3. Remove the fake data if everything works well
+   */
+  Future<List<classroom.Student>> getStudents(String courseId) async {
+    List<classroom.Student> students= new List<classroom.Student>();
+    classroom.ListStudentsResponse response;
+
+    await _connectClient();
+
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.students.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        students = response.students;
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        students = new List<classroom.Student>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
+
+    return students;/*
     List<classroom.Student> students = new List<classroom.Student>();
     int count = 0;
     for (int i = 0; i < 8; i++) {
@@ -135,10 +255,38 @@ class ClassroomApiAccess {
         count++;
       }
     }
-    return students;
+    return students;*/
   }
+  /*
+  TODO:
+        3. Remove the fake data if everything works well
+   */
+  Future<List<classroom.Teacher>> getTeachers(String courseId) async {
+    List<classroom.Teacher> teachers = new List<classroom.Teacher>();
+    classroom.ListTeachersResponse response;
 
-  Future<List<classroom.Teacher>> getTeachers() async {
+    await _connectClient();
+
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.teachers.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        teachers = response.teachers;
+
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        teachers = new List<classroom.Teacher>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
+
+    return teachers;/*
     List<classroom.Teacher> teachers = new List<classroom.Teacher>();
 
     for (int i = 0; i < 8; i++) {
@@ -150,10 +298,38 @@ class ClassroomApiAccess {
       teachers[i].profile.name.fullName = "Teacher of Course " + i.toString();
     }
 
-    return teachers;
+    return teachers;*/
   }
+  /*
+  TODO: 
+        3. Remove the fake data if everything works well
+   */
+  Future<List<classroom.Topic>> getTopics(String courseId) async {
+    List<classroom.Topic> topics = new List<classroom.Topic>();
+    classroom.ListTopicResponse response;
 
-  Future<List<classroom.Topic>> getTopics() async {
+    await _connectClient();
+
+    try{
+      response = await new classroom.ClassroomApi
+        (_client).courses.topics.list(courseId);
+    } catch(e, stackTrace){
+      printError("CLASSROOM API ERROR!", e.toString(), stackTrace.toString());
+    }
+    finally{
+      try{
+        topics = response.topic;
+
+      } on NoSuchMethodError catch(e, stackTrace){
+        printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+            extraInfo: "GET request to classroom API returned NULL.");
+        topics = new List<classroom.Topic>();
+      } catch(e, stackTrace){
+        printError("ERROR!", e.toString(), stackTrace.toString());
+      }
+    }
+
+    return topics;/*
     List<classroom.Topic> topics = new List<classroom.Topic>();
     int count = 0;
     for (int i = 0; i < 8; i++) {
@@ -167,6 +343,6 @@ class ClassroomApiAccess {
       }
     }
 
-    return topics;
+    return topics;*/
   }
 }

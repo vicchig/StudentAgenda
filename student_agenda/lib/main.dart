@@ -7,8 +7,14 @@ import 'Screens/courseDashboard.dart';
 import 'Utilities/util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:student_agenda/Screens/mainScreen.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(new MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

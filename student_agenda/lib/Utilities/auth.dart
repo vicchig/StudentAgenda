@@ -13,7 +13,11 @@ class AuthService {
   final GoogleSignIn _googleSignIn = new GoogleSignIn(
                         scopes: [
                             'email',
-                            classroom.ClassroomApi.ClassroomCoursesScope,
+                            classroom.ClassroomApi.ClassroomCoursesReadonlyScope,
+                            classroom.ClassroomApi.ClassroomAnnouncementsReadonlyScope,
+                            classroom.ClassroomApi.ClassroomCourseworkStudentsReadonlyScope,
+                            classroom.ClassroomApi.ClassroomRostersReadonlyScope,
+                            classroom.ClassroomApi.ClassroomTopicsReadonlyScope
                         ],);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
@@ -53,33 +57,56 @@ class AuthService {
                   (){setUserData(firebaseUser);});
 
     print("signed in " + firebaseUser.displayName);
-
     //update user classes on log in
-    doTransaction("Successfully updated course information on sign in.",
+    await doTransaction("Successfully updated course information on sign in.",
                   "ERROR: Failed to update course information on sign in",
                   (){setUserClassroomData(firebaseUser);});
 
-    doTransaction("Successfully updated user course work data.",
+    //get courses from Firebase as we need the course ids to pull the rest of
+    //the data
+    List<classroom.Course> courses = await pullCourses(firebaseUser);
+
+    await doTransaction("Successfully updated user course work data.",
                   "ERROR: Failed to update user course work data.",
-                  (){setUserCourseWorkData(firebaseUser);});
+                  (){
+      for(classroom.Course c in courses){
+        setUserCourseWorkData(firebaseUser, c.id);
+      }
+    });
 
-    doTransaction("Successfully updated user announcement data.",
+    await doTransaction("Successfully updated user announcement data.",
                   "ERROR: Failed to update user announcement data.",
-                  (){setUserAnnouncementData(firebaseUser);});
+                  (){
+      for(classroom.Course c in courses) {
+        setUserAnnouncementData(firebaseUser, c.id);
+      }
+    });
 
-    doTransaction("Successfully updated user classmates data.",
+    await doTransaction("Successfully updated user classmates data.",
                   "ERROR: Failed to update user classmates data.",
-                  (){setUserClassStudents(firebaseUser);});
+                  (){
+      for(classroom.Course c in courses){
+        setUserClassStudents(firebaseUser, c.id);
+      }
 
-    doTransaction("Successfully updated user teachers data.",
+    });
+
+    await doTransaction("Successfully updated user teachers data.",
                   "ERROR: Failed to update user teachers data.",
-                  (){setUserClassTeachers(firebaseUser);});
+                  (){
+      for(classroom.Course c in courses){
+        setUserClassTeachers(firebaseUser, c.id);
+      }
+    });
 
-    doTransaction("Successfully updated user course topics data.",
+    await doTransaction("Successfully updated user course topics data.",
                   "ERROR: Failed to update user course topics data.",
-                  (){setUserClassTopics(firebaseUser);});
+                  (){
+      for(classroom.Course c in courses){
+        setUserClassTopics(firebaseUser, c.id);
+      }
+    });
 
-    
     loading.add(false);
     return firebaseUser;
   }

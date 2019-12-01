@@ -1,25 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
+import 'package:student_agenda/Utilities/util.dart';
 
 import 'ClassroomApiAccess.dart';
 import 'Utilities/goal.dart';
 
-void doTransaction(String onSuccess, String onError, Function transaction) async{
+Future<void> doTransaction(String onSuccess, String onError,
+    Function transaction) async {
   try {
     await Firestore.instance.runTransaction((Transaction trans) async {
       await transaction();
     });
     print(onSuccess);
-  }catch(e){
+  } catch (e) {
     print(onError);
     print(e);
   }
 }
 
-void setUserData(FirebaseUser user) async {
-  DocumentReference ref = Firestore.instance.collection('users').
-                          document(user.uid);
+Future<void> setUserData(FirebaseUser user, {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection('users').document(user.uid);
 
   await ref.setData({
     'uid': user.uid,
@@ -27,277 +29,432 @@ void setUserData(FirebaseUser user) async {
     'photoURL': user.photoUrl,
     'displayName': user.displayName,
     'lastSeen': DateTime.now()
-  }, merge: true);
+  }, merge: toMerge);
 }
 
-void setUserClassroomData(FirebaseUser user) async{
-  DocumentReference ref = Firestore.instance.collection("users").
-                          document(user.uid);
+Future<void> setUserClassroomData(FirebaseUser user, {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
   List<classroom.Course> userCourses = await classroomInst.getCourses();
-  Map<int, classroom.Course> map = userCourses.asMap();
+  Map<int, classroom.Course> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try {
+    map = userCourses.asMap();
+  } on ArgumentError catch (e, stackTrace) {
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map = new Map<int, classroom.Course>();
+  } on NoSuchMethodError catch (e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
+  } catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  } finally {
+    List<int> keys;
+    try {
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch (e, stackTrace) {
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+    } catch (e, stackTrace) {
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally {
+      keys.forEach((int index) {
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+  }
 
-  await ref.setData({
-    "CourseObjects": mapToUpload
-  }, merge: true);
+  await ref.setData({"CourseObjects": mapToUpload}, merge: toMerge);
 }
 
-void setUserCourseWorkData(FirebaseUser user) async {
-  DocumentReference ref = Firestore.instance.collection("users").
-  document(user.uid);
+Future<void> setUserCourseWorkData(FirebaseUser user, String courseId,
+    {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.CourseWork> userCourses = await classroomInst.getCourseWork();
-  Map<int, classroom.CourseWork> map = userCourses.asMap();
+  List<classroom.CourseWork> userCourses =
+  await classroomInst.getCourseWork(courseId);
+  Map<int, classroom.CourseWork> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try {
+    map = userCourses.asMap();
+  } on ArgumentError catch (e, stackTrace) {
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map = new Map<int, classroom.CourseWork>();
+  } on NoSuchMethodError catch (e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
+  } catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  } finally {
+    List<int> keys;
 
-  await ref.setData({
-    "CourseWorkObjects": mapToUpload
-  }, merge: true);
+    try {
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch (e, stackTrace) {
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+    } catch (e, stackTrace) {
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally {
+      keys.forEach((int index) {
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+  }
+
+  await ref.setData({"CourseWorkObjects": mapToUpload}, merge: toMerge);
 }
 
-void setUserAnnouncementData(FirebaseUser user) async {
-  DocumentReference ref = Firestore.instance.collection("users").
-  document(user.uid);
+Future<void> setUserAnnouncementData(FirebaseUser user, String courseId,
+    {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Announcement> userAnnouncements = await classroomInst.getAnnouncements();
-  Map<int, classroom.Announcement> map = userAnnouncements.asMap();
+  List<classroom.Announcement> userAnnouncements =
+  await classroomInst.getAnnouncements(courseId);
+  Map<int, classroom.Announcement> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try {
+    map = userAnnouncements.asMap();
+  } on ArgumentError catch (e, stackTrace) {
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map = new Map<int, classroom.Announcement>();
+  } on NoSuchMethodError catch (e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
+  } catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  } finally {
+    List<int> keys;
 
-  await ref.setData({
-    "AnnouncementObjects": mapToUpload
-  }, merge: true);
+    try {
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch (e, stackTrace) {
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+    } catch (e, stackTrace) {
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally {
+      keys.forEach((int index) {
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+  }
+
+  await ref.setData({"AnnouncementObjects": mapToUpload}, merge: toMerge);
 }
 
-void setUserClassStudents(FirebaseUser user) async {
-  DocumentReference ref = Firestore.instance.collection("users").
-  document(user.uid);
+Future<void> setUserClassStudents(FirebaseUser user, String courseId,
+    {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Student> userStudents = await classroomInst.getStudents();
-  Map<int, classroom.Student> map = userStudents.asMap();
+  List<classroom.Student> userStudents =
+  await classroomInst.getStudents(courseId);
+  Map<int, classroom.Student> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try {
+    map = userStudents.asMap();
+  } on ArgumentError catch (e, stackTrace) {
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map = new Map<int, classroom.Student>();
+  } on NoSuchMethodError catch (e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
+  } catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  } finally {
+    List<int> keys;
 
-  await ref.setData({
-    "StudentObjects": mapToUpload
-  }, merge: true);
+    try {
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch (e, stackTrace) {
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+    } catch (e, stackTrace) {
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally {
+      keys.forEach((int index) {
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+
+    await ref.setData({"StudentObjects": mapToUpload}, merge: toMerge);
+  }
 }
 
-void setUserClassTeachers(FirebaseUser user) async {
-  DocumentReference ref = Firestore.instance.collection("users").
-  document(user.uid);
+Future<void> setUserClassTeachers(FirebaseUser user, String courseId,
+    {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Teacher> userTeachers = await classroomInst.getTeachers();
-  Map<int, classroom.Teacher> map = userTeachers.asMap();
+  List<classroom.Teacher> userTeachers =
+  await classroomInst.getTeachers(courseId);
+  Map<int, classroom.Teacher> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try {
+    map = userTeachers.asMap();
+  } on ArgumentError catch (e, stackTrace) {
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map = new Map<int, classroom.Teacher>();
+  } on NoSuchMethodError catch (e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
+  } catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  } finally {
+    List<int> keys;
 
-  await ref.setData({
-    "TeacherObjects": mapToUpload
-  }, merge: true);
+    try {
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch (e, stackTrace) {
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+    } catch (e, stackTrace) {
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally {
+      keys.forEach((int index) {
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+  }
+
+  await ref.setData({"TeacherObjects": mapToUpload}, merge: toMerge);
 }
 
-
-void setUserClassTopics(FirebaseUser user) async {
-  DocumentReference ref = Firestore.instance.collection("users").
-  document(user.uid);
+Future<void> setUserClassTopics(FirebaseUser user, String courseId,
+    {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection("users").document(user.uid);
 
   ClassroomApiAccess classroomInst = ClassroomApiAccess.getInstance();
-  List<classroom.Topic> userTopics = await classroomInst.getTopics();
-  Map<int, classroom.Topic> map = userTopics.asMap();
+  List<classroom.Topic> userTopics = await classroomInst.getTopics(courseId);
+  Map<int, classroom.Topic> map;
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
-  List<int> keys = map.keys.toList();
-  keys.forEach((int index){
-    mapToUpload[index.toString()] = map[index].toJson();
-  });
+  try {
+    map = userTopics.asMap();
+  } on ArgumentError catch (e, stackTrace) {
+    printError("ARGUMENT ERROR!", e.toString(), stackTrace.toString());
+    map = new Map<int, classroom.Topic>();
+  } on NoSuchMethodError catch (e, stackTrace) {
+    printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString(),
+        extraInfo: "This is likely because no info was pulled from Classroom."
+            " Make sure that classroom actually contains the requested data."
+            " If it does not, the implementation likely has bugs.");
+  } catch (e, stackTrace) {
+    printError("ERROR!", e.toString(), stackTrace.toString());
+  } finally {
+    List<int> keys;
+    try {
+      keys = map.keys.toList();
+    } on NoSuchMethodError catch (e, stackTrace) {
+      printError("NO SUCH METHOD ERROR!", e.toString(), stackTrace.toString());
+      keys = new List<int>();
+    } catch (e, stackTrace) {
+      printError("ERROR!", e.toString(), stackTrace.toString());
+    } finally {
+      keys.forEach((int index) {
+        mapToUpload[index.toString()] = map[index].toJson();
+      });
+    }
+  }
 
-  await ref.setData({
-    "TopicObjects": mapToUpload
-  }, merge: true);
+  await ref.setData({"TopicObjects": mapToUpload}, merge: toMerge);
 }
 
-void setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals) async {
-  DocumentReference ref = Firestore.instance.collection("users").
-  document(user.uid);
+Future<void> setUserCourseGoals(FirebaseUser user, List<Goal> courseGoals,
+    String goalType,
+    {toMerge: true}) async {
+  DocumentReference ref =
+  Firestore.instance.collection("users").document(user.uid);
 
   Map<int, Goal> map = courseGoals.asMap();
   Map<String, dynamic> mapToUpload = new Map<String, dynamic>();
 
   List<int> keys = map.keys.toList();
-  keys.forEach((int index){
+  keys.forEach((int index) {
     mapToUpload[index.toString()] = map[index].toJson();
   });
 
-  await ref.setData({
-    "CourseGoalObjects": mapToUpload
-  }, merge: true);
+  await ref.updateData({goalType: FieldValue.delete()});
+
+  await ref.setData({goalType: mapToUpload}, merge: toMerge);
 }
 
-
-Future<List<classroom.Course>> pullCourses(FirebaseUser user) async{
+Future<List<classroom.Course>> pullCourses(FirebaseUser user) async {
   List<classroom.Course> courses = new List<classroom.Course>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
-    await Firestore.instance.collection("users").document(user.uid).get().then((
-        result) {
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((result) {
       courseObjectListMap = result.data["CourseObjects"];
     });
-
 
     courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
       courses.add(classroom.Course.fromJson(entry.value));
     });
     print("Successfully pulled courses.");
-  }catch(e){
+  } catch (e) {
     print(e);
   }
   return courses;
 }
 
-Future<List<classroom.CourseWork>> pullCourseWorkData(FirebaseUser user) async{
+Future<List<classroom.CourseWork>> pullCourseWorkData(FirebaseUser user) async {
   List<classroom.CourseWork> courseWorks = new List<classroom.CourseWork>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
-    await Firestore.instance.collection("users").document(user.uid).get().then((
-        result) {
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((result) {
       courseObjectListMap = result.data["CourseWorkObjects"];
     });
-
 
     courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
       courseWorks.add(classroom.CourseWork.fromJson(entry.value));
     });
     print("Successfully pulled course works.");
-  }catch(e){
+  } catch (e) {
     print(e);
   }
   return courseWorks;
 }
 
-Future<List<classroom.Announcement>> pullCourseAnnouncements(FirebaseUser user) async{
-  List<classroom.Announcement> courseAnnouncements = new List<classroom.Announcement>();
+Future<List<classroom.Announcement>> pullCourseAnnouncements(
+    FirebaseUser user) async {
+  List<classroom.Announcement> courseAnnouncements =
+  new List<classroom.Announcement>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
-    await Firestore.instance.collection("users").document(user.uid).get().then((
-        result) {
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((result) {
       courseObjectListMap = result.data["AnnouncementObjects"];
     });
-
 
     courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
       courseAnnouncements.add(classroom.Announcement.fromJson(entry.value));
     });
     print("Successfully pulled course announcements.");
-  }catch(e){
+  } catch (e) {
     print(e);
   }
   return courseAnnouncements;
 }
 
-Future<List<classroom.Student>> pullClassmates(FirebaseUser user) async{
+Future<List<classroom.Student>> pullClassmates(FirebaseUser user) async {
   List<classroom.Student> courseStudents = new List<classroom.Student>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
-    await Firestore.instance.collection("users").document(user.uid).get().then((
-        result) {
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((result) {
       courseObjectListMap = result.data["StudentObjects"];
     });
-
 
     courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
       courseStudents.add(classroom.Student.fromJson(entry.value));
     });
     print("Successfully pulled students.");
-  }catch(e){
+  } catch (e) {
     print(e);
   }
   return courseStudents;
 }
 
-Future<List<classroom.Teacher>> pullTeachers(FirebaseUser user) async{
+Future<List<classroom.Teacher>> pullTeachers(FirebaseUser user) async {
   List<classroom.Teacher> courseTeachers = new List<classroom.Teacher>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
-    await Firestore.instance.collection("users").document(user.uid).get().then((
-        result) {
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((result) {
       courseObjectListMap = result.data["TeacherObjects"];
     });
-
 
     courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
       courseTeachers.add(classroom.Teacher.fromJson(entry.value));
     });
     print("Successfully pulled teachers.");
-  }catch(e){
+  } catch (e) {
     print(e);
   }
   return courseTeachers;
 }
 
-Future<List<classroom.Topic>> pullTopics(FirebaseUser user) async{
+Future<List<classroom.Topic>> pullTopics(FirebaseUser user) async {
   List<classroom.Topic> courseTopics = new List<classroom.Topic>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
-    await Firestore.instance.collection("users").document(user.uid).get().then((
-        result) {
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((result) {
       courseObjectListMap = result.data["TopicObjects"];
     });
-
 
     courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
       courseTopics.add(classroom.Topic.fromJson(entry.value));
     });
     print("Successfully pulled topics.");
-  }catch(e){
+  } catch (e) {
     print(e);
   }
   return courseTopics;
 }
 
-Future<List<Goal>> pullGoals(FirebaseUser user) async {
+Future<List<Goal>> pullGoals(FirebaseUser user, String goalType) async {
   List<Goal> courseGoals = new List<Goal>();
   Map<dynamic, dynamic> courseObjectListMap;
   try {
-    await Firestore.instance.collection("users").document(user.uid).get().then((
-        result) {
-      courseObjectListMap = result.data["CourseGoalObjects"];
+    await Firestore.instance
+        .collection("users")
+        .document(user.uid)
+        .get()
+        .then((result) {
+      courseObjectListMap = result.data[goalType];
     });
-
 
     courseObjectListMap.entries.forEach((MapEntry<dynamic, dynamic> entry) {
       courseGoals.add(Goal.fromJson(entry.value));
     });
     print("Successfully pulled goals.");
-  }catch(e){
+  } catch (e) {
     print(e);
   }
   return courseGoals;
