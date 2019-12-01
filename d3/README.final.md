@@ -11,7 +11,29 @@ Many middle school students have trouble keeping up with tasks they write down i
 
 ## Key Features
  * Described the key features in the application that the user can access
- * Feel free to provide a breakdown or detail for each feature that is most appropriate for your application
+ * Feel free to provide a breakdown or detail for each feature that is most appropriate for your application <br/>
+__1. Log in through Google:__<br/>
+Users are able to link their Google Classroom accounts to our application by signing in through their Gmail account.
+Our application then pulls the following information from their Google Classroom classes and either displays it in our application or uses it internally:
+    * Class lists
+    * Course works
+    * Course announcements
+    * Course teachers
+    * Course topics
+<br/>
+__2. Users are able to make course specific goals:__<br/>
+Users are able to select goals from a predefined list of goals selected by the teacher and uploaded to the application. The user is able to choose the date the goal is due, change the description of the goal and mark goals as completed. After being added, the goal is stored in a database and the application keeps track of it for the user.
+
+__3. Goal Notifications:__ <br/>
+
+<br/>
+
+__4. Perfmormance Metrics:__ <br/>
+Our application offers a variety of metrics to track a user's performance. It provides information about completed, created, late and incomplete goals for the past four, five and 12 months. The user is able to view dynamic pie charts displaying the ratio of each type of goal for that time period, a timeline of completed goals and the counts of each type of goal in a colour-coded table in the Performance screen.
+<br/>
+
+__5. Calendar View:__ <br/>
+<br/>
 
 ## Instructions
  * Clear instructions for how to use the application from the end-user's perspective
