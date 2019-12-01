@@ -5,6 +5,7 @@ import 'package:student_agenda/Utilities/goal.dart';
 import 'package:student_agenda/FirestoreManager.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
+import '../Screens/addGoalsScreen.dart';
 
 class ListedGoalsScreen extends StatefulWidget {
   ListedGoalsScreen({Key key}) : super(key: key);
@@ -70,8 +71,13 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
           return buildList(index);
         },
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddGoalsScreen()));
+          }),
     );
-  }
+    }
 
   Color getBoxColor(index) {
     if (_goals[index].getStatus() != S_COMPLETED &&

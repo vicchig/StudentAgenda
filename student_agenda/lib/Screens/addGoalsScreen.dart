@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:student_agenda/FirestoreDataManager.dart';
 import '../Utilities/util.dart';
-import '../FirestoreManager.dart';
+import 'package:student_agenda/main.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:student_agenda/Utilities/auth.dart';
 import 'package:student_agenda/FirestoreManager.dart';
@@ -22,15 +23,20 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   List<classroom.Course> _courses = new List<classroom.Course>();
   List<classroom.CourseWork> _courseWork = new List<classroom.CourseWork>();
   List<classroom.CourseWork> _original = new List<classroom.CourseWork>();
+  List<classroom.Teacher> _teachers = new List<classroom.Teacher>();
+  HashMap courseToTeacher = new HashMap<String, classroom.Teacher>();
 
   void processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
     List<classroom.CourseWork> tempWork =
     await pullCourseWorkData(firebaseUser);
+    List<classroom.Teacher> tempTeachers = await pullTeachers(firebaseUser);
     setState(() {
       _courses = tempCourses;
       _courseWork = tempWork;
       _original = tempWork;
+      _teachers = tempTeachers;
+      createCourseTeacherMap();
     });
   }
 
@@ -125,6 +131,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
             value: dropDownItem,
             child: Text(
               dropDownItem.description,
+
               overflow: TextOverflow.ellipsis,
             ),
           );
@@ -230,7 +237,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
             value: dropDownItem,
             child: Text(
               (dropDownItem.ownerId != null)
-                  ? dropDownItem.ownerId
+                  ? createTeacherCourseOption(dropDownItem)
                   : "Someone" + "'s " + dropDownItem.name.toString(),
               overflow: TextOverflow.ellipsis,
             ),
@@ -440,7 +447,64 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     return retButton;
   }
 
+  Future<void> _scheduleNotifications() async {
+    // TODO: DECIDE WHICH INTERVAL WE WANT TO SCHEDULE NOTIFS ON
+    bool hasPassed = this.selectedDate.isBefore(DateTime.now());
+
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel id', // temp
+      'channel name', // temp
+      'channel description', // temp
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    // Note that each check for hasPassed is separate so we can easily add
+    // another condition later.
+
+    // We can wrap this in an if based on things we get from settings
+    // 1 hour notification
+    //DateTime hourDate = this.selectedDate.subtract(Duration(hours: 1));
+    // This time is for testing purposes
+    DateTime hourDate = DateTime.now().add(Duration(seconds: 5));
+    if (!hasPassed) {
+      await flutterLocalNotificationsPlugin.schedule(
+          0, // TODO: is there a unique ID for a user I can access?
+          "${this.selectedSubtask} is due in 1 hour.",
+          "Check in with your agenda or tap this notification for details!",
+          hourDate,
+          platformChannelSpecifics);
+    }
+
+    // 1 day notification
+    // DateTime dayDate = this.selectedDate.subtract(Duration(days: 1));
+    // This time is for testing purposes
+    DateTime dayDate = DateTime.now().add(Duration(seconds: 10));
+    if (!hasPassed) {
+      await flutterLocalNotificationsPlugin.schedule(
+          1,
+          "${this.selectedSubtask} is due in 1 day.",
+          "Check in with your agenda or tap this notification for details!",
+          dayDate,
+          platformChannelSpecifics);
+    }
+
+    // 1 week notification
+    //DateTime weekDate = this.selectedDate.subtract(Duration(days: 7));
+    // This time is for testing purposes
+    DateTime weekDate = DateTime.now().add(Duration(seconds: 20));
+    if (!hasPassed) {
+      await flutterLocalNotificationsPlugin.schedule(
+          2,
+          "${this.selectedSubtask} is due in 1 week.",
+          "Check in with your agenda or tap this notification for details!",
+          weekDate,
+          platformChannelSpecifics);
+    }
+  }
+
   void finalizeSubtask() async {
+    _scheduleNotifications();
     List<classroom.Course> courses = await pullCourses(firebaseUser);
     for (final course in courses) {
       print(course.name);
@@ -465,5 +529,23 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         (selectedCourseWork != null)
             ? "CourseWorkGoalObjects"
             : "CourseGoalObjects");
+  }
+
+  String createTeacherCourseOption(classroom.Course course) {
+    String ret = courseToTeacher[course.id].profile.name.givenName[0] + ". "
+        + courseToTeacher[course.id].profile.name.familyName + "'s "
+        + course.name.toString();
+    return ret;
+  }
+
+  HashMap<int, classroom.Teacher> createCourseTeacherMap() {
+    for (final course in _courses) {
+      for (final teacher in _teachers) {
+        if (course.ownerId == teacher.userId) {
+          courseToTeacher[course.id] = teacher;
+          break;
+        }
+      }
+    }
   }
 }
