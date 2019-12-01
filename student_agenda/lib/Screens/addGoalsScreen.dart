@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:student_agenda/FirestoreDataManager.dart';
 import '../Utilities/util.dart';
-import '../FirestoreManager.dart';
+import 'package:student_agenda/main.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:student_agenda/Utilities/auth.dart';
 import 'package:student_agenda/FirestoreManager.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
 import 'dart:async';
 import 'dart:collection';
@@ -129,7 +131,8 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
           return DropdownMenuItem<classroom.CourseWork>(
             value: dropDownItem,
             child: Text(
-              dropDownItem.description,
+              trimDescription(dropDownItem.description),
+
               overflow: TextOverflow.ellipsis,
             ),
           );
@@ -366,6 +369,13 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     });
   }
 
+  String trimDescription(String description) {
+    if (description.contains('\n')) {
+      return description.substring(0, description.indexOf('\n')) + " ...";
+    }
+    return description;
+  }
+
   Widget datepicker(BuildContext context) {
     Widget flatButton = FlatButton(
       onPressed: () => _selectDate(context),
@@ -445,7 +455,76 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     return retButton;
   }
 
+  Future<void> _scheduleNotifications() async {
+    // TODO: DECIDE WHICH INTERVAL WE WANT TO SCHEDULE NOTIFS ON\
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'channel id', // temp
+      'channel name', // temp
+      'channel description', // temp
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    // Note that each check for hasPassed is separate so we can easily add
+    // another condition later.
+
+    // We can wrap this in an if based on things we get from settings
+    // 1 hour notification
+    DateTime hourDate = this.selectedDate.add(Duration(
+      seconds: 30
+    )).subtract(Duration(hours: 1));
+
+    bool hasPassed = hourDate.add(Duration(
+      seconds: 30
+    )).isBefore(DateTime.now());
+
+    if (!hasPassed) {
+      await flutterLocalNotificationsPlugin.schedule(
+          0, // TODO: is there a unique ID for a user I can access?
+          "${this.selectedSubtask} is due in 1 hour.",
+          "Check in with your agenda or tap this notification for details!",
+          hourDate,
+          platformChannelSpecifics);
+    }
+
+    // 1 day notification
+    DateTime dayDate = this.selectedDate.add(Duration(
+        seconds: 30)).subtract(Duration(days: 1));
+
+    hasPassed = dayDate.add(Duration(
+      seconds: 30
+    )).isBefore(DateTime.now());
+
+    if (!hasPassed) {
+      await flutterLocalNotificationsPlugin.schedule(
+          1,
+          "${this.selectedSubtask} is due in 1 day.",
+          "Check in with your agenda or tap this notification for details!",
+          dayDate,
+          platformChannelSpecifics);
+    }
+
+    // 1 week notification
+    DateTime weekDate = this.selectedDate.add(Duration(
+      seconds: 30
+    )).subtract(Duration(days: 7));
+
+    hasPassed = weekDate.add(Duration(
+      seconds: 30
+    )).isBefore(DateTime.now());
+
+    if (!hasPassed) {
+      await flutterLocalNotificationsPlugin.schedule(
+          2,
+          "${this.selectedSubtask} is due in 1 week.",
+          "Check in with your agenda or tap this notification for details!",
+          weekDate,
+          platformChannelSpecifics);
+    }
+  }
+
   void finalizeSubtask() async {
+    _scheduleNotifications();
     List<classroom.Course> courses = await pullCourses(firebaseUser);
     for (final course in courses) {
       print(course.name);
@@ -470,7 +549,17 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         (selectedCourseWork != null)
             ? "CourseWorkGoalObjects"
             : "CourseGoalObjects");
-  }
+
+    Fluttertoast.showToast(
+        msg: "Goal Added!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    }
+
 
   String createTeacherCourseOption(classroom.Course course) {
     String ret = courseToTeacher[course.id].profile.name.givenName[0] + ". "
@@ -479,7 +568,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     return ret;
   }
 
-  HashMap<int, classroom.Teacher> createCourseTeacherMap() {
+  void createCourseTeacherMap() {
     for (final course in _courses) {
       for (final teacher in _teachers) {
         if (course.ownerId == teacher.userId) {
@@ -488,5 +577,27 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         }
       }
     }
+  }
+
+  void showAlertButton(BuildContext context) {
+    Widget okButton = FlatButton(
+      child: Text("Ok"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Goal Added!"),
+      content: Text("Goal successfully added!"),
+      actions: <Widget>[okButton],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      }
+    );
   }
 }
