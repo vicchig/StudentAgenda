@@ -26,7 +26,7 @@ In order to meet our deadlines we had to remove the following features from the 
 
 Removing these has allowed us to spend significantly more time on the critical features that our product had to have and make sure that those are complete by the deadline.<br/>
 
-__2. Feature Changes 
+__2. Feature Changes__
 <br/>
 
 __3. Stack Changes:__<br/>
