@@ -17,7 +17,9 @@ class AuthService {
                             classroom.ClassroomApi.ClassroomAnnouncementsReadonlyScope,
                             classroom.ClassroomApi.ClassroomCourseworkStudentsReadonlyScope,
                             classroom.ClassroomApi.ClassroomRostersReadonlyScope,
-                            classroom.ClassroomApi.ClassroomTopicsReadonlyScope
+                          classroom.ClassroomApi.ClassroomTopicsReadonlyScope,
+                          classroom.ClassroomApi
+                              .ClassroomCourseworkMeReadonlyScope
                         ],);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
@@ -68,25 +70,37 @@ class AuthService {
 
     await doTransaction("Successfully updated user course work data.",
                   "ERROR: Failed to update user course work data.",
-                  (){
+            () async {
+          int startIndex = 0;
       for(classroom.Course c in courses){
-        setUserCourseWorkData(firebaseUser, c.id);
+        await setUserCourseWorkData(firebaseUser, c.id, startIndex).then((
+            value) {
+          startIndex += value;
+        });
       }
     });
 
     await doTransaction("Successfully updated user announcement data.",
                   "ERROR: Failed to update user announcement data.",
-                  (){
+            () async {
+          int startIndex = 0;
       for(classroom.Course c in courses) {
-        setUserAnnouncementData(firebaseUser, c.id);
+        await setUserAnnouncementData(firebaseUser, c.id, startIndex).then((
+            value) {
+          startIndex += value;
+        });
       }
     });
 
     await doTransaction("Successfully updated user classmates data.",
                   "ERROR: Failed to update user classmates data.",
-                  (){
+            () async {
+          int startIndex = 0;
       for(classroom.Course c in courses){
-        setUserClassStudents(firebaseUser, c.id);
+        await setUserClassStudents(firebaseUser, c.id, startIndex).then((
+            value) {
+          startIndex += value;
+        });
       }
 
     });
@@ -101,9 +115,12 @@ class AuthService {
 
     await doTransaction("Successfully updated user course topics data.",
                   "ERROR: Failed to update user course topics data.",
-                  (){
+            () async {
+          int startIndex = 0;
       for(classroom.Course c in courses){
-        setUserClassTopics(firebaseUser, c.id);
+        await setUserClassTopics(firebaseUser, c.id, startIndex).then((value) {
+          startIndex += value;
+        });
       }
     });
 
