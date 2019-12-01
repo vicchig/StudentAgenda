@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_agenda/Screens/courseDashboard.dart';
 import 'package:student_agenda/Screens/mainScreen.dart';
 import 'package:student_agenda/Screens/calendarScreen.dart';
 import 'package:custom_navigator/custom_navigator.dart';
@@ -19,7 +20,7 @@ class _LandingScreenState extends State<LandingScreen> {
     MainDashboardScreen(),
     CalendarScreen(),
     ListedGoalsScreen(),
-    Container()
+    DashboardScreen(),
   ];
 
   GlobalKey<_LandingScreenState> navKey = GlobalKey<_LandingScreenState>();
@@ -37,7 +38,7 @@ class _LandingScreenState extends State<LandingScreen> {
               icon: Icon(Icons.calendar_today), title: Text("Calendar")),
           BottomNavigationBarItem(icon: Icon(Icons.star), title: Text("Goals")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble), title: Text("Chat"))
+              icon: Icon(Icons.assignment), title: Text("My Courses"))
         ]),
       ),
       children: _children,
