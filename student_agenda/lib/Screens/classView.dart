@@ -93,7 +93,7 @@ class ClassViewState extends State<ClassViewScreen> {
                         teacherAssignmentScreen(courseID: courseID)));
           },
           child: Text(
-            "View Course Assignments",
+            "View Class Assignments",
             style: TextStyle(fontSize: 20.0),
           ),
         )
