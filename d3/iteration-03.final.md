@@ -15,7 +15,7 @@ List the most significant changes you made to your product (if any). It's normal
 
  > *Note:* If you are not making (or haven't made) any changes to your product, it means you successfully scoped, planned and executed the development of your application.This is a very rare occurrence - describe what you believed enabled your team to do so and why. 
 
-__1. Scope Reduction:__
+__1. Scope Reduction:__<br/>
 In order to meet our deadlines we had to remove the following features from the project:
 * Reduce platform scope from Desktop and Mobile (iOS and Android) to just Mobile (Android).
 * Chat function
@@ -25,10 +25,14 @@ In order to meet our deadlines we had to remove the following features from the 
 * Parent monitoring of student account
 * Points for goal completions
 
-Removing these has allowed us to spend significantly more time on the critical features that our product had to have and make sure that those are complete by the deadline.
+Removing these has allowed us to spend significantly more time on the critical features that our product had to have and make sure that those are complete by the deadline.<br/>
 
-__2. Stack Changes:__
-At first we thought that the backend would have to be written in Java as Dart is primarily a front-end language. However, we have since then learned that Dart can be used for backend programming as well and decided to use that for our backend. This change simplified our development process as we could have all of our code in one place and in one language instead of people having to focus on writing code in two separate languages at the same time.
+__2. Feature Changes -- General and Course Specific Goals:__<br/>
+We originally planned on only having course specific goals, but our partner has communicated with us that they want to have general, non-course specific goals as well. We have modified our project to support this feature. Now non-course specific goals can be added, modified and tracked in the same ways as the other course-specific goals. This change will allow the users more flexibility on the kind of goals that they can make. Particularly, students will be able to track their progress not only on a per course basis, but in general per semester or school year as well, helping them plan their time better.
+<br/>
+
+__3. Stack Changes:__<br/>
+At first we thought that the backend would have to be written in Java as Dart is primarily a front-end language. However, we have since then learned that Dart can be used for backend programming as well and decided to use that for our backend. This change simplified our development process as we could have all of our code in one place and in one language instead of people having to focus on writing code in two separate languages at the same time.<br/>
 
 
 
