@@ -7,6 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:student_agenda/Utilities/auth.dart';
 import 'package:student_agenda/FirestoreManager.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:googleapis/classroom/v1.dart' as classroom;
 import 'dart:async';
 import 'dart:collection';
@@ -536,6 +537,15 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         (selectedCourseWork != null)
             ? "CourseWorkGoalObjects"
             : "CourseGoalObjects");
+    Fluttertoast.showToast(
+        msg: "Goal Added!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.greenAccent,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    }
   }
 
   String createTeacherCourseOption(classroom.Course course) {
