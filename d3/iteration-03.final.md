@@ -40,6 +40,8 @@ Describe your plan for handing off your product and all technical assets to your
  * What assets/artifacts will you be handing off to your partner (e.g. codebase, deployment tools, running application, task tracker, etc.)? 
  * How will you hand off these assets/artifacts?
  * Does your partner have the technical capacity to manage/maintain/develop your product? How will that impact how you handoff the product?
+ 
+We have attempted to contact our partner in the past month and have not received any response. As such we are unsure how they would like the project to be handed off to them and whether they are actually planning on receiving it. However, we are going to offer as much flexibility as possible to them by providing multiple hand off platforms. We will host the project on Google Drive and GitHub. The Google Drive folder will be accessible through a link and will contain a compiled APK in a zip file as a demonstration of the minimal viable product as well as a zip containing the codebase. The GitHub repo will contain the codebase that can be cloned or forked as the partner sees fit. In addition, we will prepare a USB with the same zip files as the Drive folder in case our partner wants a physical copy of our project.
 
 
 > *Note:* This is one of the most important aspects of the project. Please consult with your partner, your TA and the instructors on how to successfully execute this. 
