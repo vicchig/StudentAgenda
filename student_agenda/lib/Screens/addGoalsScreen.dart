@@ -87,16 +87,9 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
       });
   }
 
-  Future<bool> _onBackPressed(){
-    Navigator.pop(context);
-    return Future.value(true);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: _onBackPressed,
-        child: new Scaffold(
+    return Scaffold(
       //Sidebar menu scaffold
       appBar: new AppBar(
         title: new Text('Add Goals'),
@@ -124,7 +117,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         SizedBox(height: 80),
         Align(alignment: Alignment.center, child: addButton(context))
       ]),
-    ));
+    );
   }
 
   Widget courseWorkDropbox(BuildContext context) {

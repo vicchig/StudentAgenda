@@ -55,9 +55,7 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
 
   @override
   Widget build(BuildContext context) {
-//    return WillPopScope(
-//      onWillPop: _onBackPressed,
-    child: return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text('Task List'),
