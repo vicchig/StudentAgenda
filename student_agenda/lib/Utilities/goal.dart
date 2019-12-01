@@ -32,17 +32,26 @@ class Goal {
     this.dueDate = DateTime.parse(dueDate);
     DateTime currTime = DateTime.now();
     DateTime currDay = DateTime(currTime.year, currTime.month, currTime.day);
-    if (currDay.isAfter(this.dueDate)) {
-      _status = S_IN_PROGRESS_LATE;
-    } else {
-      _status = S_IN_PROGRESS;
-    }
 
-    this._dateAssigned = DateTime.now();
-    this._dateCompleted = DateTime.fromMillisecondsSinceEpoch(0);
-    this._status = status;
-    this._dateAssigned = DateTime.parse(dateAssigned);
-    this._dateCompleted = DateTime.parse(dateCompleted);
+    if (dateAssigned == null) {
+      this._dateAssigned = DateTime.now();
+    } else {
+      this._dateAssigned = DateTime.parse(dateAssigned);
+    }
+    if (dateCompleted == null) {
+      this._dateCompleted = DateTime.fromMillisecondsSinceEpoch(0);
+    } else {
+      this._dateCompleted = DateTime.parse(dateCompleted);
+    }
+    if (status == null) {
+      if (currDay.isAfter(this.dueDate)) {
+        this._status = S_IN_PROGRESS_LATE;
+      } else {
+        this._status = S_IN_PROGRESS;
+      }
+    } else {
+      this._status = status;
+    }
   }
 
   String getStatus() {
