@@ -24,9 +24,10 @@ class ClassViewState extends State<ClassViewScreen> {
   final String courseID;
   List<classroom.Student> _students = new List<classroom.Student>();
 
-  void retrieveStudents() async {
+  Future<void> retrieveStudents() async {
     List<classroom.Student> allSubscribedStudents = await pullClassmates(firebaseUser);
     List<classroom.Student> tempStudents = getClassRoster(courseID, allSubscribedStudents);
+    
     setState(() {
       _students = tempStudents;
     });
@@ -57,7 +58,6 @@ class ClassViewState extends State<ClassViewScreen> {
                               child: ListTile(
                                 leading: Icon(Icons.mood),
                                   title: Text(_students[index].profile.name.fullName),
-                                subtitle: Text("Number of goals made: 0\nNumber of goals completed: 0") //Placeholder text
                               )
                           );
                     }
