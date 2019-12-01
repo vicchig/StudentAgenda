@@ -11,10 +11,16 @@ import '../FirestoreManager.dart';
 
 class AuthService {
   final GoogleSignIn _googleSignIn = new GoogleSignIn(
-                        scopes: [
-                            'email',
-                            classroom.ClassroomApi.ClassroomCoursesScope,
-                        ],);
+    scopes: [
+      'email',
+      classroom.ClassroomApi.ClassroomCoursesReadonlyScope,
+      classroom.ClassroomApi.ClassroomAnnouncementsReadonlyScope,
+      classroom.ClassroomApi.ClassroomCourseworkStudentsReadonlyScope,
+      classroom.ClassroomApi.ClassroomRostersReadonlyScope,
+      classroom.ClassroomApi.ClassroomTopicsReadonlyScope,
+      classroom.ClassroomApi.ClassroomCourseworkMeReadonlyScope
+    ],
+  );
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
 
@@ -30,9 +36,13 @@ class AuthService {
 
     profile = user.switchMap((FirebaseUser u) {
       if (u != null) {
-        return _db.collection('users').document(u.uid).snapshots().map((snap) => snap.data);
+        return _db
+            .collection('users')
+            .document(u.uid)
+            .snapshots()
+            .map((snap) => snap.data);
       }
-      return Observable.just({ });
+      return Observable.just({});
     });
   }
 
@@ -41,53 +51,65 @@ class AuthService {
     loading.add(true);
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-     firebaseUser = (await _auth.signInWithCredential(
+    firebaseUser = (await _auth.signInWithCredential(
         GoogleAuthProvider.getCredential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken
-        )
-    )).user;
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken)))
+        .user;
 
     doTransaction("Successfully updated user data on sign in.",
-                  "ERROR: Failed to update user data on sign in.",
-                  (){setUserData(firebaseUser);});
+        "ERROR: Failed to update user data on sign in.", () {
+          setUserData(firebaseUser);
+        });
 
     print("signed in " + firebaseUser.displayName);
-
     //update user classes on log in
-    doTransaction("Successfully updated course information on sign in.",
-                  "ERROR: Failed to update course information on sign in",
-                  (){setUserClassroomData(firebaseUser);});
+    await doTransaction("Successfully updated course information on sign in.",
+        "ERROR: Failed to update course information on sign in", () {
+          setUserClassroomData(firebaseUser);
+        });
 
-    doTransaction("Successfully updated user course work data.",
-                  "ERROR: Failed to update user course work data.",
-                  (){setUserCourseWorkData(firebaseUser);});
+    //get courses from Firebase as we need the course ids to pull the rest of
+    //the data
+    List<classroom.Course> courses = await pullCourses(firebaseUser);
 
-    doTransaction("Successfully updated user announcement data.",
-                  "ERROR: Failed to update user announcement data.",
-                  (){setUserAnnouncementData(firebaseUser);});
+    List<String> courseIds = [];
+    for (classroom.Course c in courses) {
+      courseIds.add(c.id);
+    }
 
-    doTransaction("Successfully updated user classmates data.",
-                  "ERROR: Failed to update user classmates data.",
-                  (){setUserClassStudents(firebaseUser);});
+    await doTransaction("Successfully updated user course work data.",
+        "ERROR: Failed to update user course work data.", () {
+          setAllUserCourseWorkData(firebaseUser, courseIds);
+    });
 
-    doTransaction("Successfully updated user teachers data.",
-                  "ERROR: Failed to update user teachers data.",
-                  (){setUserClassTeachers(firebaseUser);});
+    await doTransaction("Successfully updated user announcement data.",
+        "ERROR: Failed to update user announcement data.", () {
+          setAllUserAnnouncementData(firebaseUser, courseIds);
+    });
 
-    doTransaction("Successfully updated user course topics data.",
-                  "ERROR: Failed to update user course topics data.",
-                  (){setUserClassTopics(firebaseUser);});
+    await doTransaction("Successfully updated user classmates data.",
+        "ERROR: Failed to update user classmates data.", () {
+          setAllUserClassStudents(firebaseUser, courseIds);
+    });
 
-    
+    await doTransaction("Successfully updated user teachers data.",
+        "ERROR: Failed to update user teachers data.", () {
+          setAllUserClassTeachers(firebaseUser, courseIds);
+    });
+
+    await doTransaction("Successfully updated user course topics data.",
+        "ERROR: Failed to update user course topics data.", () {
+          setAllUserClassTopics(firebaseUser, courseIds);
+    });
+
     loading.add(false);
     return firebaseUser;
   }
 
-  Future<Map<String, String>> getAuthHeaders(){
+  Future<Map<String, String>> getAuthHeaders() {
     return _googleSignIn.currentUser.authHeaders;
   }
-
 
   void signOut() {
     _auth.signOut();
@@ -106,7 +128,6 @@ class GoogleHttpClient extends IOClient {
   @override
   Future<Response> head(Object url, {Map<String, String> headers}) =>
       super.head(url, headers: headers..addAll(_headers));
-
 }
 
 final AuthService authService = AuthService();

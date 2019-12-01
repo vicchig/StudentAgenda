@@ -8,6 +8,8 @@ import '../Screens/addGoalsScreen.dart';
 import '../Screens/listedGoalsScreen.dart';
 import 'package:student_agenda/Screens/performanceScreen.dart';
 import 'package:student_agenda/Screens/mainScreen.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
 
 import '../Screens/settingsScreen.dart';
 import 'auth.dart';
@@ -265,13 +267,37 @@ final Map<String, String>numToMonth = {"1": "January", "2": "February",
   "8": "August", "9": "September", "10": "October", "11": "November",
   "12": "December"};
 
-String getMonthFromDateStr(String dateString){
+String getMonthFromDateStr(String dateString) {
   List<String> splitStr = dateString.split("/");
-  return numToMonth[splitStr[1]];
+
+  if( splitStr.length > 1 && splitStr[1][0] == "0"){
+    splitStr[1] = splitStr[1].substring(1);
+  }
+
+  if(splitStr.length > 1 && numToMonth.keys.contains(splitStr[1])){
+      return numToMonth[splitStr[1]];
+  }
+  throw new FormatException("Date String could not be parsed. Got: " +
+      dateString, " but expected string in format: 'dd/mm/yyyy'");
 }
 
 String getMonthFromDateObj(DateTime date){
   return numToMonth[date.month.toString()];
+}
+
+void printError(String header, String error, String stackTrace,
+    {String extraInfo = ""}){
+  print("\n");
+  print("-------------------------------------"+  header +
+      "-------------------------------------\n" + error);
+  print(extraInfo + "\n\n");
+  print("Stack Trace: \n" + stackTrace);
+  print("\n\n");
+}
+
+String getCalendarDueDate(DateTime date){
+  return "" + date.day.toString() + "/" + date.month.toString() + "/" +
+      date.year.toString();
 }
 
 

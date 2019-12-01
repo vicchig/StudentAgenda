@@ -24,32 +24,38 @@ class CourseWorkScreenState extends State<CourseWorkScreen> {
 
   List<classroom.CourseWork> _courseWorks = new List<classroom.CourseWork>();
 
-  void processFuture() async {
+  Future<void> processFuture() async {
     List<classroom.CourseWork> tempCourseWorks =
         await pullCourseWorkData(firebaseUser);
 
     tempCourseWorks = getCourseWorksForCourse(courseID, tempCourseWorks);
-    tempCourseWorks.sort((a, b) => DateTime(
-            a.dueDate.year,
-            a.dueDate.month,
-            a.dueDate.day,
-            a.dueTime.hours,
-            a.dueTime.minutes,
-            a.dueTime.seconds)
-        .compareTo(DateTime(b.dueDate.year, b.dueDate.month, b.dueDate.day,
-            b.dueTime.hours, b.dueTime.minutes, b.dueTime.seconds)));
+    print(tempCourseWorks);
+    tempCourseWorks.sort((a, b) {
+      if ((a.dueDate == null || a.dueTime == null) &&
+          (b.dueDate == null || b.dueTime == null)) {
+        return 0;
+      } else if (a.dueDate == null || a.dueTime == null) {
+        return 1;
+      } else if (b.dueDate == null || b.dueTime == null) {
+        return -1;
+      }
+
+      return DateTime(a.dueDate.year, a.dueDate.month, a.dueDate.day,
+          a.dueTime?.hours ?? 0, a.dueTime?.minutes ?? 0)
+          .compareTo(DateTime(b.dueDate.year, b.dueDate.month, b.dueDate.day,
+          b.dueTime?.hours ?? 0, b.dueTime?.minutes ?? 0));
+    });
     setState(() {
       _courseWorks = tempCourseWorks;
     });
-//    for (classroom.CourseWork courseWork in _courseWorks) {
-//      print(courseWork.description);
-//    }
   }
 
   @override
   void initState() {
     super.initState();
-    processFuture();
+    processFuture().then((arg) {}, onError: (e) {
+      print(e);
+    });
   }
 
   @override
@@ -78,8 +84,19 @@ class CourseWorkScreenState extends State<CourseWorkScreen> {
                     'Description: ${_courseWorks[index].description}',
                     style: TextStyle(fontSize: 18),
                   ),
-                  Text(
-                    'Due: ${DateTime(_courseWorks[index].dueDate.year, _courseWorks[index].dueDate.month, _courseWorks[index].dueDate.day, _courseWorks[index].dueTime.hours, _courseWorks[index].dueTime.minutes, _courseWorks[index].dueTime.seconds).toString().replaceAll(new RegExp("\\..+"), "")}',
+                  (_courseWorks[index].dueDate == null ||
+                      _courseWorks[index].dueTime == null)
+                      ? Text(
+                    'Due: No Due Date',
+                    style: TextStyle(fontSize: 18),
+                  )
+                      : Text(
+                    'Due: ${DateTime(_courseWorks[index].dueDate.year,
+                        _courseWorks[index].dueDate.month,
+                        _courseWorks[index].dueDate.day, _courseWorks[index]
+                            .dueTime?.hours ?? 0, _courseWorks[index].dueTime
+                            ?.minutes ?? 0).toString().replaceAll(
+                        new RegExp("\\..+"), "")}',
                     style: TextStyle(fontSize: 18),
                   ),
                 ],

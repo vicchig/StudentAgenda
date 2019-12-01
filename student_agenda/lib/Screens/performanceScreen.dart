@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:student_agenda/Screens/performanceTab.dart';
+import 'package:student_agenda/Utilities/auth.dart';
+import 'package:student_agenda/Utilities/goal.dart';
 import 'dart:async';
 import 'package:student_agenda/Utilities/util.dart';
+import "package:student_agenda/FirestoreManager.dart";
 
 class PerformanceScreen extends StatefulWidget {
   PerformanceScreen({Key key, this.title}) : super(key: key);
@@ -12,173 +16,77 @@ class PerformanceScreen extends StatefulWidget {
   _PerformanceScreenState createState() => _PerformanceScreenState();
 }
 
-class _PerformanceScreenState extends State<PerformanceScreen> {
-  int onTimeNum = 99;
-  int lateNum = 7;
-  int tasksRemaining = 20;
-  int tasksCreated;
+class _PerformanceScreenState extends State<PerformanceScreen> with
+    SingleTickerProviderStateMixin{
 
-  double onTimePercent;
-  double latePercent;
+  TabController _tabController;
+  ScrollController _scrollController;
 
-  double onTimeLegendFont = 11;
-  double lateLegendFont = 11;
-
-  StreamController<PieTouchResponse> pieTouchedResultStreamController;
-
-  int touchedIndex;
 
   @override
   void initState() {
     super.initState();
 
-    onTimePercent = onTimeNum.toDouble() / (onTimeNum + lateNum);
-    latePercent = lateNum.toDouble() / (onTimeNum + lateNum);
-    tasksCreated = onTimeNum + lateNum + tasksRemaining;
-
-    pieTouchedResultStreamController = StreamController();
-    pieTouchedResultStreamController.stream.distinct().listen((details) {
-      if (details == null) {
-        return;
-      }
-
-      setState(() {
-        if (details.touchInput is FlLongPressEnd) {
-          touchedIndex = -1;
-        } else {
-          touchedIndex = details.touchedSectionPosition;
-        }
-        switch (touchedIndex) {
-          case 0:
-            onTimeLegendFont = 15;
-            lateLegendFont = 11;
-            break;
-          case 1:
-            lateLegendFont = 15;
-            onTimeLegendFont = 11;
-            break;
-          default:
-            onTimeLegendFont = 11;
-            lateLegendFont = 11;
-            break;
-        }
-      });
-    });
+    _tabController = TabController(vsync: this, length: 3);
+    _scrollController = ScrollController();
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
+    _scrollController.dispose();
     super.dispose();
-    pieTouchedResultStreamController.close();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Performance'),
-      ),
-
-      //draw the sidebar menu options
-      drawer: MenuDrawer(),
-
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlChart(
-                chart: PieChart(
-                  PieChartData(
-                      pieTouchData: PieTouchData(
-                          touchResponseStreamSink:
-                              pieTouchedResultStreamController.sink),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      sectionsSpace: 0,
-                      centerSpaceRadius: 0,
-                      sections: showingSections()),
-                ),
+      drawer: new MenuDrawer(),
+      body: NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (BuildContext context, bool boxScrolled){
+          return <Widget>[
+            SliverAppBar(
+              title: Text("Performance"),
+              pinned: true,
+              floating: true,
+              forceElevated: boxScrolled,
+              bottom: TabBar(
+                onTap: (int idx){
+                  _scrollController.animateTo(
+                      _scrollController.position.minScrollExtent,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.decelerate);
+                },
+                tabs: <Widget>[
+                  Tab(
+                    text: "4 Months",
+                  ),
+                  Tab(
+                    text: "8 Months",
+                  ),
+                  Tab(
+                    text: "12 Months"
+                  ),
+                ],
+                controller: _tabController,
               ),
-            ],
-          ),
-          LegendEntry(
-            onTimeLegendFont: onTimeLegendFont,
-            color: Colors.green,
-            text: ' : Tasks Completed On Time',
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          LegendEntry(
-            onTimeLegendFont: lateLegendFont,
-            color: Colors.red,
-            text: ' : Tasks Completed Late',
-          ),
-          SizedBox(height: 30),
-          TotalTasks(
-            onTimeNum: onTimeNum,
-            text: 'Tasks Completed on Time:',
-          ),
-          SizedBox(height: 20),
-          TotalTasks(
-            onTimeNum: lateNum,
-            text: 'Tasks Completed Late:',
-          ),
-          SizedBox(height: 20),
-          TotalTasks(
-            onTimeNum: tasksRemaining,
-            text: 'Tasks Remaining:',
-          ),
-          SizedBox(height: 20),
-          TotalTasks(
-            onTimeNum: tasksCreated,
-            text: 'Tasks Created:',
-          ),
-        ],
+            )
+          ];
+        },
+        body: TabBarView(
+          children: <Widget>[
+            PerformanceTab(4),
+            PerformanceTab(8),
+            PerformanceTab(12)
+          ],
+          controller: _tabController,
+        ),
       ),
     );
   }
 
-  List<PieChartSectionData> showingSections() {
-    return List.generate(2, (i) {
-      final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 25 : 16;
-      final double radius = isTouched ? 110 : 100;
-      switch (i) {
-        case 0:
-//          onTimeLegendFont = isTouched ? 15 : 11;
-          return PieChartSectionData(
-            color: Colors.green,
-            value: onTimePercent,
-            title: 'On Time',
-            showTitle: false,
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          );
-        case 1:
-//          lateLegendFont = isTouched ? 15 : 11;
-          return PieChartSectionData(
-            color: Colors.red,
-            value: latePercent,
-            title: 'Late',
-            showTitle: false,
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          );
-        default:
-          return null;
-      }
-    });
-  }
+
 }
 
 class TotalTasks extends StatelessWidget {

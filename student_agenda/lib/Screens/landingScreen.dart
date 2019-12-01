@@ -4,7 +4,7 @@ import 'package:student_agenda/Screens/mainScreen.dart';
 import 'package:student_agenda/Screens/calendarScreen.dart';
 import 'package:custom_navigator/custom_navigator.dart';
 import 'package:custom_navigator/custom_scaffold.dart';
-
+import 'package:student_agenda/Screens/listedGoalsScreen.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _LandingScreenState extends State<LandingScreen> {
   final List<Widget> _children = [
     MainDashboardScreen(),
     CalendarScreen(),
-    Container(),
+    ListedGoalsScreen(),
     Container()
   ];
 
@@ -29,27 +29,16 @@ class _LandingScreenState extends State<LandingScreen> {
     return CustomScaffold(
       scaffold: Scaffold(
         body: _children[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  title: Text("Dashboard")
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_today),
-                  title: Text("Calendar")
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.star),
-                  title: Text("Goals")
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.chat_bubble),
-                  title: Text("Chat")
-              )
-            ]
-        ),
+        bottomNavigationBar:
+        BottomNavigationBar(type: BottomNavigationBarType.fixed, items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home), title: Text("Dashboard")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today), title: Text("Calendar")),
+          BottomNavigationBarItem(icon: Icon(Icons.star), title: Text("Goals")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble), title: Text("Chat"))
+        ]),
       ),
       children: _children,
       onItemTap: (index) {},

@@ -14,6 +14,7 @@ import 'Screens/courseDashboard.dart';
 import 'Utilities/util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:student_agenda/Screens/mainScreen.dart';
+import 'package:flutter/services.dart';
 import 'package:rxdart/subjects.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -74,7 +75,10 @@ Future<void> main() async {
     }
   );
 
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
