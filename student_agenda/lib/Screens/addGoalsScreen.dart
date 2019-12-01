@@ -120,16 +120,6 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
       ]),
     );
   }
-  
-  Widget subtaskDropbox(BuildContext context) {
-    Widget dropdownbox = Align(
-      alignment: Alignment.center,
-      child: DropdownButton<String>(
-        items: subtasks.map((String dropDownStringItem) {
-          return DropdownMenuItem<String>(
-            value: dropDownStringItem,
-            child: Text(
-              dropDownStringItem,
 
   Widget courseWorkDropbox(BuildContext context) {
     Widget dropdownbox = Align(
