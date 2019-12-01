@@ -18,7 +18,7 @@ class DashboardScreen extends StatefulWidget {
 class DashboardScreenState extends State<DashboardScreen> {
   List<classroom.Course> _courses = new List<classroom.Course>();
 
-  void processFuture() async {
+  Future<void> processFuture() async {
     List<classroom.Course> tempCourses = await pullCourses(firebaseUser);
     tempCourses.sort((a, b) => int.parse(a.id).compareTo(int.parse(b.id)));
     setState(() {
@@ -109,14 +109,14 @@ class DashboardScreenState extends State<DashboardScreen> {
 //Determine whether or not the current user is a teacher of a specific course.
 //
 // @param user     the current user
-// @param courseid the courseid to lookup
+// @param courseID the courseID to lookup
 // @param inst     the current classroom context
 // @return         a boolean representing whether or not the user is a teacher
 Future<bool> isTeacher(FirebaseUser user, String courseID) async {
   List<classroom.Teacher> subscribedTeachers = await pullTeachers(firebaseUser);
   List<classroom.Teacher> teachers = getCourseTeachers(courseID, subscribedTeachers);
   for (int i = 0; i < teachers.length; i++) {
-    if (user.uid == teachers[i].profile.id) {
+    if (user.displayName == teachers[i].profile.name.fullName) {
       return true;
     }
   }
