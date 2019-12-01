@@ -7,14 +7,6 @@
 
 ### Changes from you `product.md`
 
-List the most significant changes you made to your product (if any). It's normal to change features mid-project or reduce the scope to meet timelines. 
-
- * Start with the most significant change
- * Identify either a change in features or a reduction of your original scope
- * For each change, explain why you are making it and what you are hoping to achieve from it
-
- > *Note:* If you are not making (or haven't made) any changes to your product, it means you successfully scoped, planned and executed the development of your application.This is a very rare occurrence - describe what you believed enabled your team to do so and why. 
-
 __1. Scope Reduction:__<br/>
 In order to meet our deadlines we had to remove the following features from the project:
 * Reduce platform scope from Desktop and Mobile (iOS and Android) to just Mobile (Android).
@@ -35,15 +27,6 @@ At first we thought that the backend would have to be written in Java as Dart is
 
 
 ### Handoff plan
-
-Describe your plan for handing off your product and all technical assets to your partner
-
- * Will you have a handoff meeting? If so, what will be discussed?
- * What assets/artifacts will you be handing off to your partner (e.g. codebase, deployment tools, running application, task tracker, etc.)? 
- * How will you hand off these assets/artifacts?
- * Does your partner have the technical capacity to manage/maintain/develop your product? How will that impact how you handoff the product?  
- 
 We are unsure how they would like the project to be handed off to our partner and whether they are actually planning on receiving it. However, we are going to offer as much flexibility as possible to them by providing multiple hand off platforms. We will host the project on Google Drive and GitHub. The Google Drive folder will be accessible through a link and will contain a compiled APK in a zip file as a demonstration of the minimal viable product as well as a zip containing the codebase. The GitHub repo will contain the codebase that can be cloned or forked as the partner sees fit. In addition, we will prepare a USB with the same zip files as the Drive folder in case our partner wants a physical copy of our project.
 
 
-> *Note:* This is one of the most important aspects of the project. Please consult with your partner, your TA and the instructors on how to successfully execute this. 
