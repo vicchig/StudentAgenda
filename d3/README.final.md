@@ -25,10 +25,5 @@ Many middle school students have trouble keeping up with tasks they write down i
 
 
  ## Licenses 
-
- Keep this section as brief as possible. You may read this [Github article](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository) for a start.
-
- * What type of license will you apply to your codebase?
- * What affect does it have on the development and use of your codebase?
- * Why did you or your partner make this choice?
+We are going to be using an MIT license. This allows anyone (most importantly our partner) to freely modify our codebase as they see fit. This will allow our partner to make any additions or changes to our application as they see fit. In addition, it removes any responsibility from us in regards to further supporting the software or any damages that may have occurred in connection with our product. We want this mostly because we are unlikely to be actively supporting this product in the future.
 
