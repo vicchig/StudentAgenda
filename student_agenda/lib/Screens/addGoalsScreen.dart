@@ -448,9 +448,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
   }
 
   Future<void> _scheduleNotifications() async {
-    // TODO: DECIDE WHICH INTERVAL WE WANT TO SCHEDULE NOTIFS ON
-    bool hasPassed = this.selectedDate.isBefore(DateTime.now());
-
+    // TODO: DECIDE WHICH INTERVAL WE WANT TO SCHEDULE NOTIFS ON\
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'channel id', // temp
       'channel name', // temp
@@ -464,9 +462,14 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
 
     // We can wrap this in an if based on things we get from settings
     // 1 hour notification
-    //DateTime hourDate = this.selectedDate.subtract(Duration(hours: 1));
-    // This time is for testing purposes
-    DateTime hourDate = DateTime.now().add(Duration(seconds: 5));
+    DateTime hourDate = this.selectedDate.add(Duration(
+      seconds: 30
+    )).subtract(Duration(hours: 1));
+
+    bool hasPassed = hourDate.add(Duration(
+      seconds: 30
+    )).isBefore(DateTime.now());
+
     if (!hasPassed) {
       await flutterLocalNotificationsPlugin.schedule(
           0, // TODO: is there a unique ID for a user I can access?
@@ -477,9 +480,13 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     }
 
     // 1 day notification
-    // DateTime dayDate = this.selectedDate.subtract(Duration(days: 1));
-    // This time is for testing purposes
-    DateTime dayDate = DateTime.now().add(Duration(seconds: 10));
+    DateTime dayDate = this.selectedDate.add(Duration(
+        seconds: 30)).subtract(Duration(days: 1));
+
+    hasPassed = dayDate.add(Duration(
+      seconds: 30
+    )).isBefore(DateTime.now());
+
     if (!hasPassed) {
       await flutterLocalNotificationsPlugin.schedule(
           1,
@@ -490,9 +497,14 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     }
 
     // 1 week notification
-    //DateTime weekDate = this.selectedDate.subtract(Duration(days: 7));
-    // This time is for testing purposes
-    DateTime weekDate = DateTime.now().add(Duration(seconds: 20));
+    DateTime weekDate = this.selectedDate.add(Duration(
+      seconds: 30
+    )).subtract(Duration(days: 7));
+
+    hasPassed = weekDate.add(Duration(
+      seconds: 30
+    )).isBefore(DateTime.now());
+
     if (!hasPassed) {
       await flutterLocalNotificationsPlugin.schedule(
           2,
@@ -529,6 +541,8 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         (selectedCourseWork != null)
             ? "CourseWorkGoalObjects"
             : "CourseGoalObjects");
+
+    showAlertButton(context);
   }
 
   String createTeacherCourseOption(classroom.Course course) {
@@ -547,5 +561,27 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
         }
       }
     }
+  }
+
+  void showAlertButton(BuildContext context) {
+    Widget okButton = FlatButton(
+      child: Text("Ok"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Goal Added!"),
+      content: Text("Goal successfully added!"),
+      actions: <Widget>[okButton],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      }
+    );
   }
 }
