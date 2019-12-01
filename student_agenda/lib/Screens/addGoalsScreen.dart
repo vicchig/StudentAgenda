@@ -457,6 +457,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
 
   Future<void> _scheduleNotifications() async {
     // TODO: DECIDE WHICH INTERVAL WE WANT TO SCHEDULE NOTIFS ON\
+    bool hasPassed = this.selectedDate.isBefore(DateTime.now());
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'channel id', // temp
       'channel name', // temp
@@ -470,13 +471,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
 
     // We can wrap this in an if based on things we get from settings
     // 1 hour notification
-    DateTime hourDate = this.selectedDate.add(Duration(
-      seconds: 30
-    )).subtract(Duration(hours: 1));
-
-    bool hasPassed = hourDate.add(Duration(
-      seconds: 30
-    )).isBefore(DateTime.now());
+    DateTime hourDate = DateTime.now().add(Duration(seconds: 5));
 
     if (!hasPassed) {
       await flutterLocalNotificationsPlugin.schedule(
@@ -488,12 +483,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     }
 
     // 1 day notification
-    DateTime dayDate = this.selectedDate.add(Duration(
-        seconds: 30)).subtract(Duration(days: 1));
-
-    hasPassed = dayDate.add(Duration(
-      seconds: 30
-    )).isBefore(DateTime.now());
+    DateTime dayDate = DateTime.now().add(Duration(seconds: 10));
 
     if (!hasPassed) {
       await flutterLocalNotificationsPlugin.schedule(
@@ -505,13 +495,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     }
 
     // 1 week notification
-    DateTime weekDate = this.selectedDate.add(Duration(
-      seconds: 30
-    )).subtract(Duration(days: 7));
-
-    hasPassed = weekDate.add(Duration(
-      seconds: 30
-    )).isBefore(DateTime.now());
+    DateTime weekDate = DateTime.now().add(Duration(seconds: 20));
 
     if (!hasPassed) {
       await flutterLocalNotificationsPlugin.schedule(
