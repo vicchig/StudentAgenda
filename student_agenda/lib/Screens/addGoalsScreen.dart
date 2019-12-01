@@ -130,7 +130,7 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
           return DropdownMenuItem<classroom.CourseWork>(
             value: dropDownItem,
             child: Text(
-              dropDownItem.description,
+              trimDescription(dropDownItem.description),
 
               overflow: TextOverflow.ellipsis,
             ),
@@ -366,6 +366,13 @@ class AddGoalsScreenState extends State<AddGoalsScreen> {
     setState(() {
       this.selectedSubtask = newValueSelected;
     });
+  }
+
+  String trimDescription(String description) {
+    if (description.contains('\n')) {
+      return description.substring(0, description.indexOf('\n')) + " ...";
+    }
+    return description;
   }
 
   Widget datepicker(BuildContext context) {
