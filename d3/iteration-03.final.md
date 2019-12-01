@@ -26,8 +26,7 @@ In order to meet our deadlines we had to remove the following features from the 
 
 Removing these has allowed us to spend significantly more time on the critical features that our product had to have and make sure that those are complete by the deadline.<br/>
 
-__2. Feature Changes -- General and Course Specific Goals:__<br/>
-We originally planned on only having course specific goals, but our partner has communicated with us that they want to have general, non-course specific goals as well. We have modified our project to support this feature. Now non-course specific goals can be added, modified and tracked in the same ways as the other course-specific goals. This change will allow the users more flexibility on the kind of goals that they can make. Particularly, students will be able to track their progress not only on a per course basis, but in general per semester or school year as well, helping them plan their time better.
+__2. Feature Changes 
 <br/>
 
 __3. Stack Changes:__<br/>
