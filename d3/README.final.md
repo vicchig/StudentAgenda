@@ -43,6 +43,10 @@ Our application provides an internal calendar that allows users to see upcoming 
 
 __6. Goal List View:__<br/>
 The user is able to see all of their goals (complete, late and incomplete) in a single view. They are also able to mark goals as complete in the same view broken down by day.. This allows the user to have a detailed breakdown of everything that they have to do.
+<br/>
+
+__7. Teacher View:__<br/>
+Users through the course dashboard can access the teacher view of any course in which they are teachers of. In this view, teachers can receive a quick overview of the class, such as the currently enrolled students in that course. 
 <br/><br/>
 
 
