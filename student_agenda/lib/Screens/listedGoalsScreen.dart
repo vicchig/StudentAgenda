@@ -89,18 +89,26 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
   }
 
   Column buildList(index) {
-    bool returnEmpty = true;
+    bool header = true;
+
+    print("date: ${_goals[index].dueDate.toIso8601String()}");
 
     if (index == 0) {
       currentDate = _goals[0].dueDate;
-      returnEmpty = false;
+      header = false;
     } else if (index != 0 &&
-        _goals[index - 1].dueDate.day < _goals[index].dueDate.day) {
+        DateTime(_goals[index].dueDate.year, _goals[index].dueDate.month,
+            _goals[index].dueDate.day)
+            .compareTo(DateTime(
+            _goals[index - 1].dueDate.year,
+            _goals[index - 1].dueDate.month,
+            _goals[index - 1].dueDate.day)) !=
+            0) {
       currentDate = _goals[index].dueDate;
-      returnEmpty = false;
+      header = false;
     }
 
-    if (returnEmpty == false) {
+    if (header == false) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -260,10 +268,18 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
         onPressed: () {
           setState(() {
             _goals[index].completeGoal();
+            List<Goal> specificGoalType = [];
+            String courseWorkId = _goals[index].getCourseWorkId();
+            for (Goal goal in _goals) {
+              if ((courseWorkId == "-1" && goal.getCourseWorkId() == "-1") ||
+                  (courseWorkId != "-1" && goal.getCourseWorkId() != "-1")) {
+                specificGoalType.add(goal);
+              }
+            }
             setUserCourseGoals(
                 firebaseUser,
-                _goals,
-                (_goals[index].getCourseWorkId() == "-1")
+                specificGoalType,
+                (courseWorkId == "-1")
                     ? "CourseGoalObjects"
                     : "CourseWorkGoalObjects",
                 toMerge: true);

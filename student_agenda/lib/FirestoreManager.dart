@@ -69,6 +69,8 @@ Future<void> setUserClassroomData(FirebaseUser user, {toMerge: true}) async {
     }
   }
 
+  await ref.updateData({"CourseObjects": FieldValue.delete()});
+
   await ref.setData({"CourseObjects": mapToUpload}, merge: toMerge);
 }
 

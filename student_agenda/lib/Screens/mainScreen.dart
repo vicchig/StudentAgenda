@@ -246,10 +246,18 @@ class _MainDashboardScreenState extends State<MainDashboardScreen> {
         onPressed: () {
           setState(() {
             _goals[index].completeGoal();
+            List<Goal> specificGoalType = [];
+            String courseWorkId = _goals[index].getCourseWorkId();
+            for (Goal goal in _goals) {
+              if ((courseWorkId == "-1" && goal.getCourseWorkId() == "-1") ||
+                  (courseWorkId != "-1" && goal.getCourseWorkId() != "-1")) {
+                specificGoalType.add(goal);
+              }
+            }
             setUserCourseGoals(
                 firebaseUser,
-                _goals,
-                (_goals[index].getCourseWorkId() == "-1")
+                specificGoalType,
+                (courseWorkId == "-1")
                     ? "CourseGoalObjects"
                     : "CourseWorkGoalObjects",
                 toMerge: true);
