@@ -214,25 +214,12 @@ class MenuDrawerState extends State<MenuDrawer> {
           colour: Colors.white,
           func: () {
             return MaterialPageRoute(builder: (context) => SettingsScreen());
-          }),      
-      new MenuItem(
-          text: 'Calendar Screen (temporary link)',
-          colour: Colors.white,
-          func: (){
-            authService.signOut();
-            return MaterialPageRoute(builder: (context) => CalendarScreen());
           }),
       new MenuItem(
           text: 'Add Goal (For Demo Only)',
           colour: Colors.white,
           func: () {
             return MaterialPageRoute(builder: (context) => AddGoalsScreen());
-          }),
-      new MenuItem(
-          text: 'Goal List (For Demo Only)',
-          colour: Colors.white,
-          func: () {
-            return MaterialPageRoute(builder: (context) => ListedGoalsScreen());
           }),
       new MenuItem(
           text: 'Performance (For Demo Only)',
@@ -247,13 +234,6 @@ class MenuDrawerState extends State<MenuDrawer> {
             authService.signOut();
             Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new MyHomePage()));
             return MaterialPageRoute(builder: (context) => MyHomePage());
-          }),
-      new MenuItem(
-          text: 'Dashboard (For Demo Only)',
-          colour: Colors.white,
-          func: () {
-            return MaterialPageRoute(
-                builder: (context) => MainDashboardScreen());
           }),
     ];
     return menuItems;
