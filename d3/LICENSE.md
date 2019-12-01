@@ -1,4 +1,4 @@
-__#LICENSE__
+LICENSE
 
 Copyright 2019 CSC301 TDSB TEAM 1
 
