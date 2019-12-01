@@ -6,7 +6,6 @@ import 'package:student_agenda/Utilities/auth.dart';
 import 'package:student_agenda/Utilities/goal.dart';
 import 'package:student_agenda/Utilities/graphingUtilities.dart';
 import 'package:student_agenda/Utilities/selectionCallbackChart.dart';
-import 'package:student_agenda/Utilities/util.dart';
 
 class PerformanceTab extends StatefulWidget {
   PerformanceTab(this.months, {Key key, this.title}) : super(key: key);
@@ -41,14 +40,18 @@ class _PerformanceTabState extends State<PerformanceTab> {
 
   Future goalsFuture;
 
-  _getGoals() async {
+  Future<List<Goal>> _getCourseWorkGoals() async {
     return await pullGoals(firebaseUser, "CourseWorkGoalObjects");
+  }
+
+  Future<List<Goal>> _getCourseGoals() async {
+    return await pullGoals(firebaseUser, "CourseGoalObjects");
   }
 
   @override
   void initState() {
     super.initState();
-    goalsFuture = _getGoals();
+    goalsFuture = _getCourseWorkGoals();
   }
 
   @override
@@ -80,10 +83,11 @@ class _PerformanceTabState extends State<PerformanceTab> {
   Widget build(BuildContext context){
     return Center(
         child: FutureBuilder(
-        future: _getGoals(),
+          future: Future.wait([_getCourseGoals(), _getCourseWorkGoals()]),
         builder: (BuildContext context, AsyncSnapshot snapshot){
           if(snapshot.connectionState == ConnectionState.done){
-            _goals = snapshot.data;
+            _goals = snapshot.data[0];
+            _goals.addAll(snapshot.data[1]);
 
             DateTime currDate = DateTime.now();
             DateTime fourMonthsAgo = _getDateMonthsAgo(4, currDate);
