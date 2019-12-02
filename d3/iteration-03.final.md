@@ -27,6 +27,6 @@ At first we thought that the backend would have to be written in Java as Dart is
 
 
 ### Handoff plan
-We are unsure how they would like the project to be handed off to our partner and whether they are actually planning on receiving it. However, we are going to offer as much flexibility as possible to them by providing multiple hand off platforms. We will host the project on Google Drive and GitHub. The Google Drive folder will be accessible through a link and will contain a compiled APK in a zip file as a demonstration of the minimal viable product as well as a zip containing the codebase. The GitHub repo will contain the codebase that can be cloned or forked as the partner sees fit. In addition, we will prepare a USB with the same zip files as the Drive folder in case our partner wants a physical copy of our project.
+We are going to offer as much flexibility as possible to our partner by providing multiple hand off platforms. We will host the project on Google Drive and GitHub. The [Google Drive will contain a compiled APK](https://drive.google.com/file/d/1jB17rdsIsMsg4Ml-wohERdrAKem1_m_T/view?usp=sharing) as a demonstration of the minimal viable product. The GitHub repo will contain the codebase that can be cloned or forked as the partner sees fit.
 
 
