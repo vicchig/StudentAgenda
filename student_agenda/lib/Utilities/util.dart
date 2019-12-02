@@ -209,18 +209,18 @@ class MenuDrawerState extends State<MenuDrawer> {
             return MaterialPageRoute(builder: (context) => PerformanceScreen());
           }),
       new MenuItem(
-          text: 'Settings',
-          colour: Colors.white,
-          func: () {
-            return MaterialPageRoute(builder: (context) => SettingsScreen());
-          }),
-      new MenuItem(
           text: 'Log Out',
           colour: Colors.white,
           func: () {
             authService.signOut();
             Navigator.of(context, rootNavigator: true).pushReplacement(MaterialPageRoute(builder: (context) => new MyHomePage()));
             return MaterialPageRoute(builder: (context) => MyHomePage());
+          }),
+      new MenuItem(
+          text: 'Demo Settings',
+          colour: Colors.white,
+          func: () {
+            return MaterialPageRoute(builder: (context) => SettingsScreen());
           }),
     ];
     return menuItems;
