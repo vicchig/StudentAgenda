@@ -6,17 +6,6 @@ Our application is a mobile app for both iOS and Android where students organize
 
 ## Key Features
 
-### Fully Working (Front-End and Back-End)
-1. Login: Users can log in with their Google account. When the app is opened, it goes to a login page where the user can press the login button to sign in with their Google account. Authentication is done with Firebase. If the log in fails a message will be displayed to the user. The app will also prompt for permissions to view and manage the Google Classroom data of the account they are using to log in (if the user has not already authorized the app to do so).
-2. My Courses Screen: The course page is for students to view the classes they are currently in. The page pulls courses from Firestore and displays it onto the page. A button is created for every course. When the user clicks on a course a page listing the course works (assignments) for that specific course will show up.
-3. Course Works Screen: Students get here by pressing on a course on the "My Courses" page. This page pulls the course works from Firestore for the specific course and displays it onto the screen in chronological order.
-
-### Working Front-End Only
-1. Calendar Screen: Calendar screen shows a monthly calendar that is initially set to the current month and day. Clicking on a day shows the tasks due on that day. The calendar days with tasks have dots underneath them with more dots representing more tasks to be done on that day (max of 4 dots).
-2. Add Goals Screen: This screen allows students to add goals. Students choose a subtask from a list of pre-determined subtasks and the date they want the subtask to be completed by. Then they press on the add button to add the goal.
-3. Goal List Screen: This screen lists goals which are separated by date. They can see their task and what assignment is associated with that task.
-5. Performance Screen: This screen includes a pie chart comparing how many tasks are completed on time and completed late. This screen also shows the values for those as well as how many tasks have been created and are remaining.
-6. Dashboard (Main Screen): This screen has a progress bar showing task completion performance (tasks completed on-time vs late). Pressing on the progress bar will move you to the performance screen with more detailed performance information. This screen lists some upcoming tasks in the same format as the Goal List Screen. The user can click on the "View More Tasks" button to go to the Goal List Screen which lists all the goals.
 
 ### Current Issues
 All current issues that we are aware of on the APK are listed in the [Issues tab on github](https://github.com/csc301-fall-2019/team-project-tdsb-team-1/issues)
