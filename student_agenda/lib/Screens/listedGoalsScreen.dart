@@ -91,8 +91,6 @@ class ListedGoalsScreenState extends State<ListedGoalsScreen> {
   Column buildList(index) {
     bool header = true;
 
-    print("date: ${_goals[index].dueDate.toIso8601String()}");
-
     if (index == 0) {
       currentDate = _goals[0].dueDate;
       header = false;
