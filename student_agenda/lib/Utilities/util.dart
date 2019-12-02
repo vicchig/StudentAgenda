@@ -5,7 +5,6 @@ import '../Screens/addGoalsScreen.dart';
 import 'package:student_agenda/Screens/performanceScreen.dart';
 
 
-import '../Screens/settingsScreen.dart';
 import 'auth.dart';
 
 //TODO: Probably move these to their own files
@@ -207,12 +206,6 @@ class MenuDrawerState extends State<MenuDrawer> {
           colour: Colors.white,
           func: () {
             return MaterialPageRoute(builder: (context) => PerformanceScreen());
-          }),
-      new MenuItem(
-          text: 'Settings',
-          colour: Colors.white,
-          func: () {
-            return MaterialPageRoute(builder: (context) => SettingsScreen());
           }),
       new MenuItem(
           text: 'Log Out',
