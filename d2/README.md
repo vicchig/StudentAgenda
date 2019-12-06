@@ -24,7 +24,7 @@ All current issues that we are aware of on the APK are listed in the [Issues tab
 
 ## Instructions
 
-We will provide the [APK file on Google Drive](https://drive.google.com/open?id=1jB17rdsIsMsg4Ml-wohERdrAKem1_m_T). The APK can be installed on a phone running Android.
+We will provide the [APK file on Google Drive](https://drive.google.com/open?id=1jM1lE2LVUMIh3Wgb59nG48aId8Kp5qiQ). The APK can be installed on a phone running Android.
 
 
  ### Emulator Installation Instructions:
