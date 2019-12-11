@@ -46,13 +46,19 @@ Users through the course dashboard can access the teacher view of any course in 
 ## Instructions 
  __Running the Application:__<br/>
 In order to install and run the application, the user will need an Android device. Our application only supports Android and will not work on other platforms.
+
+We will provide the [APK file on Google Drive](https://drive.google.com/open?id=1jB17rdsIsMsg4Ml-wohERdrAKem1_m_T). The APK can be installed on a phone running Android.
+
+We will also provide a dummy Google credential. Here are the credentials for a dummy Google account:
+ * Email: tdsbprojectdummy@gmail.com
+ * Password: tdsb4321
 <br/>
 
 __Accounts:__<br/>
 The application is only accessible with a Google account, if a user does not have a google account, they will not be able to sign in. If a user has a Google account, they can simply press the login button and enter their login information to use the application. Once they have logged in once, Android will save their sign in information and the next time a user logs in they can just click login without having to enter their information again. <br/>
 
 __Using the App:__ <br/>
-The user is able to navigate to the calendar, goals screena and the main dashboard using a navigation bar at the bottom of the application window. They are able to access the rest of the views through the drawer menu in the top left corner of the main app bar. 
+The user is able to navigate to the calendar, goals screen and the main dashboard using a navigation bar at the bottom of the application window. They are able to access the rest of the views through the drawer menu in the top left corner of the main app bar. 
 <br/><br/>
 
  
