@@ -1,0 +1,79 @@
+TDSB Team 1 (Team 8)
+
+PLAN.MD - Overall Grade 3
+
+Process: 3
+- Meets expectations
+
+Roles and Responsibilities: 3
+- Missing description for one of the members but meets expectations otherwise
+
+Meetings: 3
+- Meets expectations, good description of member accountability
+
+Conflict Resolution: 3
+- Meets expectations
+
+Artifacts: 3
+- Trello board looks good!
+
+Github: 4
+- Very good description of your workflow
+
+Deployment: 3
+- Meets expectations
+
+Product 
+
+Goals and Tasks: 3
+- Note sure if your tasks are ordered
+- Some of the subtasks are a bit unclear
+
+Artifacts: 3
+- Not able to view the link to your sketches
+- Great diagrams for backend architecture and frontend
+
+---------------------------------------------------------------------------------------
+
+REVIEW.MD: 2
+
+- You forgot to remove the templates
+
+Reflection: 3
+- Good insights
+- Meets expectations
+
+Decisions: 3
+- Meets expectations
+- You should talk more about your process in the decisions that turned out well (you focused on more of the technical aspects here instead)
+
+Planned Changes : 2
+- Addresses the issues with realistic solutions
+- Could be more detailed with your explanation
+
+Product: 2
+- You should include links/screenshots/diagrams here to show your work
+- You did not explain why you were not able to meet certain goals
+
+Meeting Highlight: 2
+- One of the points was already mentioned under planned changes, you should incorporate that discussion in the highlights
+- Lacking details, i.e. how are you providing more descriptions of code? Will you enforce rules for coding? 
+- You should talk about how you might focus on completing features, what challenges lay ahead and what did you take away from this iteration?
+
+--------------------------------------------------------------------------------------------
+
+README.md
+
+Description: 3
+- Meets expectations
+
+Key Features: 3
+- Meets expectations
+
+Instructions: 3
+- Meets expectations 
+
+Running the app: 3
+- Not able to login to the application with the dummy credentials (login credentials not working) - no sign up options
+- Application worked after this issue was solved
+
