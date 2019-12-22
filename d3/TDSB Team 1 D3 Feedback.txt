@@ -1,0 +1,35 @@
+TDSB Team 1
+
+final.md
+
+Changes: 60
+- You did not explain why you made the changes and what you are hoping to achieve from it 
+- The section titled 'Feature Changes' is empty
+
+Handoff Plan: 75
+- How will you be communicating this information with your partner? (i.e. email, in-person meeting)
+- Does your partner have the technical capacity to manage this project?
+
+README.md
+Description: 75
+- Could be more detailed, your application also offers other tools for students
+- You did not mention your partner here
+
+Key Features: 85
+- Meets expectations
+
+Instructions: 60
+- You need to provide clear steps for each of your features
+- Your instructions should be much more detailed
+
+Developer Requirements: 85
+- Meets expectations
+
+Licenses
+- Meets expectations: 85
+
+Application
+- The visual graphs look great
+- App keeps crashing when I try to add a goal 
+- Your app design is great overall, some pages take quite a long time to load but all the functionalities are there, and it is quite intuitive to use
+
