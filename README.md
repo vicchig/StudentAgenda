@@ -41,22 +41,6 @@ Users through the course dashboard can access the teacher view of any course in 
 ### Current Issues
 All current issues that we are aware of on the APK are listed in the [Issues tab on github](https://github.com/csc301-fall-2019/team-project-tdsb-team-1/issues)
 
-
-## Instructions
- We will provide the [APK file on Google Drive](https://drive.google.com/open?id=1jB17rdsIsMsg4Ml-wohERdrAKem1_m_T). The APK can be installed on a phone running Android.
-
- We will also provide a dummy Google credential. Here are the credentials for a dummy Google account:
- * Email: tdsbprojectdummy@gmail.com
- * Password: tdsb4321
-
- When the app is opened, it will show the login screen. To login, press the login button. There will be a popup to choose a Google account. You will scroll down and press "Add another account" and add the dummy account. Once you are signed in the app and it is the first time running it the app should prompt you to allow Google Classroom permissions. Press allow.
-
 ## Architecture
 
 The app uses flutter as a frontend framework, and firebase as a backend framework to store data and link google classroom through students accounts
-
-<img src="./Images/csc301_app_backend_diagram.png" width="480" height="300">
-
-## Helpful Links
-
-[Documentation](Documentation.md)
